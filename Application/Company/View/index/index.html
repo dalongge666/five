@@ -363,13 +363,13 @@ End Preloader
 	<div class="go_top">
 		<a class="btn_top"></a>
 	</div>
-	
+
 	<!-- 底部 -->
 	<div class="footer_box">
 		<div class="footer">
 			<h2>
-				<a href="../web_login/login.html">登录</a><!-- 
-			 --><a href="../web_login/register.html">注册</a><!-- 
+				<a href="../web_login/login.html">登录</a><!--
+			 --><a href="../web_login/register.html">注册</a><!--
 			 --><a href="../web_ruzhu/apply_index.html">同行入驻</a>
 			</h2>
 			<h3>
@@ -383,38 +383,37 @@ End Preloader
 			</div>
 		</div>
 	</div>
-
 	<!-- 底部导航 -->
 	<div class="foot_menu">
 		<ul>
-			<li class="cur">
-				<a href="../web_company/index.html">
+			<li class="cur info">
+				<a href="{:U('Company/Index/list')}" >
 					<i><img src="/Public/home/images/menu_icon01_r.png"></i>
 					<span>首页</span>
 				</a>
 			</li>
 			<li>
-				<a href="../web_company/user_fabu.html">
+				<a href="{:U('Company/Index/issue')}">
 					<i><img src="/Public/home/images/company_img/menu_icon02.png"></i>
 					<span>发布</span>
 				</a>
 			</li>
-			<li class="info">
-				<a href="../web_company/msg.html">
+			<li>
+				<a href="{:U('Company/Index/msg')}">
 					<i><img src="/Public/home/images/menu_icon03.png"></i>
 					<span>消息</span>
 					<em></em>
 				</a>
 			</li>
 			<li>
-				<a href="../web_company/user.html">
+				<a href="{:U('Company/Index/mine')}">
 					<i><img src="/Public/home/images/menu_icon04.png"></i>
 					<span>我的</span>
 				</a>
 			</li>
 		</ul>
 	</div>
-	
+
 </div>
 
 <!-- 搜索框 -->
@@ -449,6 +448,7 @@ End Preloader
 		</ul>
 	</div>
 </div>
+
 <script type="text/javascript">
 	$(function(){
 		$(".search-box").mousedown(
