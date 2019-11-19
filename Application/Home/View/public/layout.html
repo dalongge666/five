@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<block name="header">
+	<head>
+		<meta charset="utf-8">
+		<meta content="招聘" http-equiv="keywords">
+		<meta name="description" content="招聘,培训">
+		<meta name="format-detection" content="telephone=no"><!-- 禁止IPHONE识别手机号码 -->
+		<meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
+		<meta name="renderer" content="webkit" />
+
+		<title>js代码（www.jsdaima.com）- IT资源下载平台</title>
+		<!-- css -->
+		<link rel="stylesheet" type="text/css" href="/Public/home/css/index.css">
+		<link rel="stylesheet" type="text/css" href="/Public/home/css/swiper.min.css">
+
+		<!-- public_css -->
+		<link rel="stylesheet" type="text/css" href="/Public/home/css/public/public_lib.css">
+
+		<!-- js -->
+		<script type="text/javascript" src="/Public/home/js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="/Public/home/js/swiper.min.js"></script>
+		<script type="text/javascript" src="/Public/home/js/public.js"></script>
+
+	</head>
+</block>
+
+<body>
+<block name="content-header"></block>
+
+<div class="zy_module-content">
+
+<block name="content"></block>
+
+	<!-- 返回顶部 -->
+	<div class="go_top">
+		<a class="btn_top"></a>
+	</div>
+	
+	<!-- 底部 -->
+	<div class="footer_box">
+		<div class="footer">
+			<h2>
+				<a href="../web_login/login.html">登录</a><!-- 
+			 --><a href="../web_login/register.html">注册</a><!-- 
+			 --><a href="../web_ruzhu/apply_index.html">同行入驻</a>
+			</h2>
+			<h3>
+				<span><a href="../web_other/about.html">关于我们</a></span>
+				<span><a href="../web_other/about.html">求职指南</a></span>
+				<span><a href="../web_other/about.html">联系我们</a></span>
+				<span><a href="../web_other/about.html">免责声明</a></span>
+			</h3>
+			<div class="txt">
+				<p>&copy; 2019 XX公司&nbsp;&nbsp;ICP备XXXXXXXX号<br/>技术支持：<a href="http://www.jsdaima.com/" title="js代码" target="_blank">js代码（www.jsdaima.com）</a></p>
+			</div>
+		</div>
+	</div>
+
+	<!-- 底部导航 -->
+	<div class="foot_menu">
+		<ul>
+			<li class="cur">
+				<a href="{:U('Home/Index/index')}">
+					<i><img src="/Public/home/images/menu_icon01_r.png"></i>
+					<span>首页</span>
+				</a>
+			</li>
+			<li>
+				<a href="{:U('Home/Position/list')}">
+					<i><img src="/Public/home/images/person_img/menu_icon02_01.png"></i>
+					<span>工作</span>
+				</a>
+			</li>
+			<li class="info">
+				<a href="{:U('Home/Msg/index')}">
+					<i><img src="/Public/home/images/menu_icon03.png"></i>
+					<span>消息</span>
+					<em></em>
+				</a>
+			</li>
+			<li>
+				<a href="{:U('Home/User/index')}">
+					<i><img src="/Public/home/images/menu_icon04.png"></i>
+					<span>我的</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+
+<block name="content-footer"></block>
+</div>
+</body>
+
+<block name="script">
+	<script type="text/javascript" charset="utf-8">
+		$(function() {
+			var n=0;
+			//监听滚动条事件，改变背景透明度
+			$(window).scroll(function() {
+				var top = $(document).scrollTop();
+				if ((top/150) >= 0.9) {
+					n=0.9;
+				}else{
+					n=(top/150);
+				}
+				$(".search-box-cover").css("opacity",n);
+
+				// 搜索框背景色和搜索图标
+				if (n>0.4) {
+					$(".search-box").css("background","#ffffff");
+					$(".shop-search").attr("src","/Public/home/images/icon_search.png")
+				}else{
+					$(".search-box").css("background","rgba(255,255,255,0)");
+					$(".shop-search").attr("src","/Public/home/images/icon_search_w.png")
+				}
+
+			});
+		});
+
+	</script>
+	<script type="text/javascript">
+		$(function(){
+			$(".search-box").mousedown(
+					function(){
+						$(".search_bomb_box").show()
+						$(".module-layer").hide()
+						$(".module-content").hide()
+					}
+			)
+			$(".search_bomb_box .search_top>a").mousedown(
+					function(){
+						$(".search_bomb_box").hide()
+						$(".module-layer").show()
+						$(".module-content").show()
+					}
+			)
+		})
+	</script>
+
+	<script type="text/javascript">
+
+		$(document).ready(function(){
+			var timer;
+			//滚动文字
+			function runtxt(){
+				$(".scrollnews ul").animate({marginTop:"-.4rem"},300,
+						function(){
+							$(".scrollnews ul li:last").after($(".scrollnews ul li:first"))
+							$(".scrollnews ul").css("margin-top",0)
+						}
+				)
+			}
+			$(".scrollnews ul li a").mouseenter(
+					function(){
+						clearInterval(timer)
+					}
+			)
+			$(".scrollnews ul li a").mouseleave(
+					function(){
+						timer=setInterval(runtxt,4000)
+					}
+			)
+			timer=setInterval(runtxt,4000);
+		})
+	</script>
+</block>
+
+</html>
