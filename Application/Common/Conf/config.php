@@ -9,4 +9,8 @@ return array(
     'DB_PWD'                 => 'five', // 密码
     'DB_PORT'                => '3306', // 端口
     'DB_PREFIX'              => 'my_', // 数据库表前缀
+
+    //数据库字段取消转小写
+
+    'DB_PARAMS' => array(\PDO::ATTR_CASE => \PDO::CASE_NATURAL)
 );

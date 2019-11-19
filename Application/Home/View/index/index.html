@@ -87,7 +87,7 @@
 			<!-- 每个ul有8个li，不能多于8个 -->
 			<ul class="swiper-slide">
 				<li>
-					<a href="work.html">
+					<a href="{:U('Home/Position/list')}">
 						<img src="/Public/home/images/person_img/icon01.png">
 						<span>找工作</span>
 					</a>
@@ -106,12 +106,7 @@
 				</li>
 			</ul>
 		</div>
-		<script>
-			var swiper = new Swiper('.nav_iconbox', {
-				speed:500,
-				autoplayDisableOnInteraction : false,
-			});
-		</script>
+
 	</div>
 
 	<!-- 公告信息 -->
@@ -171,98 +166,40 @@
 		</ul>
 	</div>
 
-	<!-- 推荐培训 -->
+	<!-- 推荐工作 -->
 	<div class="tuij_gz bgwh mb6">
 		<div class="title">
 			<h2><img src="/Public/home/images/person_img/icon_tjgz.png" /><span>推荐工作</span></h2>
 			<a class="change"><img src="/Public/home/images/refresh.png" />换一批</a>
 		</div>
 		<ul>
-			<li>
-				<a href="work_xq.html">
-					<div class="job_tit fix">
-						<h2 class="l pct80">招聘食堂高级营养师</h2>
-						<span class="r">20小时前</span>
-					</div>
-					<div class="job_money">
-						<span>待遇：<em class="gr n">面议</em></span>
-					</div>
-					<div class="job_fuli fix">
-						<p class="l pct70">
-							<em>包吃住</em><em>餐补</em><em>加班补助</em>
-						</p>
-						<span class="r">浏览次数：235</span>
-					</div>
-				</a>
-			</li>
-			<li>
-				<a href="work_xq.html">
-					<div class="job_tit fix">
-						<h2 class="l pct80">高薪招聘贵阳南明育婴师</h2>
-						<span class="r">昨天</span>
-					</div>
-					<div class="job_money">
-						<span>待遇：<em class="gr n">5000~8000元</em></span>
-					</div>
-					<div class="job_fuli fix">
-						<p class="l pct70">
-							<em>包吃住</em><em>餐补</em>
-						</p>
-						<span class="r">浏览次数：125</span>
-					</div>
-				</a>
-			</li>
-			<li>
-				<a href="work_xq.html">
-					<div class="job_tit fix">
-						<h2 class="l pct80">建筑工人</h2>
-						<span class="r">03-25</span>
-					</div>
-					<div class="job_money">
-						<span>待遇：<em class="gr n">面议</em></span>
-					</div>
-					<div class="job_fuli fix">
-						<p class="l pct70">
-							<em>包吃住</em><em>餐补</em><em>加班补助</em>
-						</p>
-						<span class="r">浏览次数：35</span>
-					</div>
-				</a>
-			</li>
-			<li>
-				<a href="work_xq.html">
-					<div class="job_tit fix">
-						<h2 class="l pct80">观山湖高新区招聘大数据呼叫员</h2>
-						<span class="r">03-25</span>
-					</div>
-					<div class="job_money">
-						<span>待遇：<em class="gr n">3000~5000元</em></span>
-					</div>
-					<div class="job_fuli fix">
-						<p class="l pct70">
-							<em>五险</em><em>餐补</em><em>加班补助</em>
-						</p>
-						<span class="r">浏览次数：35</span>
-					</div>
-				</a>
-			</li>
-			<li>
-				<a href="work_xq.html">
-					<div class="job_tit fix">
-						<h2 class="l pct80">招聘安保人员</h2>
-						<span class="r">03-25</span>
-					</div>
-					<div class="job_money">
-						<span>待遇：<em class="gr n">2000~4000元</em></span>
-					</div>
-					<div class="job_fuli fix">
-						<p class="l pct70">
-							<em>餐补</em><em>加班补助</em>
-						</p>
-						<span class="r">浏览次数：49</span>
-					</div>
-				</a>
-			</li>
+			<foreach name="positions" item="v" key="k">
+
+				<li>
+					<a href="{:U('Home/Position/detail',array('id'=>$v['id']))}">
+						<div class="job_tit fix">
+							<h2 class="l pct80">{$v.positionName}</h2>
+							<span class="r">{:date('Y-m-d',$v['add_time'])}</span>
+						</div>
+						<div class="job_money">
+							<span>待遇：<em class="gr n">{$v.salaryMin}k-{$v.salaryMax}k</em></span>
+							&emsp;
+							<span>城市：<em class="gr n">{$v.workAddress}</em></span>
+						</div>
+						<div class="job_fuli fix">
+							<p class="l pct70">
+								{:$num=count()}
+								<for star="0" end="count(explode('，',$v['positionAdvantage']))">
+									<em>{:explode('，',$v['positionAdvantage'])[$i]}</em>
+								</for>
+							</p>
+							<span class="r">浏览次数：{$v.look_num}</span>
+						</div>
+					</a>
+				</li>
+			</foreach>
+
+
 		</ul>
 	</div>
 
@@ -298,15 +235,7 @@
 				<a href="#"><img src="/Public/home/images/person_img/adpic02.jpg"></a>
 			</li>
 		</ul>
-		<script>
-			var swiper = new Swiper('.ad_picbox', {
-				autoplay:"4000",
-				effect:"fade",
-				loop:"ture",
-				speed:700,
-				autoplayDisableOnInteraction : false,
-			});
-		</script>
+
 	</div>
 
 	<!-- 热门培训 -->
@@ -410,6 +339,21 @@
 </block>
 
 <block name="script">
+	<script>
+		var swiper = new Swiper('.nav_iconbox', {
+			speed:500,
+			autoplayDisableOnInteraction : false,
+		});
+	</script>
+	<script>
+		var swiper = new Swiper('.ad_picbox', {
+			autoplay:"4000",
+			effect:"fade",
+			loop:"ture",
+			speed:700,
+			autoplayDisableOnInteraction : false,
+		});
+	</script>
 	<script type="text/javascript" charset="utf-8">
 		$(function() {
 			var n=0;
