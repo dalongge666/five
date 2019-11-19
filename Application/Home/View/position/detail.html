@@ -51,7 +51,7 @@
 				<h2>{$detail.positionName}</h2>
 				<p class="fix">
 					<a class="l gr">{$detail.salaryMin}k-{$detail.salaryMax}k</a>
-					<a class="r g9"><span>{:date('Y-m-d',$detail['add_time'])}</span><span>浏览量：{$detail['look_num']}</span></a>
+					<a class="r g9"><span>{:date('Y-m-d H:i',$detail['add_time'])}</span><span>浏览量：{$detail['look_num']}</span></a>
 				</p>
 			</div>
 			<div class="work_info p_2">
@@ -66,7 +66,11 @@
 				<div><span>地点：</span><p>{$detail.positionAddress}</p></div>
 				<div>
 					<span>福利：</span>
-					<p><em>加班补助</em><em>餐补</em><em>话补</em><em>话补</em><em>年底双薪</em><em>五险一金</em><em>员工旅游</em></p>
+					<p>
+						<for star="0" end="count(explode('，',$detail['positionAdvantage']))">
+							<em>{:explode('，',$detail['positionAdvantage'])[$i]}</em>
+						</for>
+					</p>
 				</div>
 				<div class="apply zy_butn bord_3">申请职位</div>
 			</div>			
@@ -76,9 +80,9 @@
 		<div class="work_zhize bgwh mb6 p_2">
 			<h4>岗位职责</h4>
 			<div class="txt">
-				<p>工作内容：<br/>1、负责接听移动、联通、电信客服服务电话。</p>
-				<p>职位要求：<br/>1、中专毕业及以上学历，口齿伶俐、普通话标准、细心负责者优先。</p>
-				<p>福利待遇：<br/>1、公司提供工作餐、底薪+提成+五险，收入上不封顶，多劳多得，工作环境优越。</p>
+				<p>
+					{:htmlspecialchars_decode($detail['positionDetail'])}
+				</p>
 			</div>
 		</div>
 		<div class="work_contact bgwh mb6">
@@ -91,10 +95,12 @@
 		</div>
 		<!-- 岗位职责 -->
 		<div class="work_zhize bgwh mb6 p_2">
-			<h2>观山湖呼叫外包服务有限公司</h2>
+			<h2>{$detail.companyName}</h2>
 			<h4>企业介绍</h4>
 			<div class="txt">
-				<p>观山湖呼叫外包服务有限公司是2016年成立的大数据呼叫服务型企业，为移动、联通、电信等国有大型企业提供呼叫服务，是省级重点服务型企业，这里是企业介绍信息写在这里。</p>
+				<p>
+					{:htmlspecialchars_decode($detail['introduce_detail'])}
+				</p>
 			</div>
 		</div>
 
@@ -104,22 +110,7 @@
 			<a href="tel:18888899888"><img src="/Public/home/images/common_img/zy_icon_tel.png"><span>电话</span></a>
 			<div class="apply">申请职位</div>
 		</div>
-		<script type="text/javascript">
-			function img_hs(obj){
-				var mr='../images/common_img/zy_icon_sc.png';
-				var sh='../images/common_img/zy_icon_sc01.png';
-				var bool=$(obj).attr("is_show");
-				if (bool=="true") {
-					$(obj).find("img").attr("src",sh);
-					$(obj).attr("is_show",'false');
-					$(obj).find("span").css("color","#f2b300").text("已收藏")
-				}else{
-					$(obj).find("img").attr("src",mr);
-					$(obj).attr("is_show",'true');
-					$(obj).find("span").css("color","#333").text("收藏")
-				}				
-			}
-		</script>
+
 		<!-- 选择简历投递 -->
 	    <div class="resume_box">
 	    	<div class="resume">
@@ -131,16 +122,7 @@
 	    		</div>
 	    		<button class="zy_butn">发送简历</button>
 	    	</div>
-	    	<script type="text/javascript">
-	    		$(function(){
-	    			$(".apply").mousedown(function(){
-	    				$(".resume_box").show()
-	    			})
-	    			$(".close").mousedown(function(){
-	    				$(".resume_box").hide();
-	    			})
-	    		})
-	    	</script>
+
 	    </div>
 	</div>
 	
@@ -152,10 +134,18 @@
 	<!-- 底部 -->
 	<div class="footer_box">
 		<div class="footer">
-			<h2>
-				<a>圆圆</a><!-- 
+			<if condition="(session('?mid'))">
+				<h2>
+					<a>圆圆</a><!--
 			 --><a href="../web_ruzhu/apply_index.html">同行入驻</a>
-			</h2>
+				</h2>
+				<else/>
+				<h2>
+					<a href="{:U('Home/login/login')}">登录</a><!--
+			 --><a href="{:U('Home/login/register')}">注册</a><!--
+			 --><a href="../web_ruzhu/apply_index.html">同行入驻</a>
+				</h2>
+			</if>
 			<h3>
 				<span><a href="../web_other/about.html">关于我们</a></span>
 				<span><a href="../web_other/about.html">求职指南</a></span>
@@ -172,4 +162,30 @@
 
 
 </body>
+<script type="text/javascript">
+	function img_hs(obj){
+		var mr='../images/common_img/zy_icon_sc.png';
+		var sh='../images/common_img/zy_icon_sc01.png';
+		var bool=$(obj).attr("is_show");
+		if (bool=="true") {
+			$(obj).find("img").attr("src",sh);
+			$(obj).attr("is_show",'false');
+			$(obj).find("span").css("color","#f2b300").text("已收藏")
+		}else{
+			$(obj).find("img").attr("src",mr);
+			$(obj).attr("is_show",'true');
+			$(obj).find("span").css("color","#333").text("收藏")
+		}
+	}
+</script>
+<script type="text/javascript">
+	$(function(){
+		$(".apply").mousedown(function(){
+			$(".resume_box").show()
+		})
+		$(".close").mousedown(function(){
+			$(".resume_box").hide();
+		})
+	})
+</script>
 </html>

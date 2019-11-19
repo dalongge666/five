@@ -124,47 +124,47 @@
 	</div>
 
 	<!-- 推荐培训 -->
-	<div class="tuij_box bgwh mb6">
-		<div class="title">
-			<h2><img src="/Public/home/images/person_img/icon_tjpx.png" /><span>推荐培训</span></h2>
-			<a href="train.html">查看更多></a>
-		</div>
-		<ul>
-			<li>
-				<a href="train_xq.html">
-					<i class="l"><img src="/Public/home/images/pic01.jpg" /></i>
-					<dl class="l">
-						<dt>公共营养师</dt>
-						<dd class="ge04">理论与操作</dd>
-						<dd class="g6">报名人数：<span class="gr">299</span></dd>
-					</dl>
-					<span class="ge04 abs">优惠</span>
-				</a>
-			</li>
-			<li>
-				<a href="train_xq.html">
-					<i class="l"><img src="/Public/home/images/pic04.jpg" /></i>
-					<dl class="l">
-						<dt>插花师</dt>
-						<dd class="ge04">理论与操作</dd>
-						<dd class="g6">报名人数：<span class="gr">99</span></dd>
-					</dl>
-					<span class="ge04 abs">免费</span>
-				</a>
-			</li>
-			<li>
-				<a href="train_xq.html">
-					<i class="l"><img src="/Public/home/images/pic05.jpg" /></i>
-					<dl class="l">
-						<dt>环境产业水治理</dt>
-						<dd class="ge04">视频学习+理论与操作</dd>
-						<dd class="g6">报名人数：<span class="gr">29</span></dd>
-					</dl>
-					<span class="ge04 abs">优惠</span>
-				</a>
-			</li>
-		</ul>
-	</div>
+<!--	<div class="tuij_box bgwh mb6">-->
+<!--		<div class="title">-->
+<!--			<h2><img src="/Public/home/images/person_img/icon_tjpx.png" /><span>推荐培训</span></h2>-->
+<!--			<a href="train.html">查看更多></a>-->
+<!--		</div>-->
+<!--		<ul>-->
+<!--			<li>-->
+<!--				<a href="train_xq.html">-->
+<!--					<i class="l"><img src="/Public/home/images/pic01.jpg" /></i>-->
+<!--					<dl class="l">-->
+<!--						<dt>公共营养师</dt>-->
+<!--						<dd class="ge04">理论与操作</dd>-->
+<!--						<dd class="g6">报名人数：<span class="gr">299</span></dd>-->
+<!--					</dl>-->
+<!--					<span class="ge04 abs">优惠</span>-->
+<!--				</a>-->
+<!--			</li>-->
+<!--			<li>-->
+<!--				<a href="train_xq.html">-->
+<!--					<i class="l"><img src="/Public/home/images/pic04.jpg" /></i>-->
+<!--					<dl class="l">-->
+<!--						<dt>插花师</dt>-->
+<!--						<dd class="ge04">理论与操作</dd>-->
+<!--						<dd class="g6">报名人数：<span class="gr">99</span></dd>-->
+<!--					</dl>-->
+<!--					<span class="ge04 abs">免费</span>-->
+<!--				</a>-->
+<!--			</li>-->
+<!--			<li>-->
+<!--				<a href="train_xq.html">-->
+<!--					<i class="l"><img src="/Public/home/images/pic05.jpg" /></i>-->
+<!--					<dl class="l">-->
+<!--						<dt>环境产业水治理</dt>-->
+<!--						<dd class="ge04">视频学习+理论与操作</dd>-->
+<!--						<dd class="g6">报名人数：<span class="gr">29</span></dd>-->
+<!--					</dl>-->
+<!--					<span class="ge04 abs">优惠</span>-->
+<!--				</a>-->
+<!--			</li>-->
+<!--		</ul>-->
+<!--	</div>-->
 
 	<!-- 推荐工作 -->
 	<div class="tuij_gz bgwh mb6">
@@ -188,7 +188,6 @@
 						</div>
 						<div class="job_fuli fix">
 							<p class="l pct70">
-								{:$num=count()}
 								<for star="0" end="count(explode('，',$v['positionAdvantage']))">
 									<em>{:explode('，',$v['positionAdvantage'])[$i]}</em>
 								</for>
@@ -303,7 +302,7 @@
 	</div>
 </block>
 
-<block name="content-footer">
+<block name="body-footer">
 	<!-- 搜索框 -->
 	<div class="search_bomb_box">
 		<div class="search_top fix sy_search_top">
@@ -314,7 +313,7 @@
 						<option>工作</option>
 						<option>合伙</option>
 					</select>
-					<input type="text" name="" placeholder="请输入关键词搜索"><!--
+					<input type="text" name="search" placeholder="请输入关键词搜索"><!--
 			 --><button type="submit"><img src="/Public/home/images/icon_search.png"></button>
 				</form>
 			</div>
@@ -340,6 +339,8 @@
 
 <block name="script">
 	<script>
+		$('.foot_menu ul li').eq(0).addClass('cur');
+		$('.foot_menu ul li').eq(0).find('img').attr('src','/Public/home/images/menu_icon01_r.png');
 		var swiper = new Swiper('.nav_iconbox', {
 			speed:500,
 			autoplayDisableOnInteraction : false,
@@ -382,18 +383,19 @@
 	</script>
 	<script type="text/javascript">
 		$(function(){
-			$(".search-box").mousedown(
+			$(".search-box").click(
 					function(){
 						$(".search_bomb_box").show()
+						$('input[name="search"]').focus();
 						$(".module-layer").hide()
-						$(".module-content").hide()
+						$(".zy_module-content").hide()
 					}
-			)
+			);
 			$(".search_bomb_box .search_top>a").mousedown(
 					function(){
 						$(".search_bomb_box").hide()
 						$(".module-layer").show()
-						$(".module-content").show()
+						$(".zy_module-content").show()
 					}
 			)
 		})
