@@ -6,7 +6,8 @@ class IndexController extends Controller {
     public function list(){
         $resume = M()->table('my_resume as r')
             ->join('my_member as m on m.id = r.mid')
-            ->field('r.*,m.username,m.sex')
+            ->field('r.*,m.username,m.sex,m.workYear')
+            ->limit(5)
             ->select();
 //        print_r($resume);
         $this->assign('resume',$resume);

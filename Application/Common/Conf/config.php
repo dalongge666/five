@@ -12,5 +12,8 @@ return array(
 
     //数据库字段取消转小写
 
-    'DB_PARAMS' => array(\PDO::ATTR_CASE => \PDO::CASE_NATURAL)
+    'DB_PARAMS' => array(\PDO::ATTR_CASE => \PDO::CASE_NATURAL),
+
+    //跟踪查看
+    'SHOW_PAGE_TRACE' => true
 );

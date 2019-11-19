@@ -50,7 +50,7 @@ End Preloader
         		<input id="shop-input" type="text" placeholder="请输入关键词搜索" value="" />
         	</div>
         </h1>
-        <p class="layer-login"><img src="/Public/home/images/pin.png"><a href="../web_other/weizhi.html">贵阳</a></p>
+        <p class="layer-login"><img src="/Public/home/images/pin.png"><a href="../web_other/weizhi.html">河南</a></p>
     </div>
 </header>
 <script type="text/javascript" charset="utf-8">
@@ -234,7 +234,7 @@ End Preloader
     <div class="tuij_box tuij_gz bgwh mb6">
     	<div class="title">
     		<h2><img src="/Public/home/images/company_img/icon_tjrc.png" /><span>推荐求职</span></h2>
-    		<a class="change"><img src="/Public/home/images/refresh.png" />换一批</a>
+    		<a href="{:U('Company/Rc/zrc')}">查看更多></a>
     	</div>
     	<ul>
 			<foreach name="resume" item="v" key="k">
@@ -242,7 +242,7 @@ End Preloader
     			<a href="rc_list_xq.html">
     				<div class="item_tit rc_tit fix">
     					<h2 class="l pct80"><b>{$v.username}</b><b>{$v.sex}</b><b>32岁</b><b>求职:{$v.expectPosition}</b></h2>
-    					<span class="r">20小时前</span>
+    					<span class="r">{:date('Y-m-d',$v[add_time])}</span>
     				</div>
     				<div class="item_tit">
     					<h2><b>
@@ -254,11 +254,11 @@ End Preloader
 								<case value="5">不限</case>
 								<default />无
 							</switch>
-						</b><b>{$v.companyTime}年</b><b class="gr">{$v.expectSalary}</b></h2>
+						</b><b>已工作：{$v.workYear}年</b>&emsp;期待月薪：<b class="gr">{$v.expectSalary}千</b></h2>
     				</div>
     				<div class="item_tit fix">
-    					<h2 class="l">期望工作地点：贵阳市</h2>
-    					<em class="r n">已认证</em>
+    					<h2 class="l">期望工作地点：{$v.expectCity}</h2>
+    					<em class="r n">已核查</em>
     				</div>
     			</a>
     		</li>
