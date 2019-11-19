@@ -9,7 +9,7 @@
 .zy_login_box .login_box .logo{ margin:10% 0 8%;  text-align: center; }
 .zy_login_box .login_box .logo img{ width: 40%; }
 .login_box .login_style{ text-align: center; margin-bottom: 7% !important;}
-.login_box .login_style span{ display: inline-block; color: #333; font-size:.24rem; padding:.6em 1em; 
+.login_box .login_style span{ display: inline-block; color: #333; font-size:.24rem; padding:.6em 1em;
 	border-radius: 3px; background-color: #ddd; margin:0 3%;
 }
 .login_box .login_style .cur{ color: #fff; background-color: #f2b300; }

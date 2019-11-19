@@ -6,9 +6,14 @@ namespace Composer\Autoload;
 
 class ComposerStaticInite497970d6cedfea8c914890dd225b590
 {
+    public static $classMap = array (
+        'ihuyi_sms' => __DIR__ . '/..' . '/sms/sms.class.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->classMap = ComposerStaticInite497970d6cedfea8c914890dd225b590::$classMap;
 
         }, null, ClassLoader::class);
     }

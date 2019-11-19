@@ -119,8 +119,8 @@ class ihuyi_sms{
 		$post_data = "account=". self::$appid ."&password=" . self::$appkey ."&mobile=".$mobile."&content=".rawurlencode($content);
 		$gets = $this-> xml_to_array($this->post($post_data, $target));
 		if($gets['SubmitResult']['code']==2){
-			session(['mobile'=>$mobile]);
-			session(['mobile_code'=>$mobile_code]);
+			session('mobile',$mobile);
+			session('mobile_code',$mobile_code);
 		}
 		echo $gets['SubmitResult']['msg']; //提交成功
 		//$data = date("Y-m-d H:i:s").' 返回码 : '. $gets['SubmitResult']['code'] .', 返回描述 : '.$gets['SubmitResult']['msg'].' . 发送号码 : '.$mobile.' , 短信详情 : '.$content.PHP_EOL;
