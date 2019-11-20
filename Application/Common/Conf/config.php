@@ -15,5 +15,11 @@ return array(
     'DB_PARAMS' => array(\PDO::ATTR_CASE => \PDO::CASE_NATURAL),
 
     //跟踪查看
-    'SHOW_PAGE_TRACE' => true
+    'SHOW_PAGE_TRACE' => true,
+
+    'TMPL_PARSE_STRING'  =>array(
+        '__IMAGE__' => 'http://www.wwda.top', // 更改默认的/Public 替换规则
+
+    )
+
 );

@@ -21,9 +21,25 @@ class RcController extends Controller {
                           ->field('r.*,m.*')
                           ->find();
 
-         $this->assign('res',$res);
-        $this->display('index/zrc/rc_detail',['res']);
+         $this -> assign('res',$res);
+        $this -> display('index/zrc/rc_detail',['res']);
     }
+    //邀请面试
+    public function invite($id){
+         if(IS_POST){
+             $data['content'] = I('content');
+             $data['add_time'] = time();
+             $data['aid'] = session('mid');
+             $data['mid'] = $id;
+
+             if(M('mail') -> insert($data)){
+                $this -> success('发送成功',U('Company/Rc/re_detail'),0);
+             }else{
+                 $this -> error('发送失败',U('Company/Rc/rc_detail'),0);
+             }
+         }
+    }
+
      //项目合伙人
     public function item(){
         $this->display('index/xmhhr/item');

@@ -33,7 +33,7 @@
 		<div class="one" href="javascript:" onclick="history.back();"><img src="/Public/home/images/back_jt.png"><span>返回</span></div>
 		<h1>人才详情</h1>
 		<div class="r">
-	    	<a href="../web_company/user.html"><img src="/Public/home/images/menu_icon04.png"></a>
+	    	<a href="{:U('Company/mine/list')}"><img src="/Public/home/images/menu_icon04.png"></a>
 	    </div>
 	</div>
 </header>	
@@ -47,7 +47,7 @@
 	<div class="zy_content zy_partner_xq">
 		<div class="bgwh mb6 p_2">
 			<div class="my_head fix">
-				<div class="pic l"><img src="/Public/home/images/common_img/woman.png"></div>
+				<div class="pic l"><img src="__IMAGE__/{$res.avater}"></div>
 				<dl class="r">
 					<dt><span>{$res.username}</span><em>已核查</em></dt>
 					<dd class="fix">
@@ -77,14 +77,14 @@
 		<div class="work_zhize bgwh mb6 p_2">
 			<h4><span class="ge04">工作经历</span></h4>
 			<div class="txt">
-				<p>2018.03-2019.02</p>
-				<p>贵州园艺之家有限公司，负责公司园林规划项目设计</p>
+				<p>{$res.companyTime}</p>
+				<p>{$res.projectName}</p>
 			</div>
 		</div>
 		<div class="work_zhize bgwh mb6 p_2">
 			<h4><span class="ge04">教育经历</span></h4>
 			<div class="txt">
-				<p>2015-2019年<br/>毕业于贵州师范大学园艺学院园林设计专业</p>
+				<p>{$res.schoolYear}<br/>{$res.schoolName}--{$res.professionalName}</p>
 			</div>
 		</div>
 		<div class="work_zhize bgwh mb6 p_2">
@@ -98,7 +98,7 @@
 		<div class="work_zhize bgwh mb6 p_2">
 			<h4><span class="ge04">自我描述</span></h4>
 			<div class="txt">
-				<p>工作踏实认真，勤奋努力，富有朝气，每天都充满了工作的力量，为梦想和事业努力拼搏。</p>
+				<p>{$res.selfDescription}</p>
 			</div>
 		</div>
 
@@ -110,8 +110,8 @@
 		</div>
 		<script type="text/javascript">
 			function img_hs(obj){
-				var mr='../images/common_img/zy_icon_sc.png';
-				var sh='../images/common_img/zy_icon_sc01.png';
+				var mr='/Public/home/images/common_img/zy_icon_sc.png';
+				var sh='/Public/home/images/common_img/zy_icon_sc01.png';
 				var bool=$(obj).attr("is_show");
 				if (bool=="true") {
 					$(obj).find("img").attr("src",sh);
@@ -125,27 +125,38 @@
 			}
 		</script>
 		<!-- 邀请面试box -->
-	    <div class="resume_box interview_box">
-	    	<div class="resume">
-	    		<h2>邀请：<b class="g3">圆圆</b></h2>
-	    		<span class="close">×</span>
-	    		<div>
-	    			<textarea placeholder="请输入邀请内容"></textarea>
-	    		</div>
-	    		<button class="zy_butn">发送邀请</button>
+		<form action="{:U('Company/Rc/invite',array('id'=>$res.mid)}" method="post">
+			<div class="resume_box interview_box">
+				<div class="resume">
+					<h2>邀请：<b class="g3">{$res.username}</b></h2>
+					<span class="close">×</span>
+					<div>
+						<textarea placeholder="请输入邀请内容" name="content"></textarea>
+					</div>
+					<button class="zy_butn">发送邀请</button>
+				</div>
+				<script type="text/javascript">
+					//发送邀请
+					$('.zy_butn').click(function(){
+						$.post($('form').attr('action'),$('form').serialize(),function(data){
+							if(data.status === 'ok'){
+
+							}
+						});
+						return false;
+					});
+
+					$(function(){
+						$(".apply").mousedown(function(){
+							$(".resume_box").show()
+						})
+						$(".close").mousedown(function(){
+							$(".resume_box").hide();
+						})
+					})
+				</script>
 	    	</div>
-	    	<script type="text/javascript">
-	    		$(function(){
-	    			$(".apply").mousedown(function(){
-	    				$(".resume_box").show()
-	    			})
-	    			$(".close").mousedown(function(){
-	    				$(".resume_box").hide();
-	    			})
-	    		})
-	    	</script>
-	    </div>
-		
+		</form>
 	</div>
 	
 	<!-- 返回顶部 -->
@@ -156,10 +167,6 @@
 	<!-- 底部 -->
 	<div class="footer_box">
 		<div class="footer">
-			<h2>
-				<a>圆圆</a><!-- 
-			 --><a href="../web_ruzhu/apply_index.html">同行入驻</a>
-			</h2>
 			<h3>
 				<span><a href="../web_other/about.html">关于我们</a></span>
 				<span><a href="../web_other/about.html">求职指南</a></span>
@@ -167,7 +174,7 @@
 				<span><a href="../web_other/about.html">免责声明</a></span>
 			</h3>
 			<div class="txt">
-				<p>&copy; 2019 XX公司&nbsp;&nbsp;ICP备XXXXXXXX号<br/>技术支持：<a href="http://www.jsdaima.com/" title="js代码" target="_blank">js代码（www.jsdaima.com）</a></p>
+				<p>&copy; 2019 XX公司&nbsp;&nbsp;ICP备XXXXXXXX号<br/>技术支持：<a href="http://www.wwda.top/" title="网页版" target="_blank">旺旺达网（www.wwda.top）</a></p>
 			</div>
 		</div>
 	</div>
