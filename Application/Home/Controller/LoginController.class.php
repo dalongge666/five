@@ -96,6 +96,11 @@ class LoginController extends Controller
 
     }
 
+    public function logout(){
+        session(null);
+        $this->success('退出成功',U('Home/Index/index'));
+    }
+
     //发送短信验证码
     public function sendMsg(){
         Vendor('sms.sms','','.class.php');

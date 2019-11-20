@@ -51,12 +51,12 @@
 					})
 				</script>
 			</div>
-			<div class="exit">退出</div>
+			<div class="exit"><a href="{:U('Home/Login/logout')}">退出</a></div>
 		</div>
 		<div class="vip_menu">
 			<ul class="mb6">
 				<li>
-					<a href="user_info.html">
+					<a href="{:U('Home/User/userinfo')}">
 						<img src="/Public/home/images/common_img/vip_icon_01.png">
 						<span>资料设置</span>
 					</a>
@@ -117,9 +117,7 @@
 		$('.foot_menu ul li').eq(3).addClass('cur');
 		$('.foot_menu ul li').eq(3).find('img').attr('src','/Public/home/images/menu_icon04_r.png');
 
-		// $('.exit').click(function(){
-		//
-		// })
+
 	</script>
 </block>
 

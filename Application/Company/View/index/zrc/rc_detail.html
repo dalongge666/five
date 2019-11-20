@@ -25,6 +25,7 @@
 <script type="text/javascript" src="/Public/home/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/swiper.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/public.js"></script>
+<script type="text/javascript" src="/Public/home/js/layer/layer.js"></script>
 
 </head>
 <body>
@@ -36,10 +37,10 @@
 	    	<a href="{:U('Company/mine/list')}"><img src="/Public/home/images/menu_icon04.png"></a>
 	    </div>
 	</div>
-</header>	
+</header>
 
 <!-- 占位框 -->
-<div class="top_zhanwei_box"></div>		
+<div class="top_zhanwei_box"></div>
 
 <!-- 内容框 -->
 <div class="zy_module-content">
@@ -70,7 +71,7 @@
 				<div><span>期望月薪：</span><p>{$res.expectSalary}K&nbsp;起</p></div>
 				<div><span>工作地点：</span><p>{$res.expectCity}</p></div>
 				<div><span>求职意向：</span><p>{$res.expectPosition}</p></div>
-			</div>	
+			</div>
 		</div>
 
 		<!-- 工作经历 -->
@@ -121,11 +122,11 @@
 					$(obj).find("img").attr("src",mr);
 					$(obj).attr("is_show",'true');
 					$(obj).find("span").css("color","#333").text("收藏")
-				}				
+				}
 			}
 		</script>
 		<!-- 邀请面试box -->
-		<form action="{:U('Company/Rc/invite',array('id'=>$res.mid)}" method="post">
+		<form action="{:U('Company/Rc/invite',array('id'=>$res['mid']))}" method="post">
 			<div class="resume_box interview_box">
 				<div class="resume">
 					<h2>邀请：<b class="g3">{$res.username}</b></h2>
@@ -139,8 +140,25 @@
 					//发送邀请
 					$('.zy_butn').click(function(){
 						$.post($('form').attr('action'),$('form').serialize(),function(data){
-							if(data.status === 'ok'){
-
+							if(data.status === 1){
+								layer.open({
+									content:data.info,
+									skin:'msg',
+									time:1,
+                                    end:function(index){
+									    layer.close(index);
+									    location.reload(true);
+                                    }
+								})
+							}else{
+								layer.open({
+									content:data.info,
+									skin:'msg',
+									time:1,
+									end:function(){
+										window.location.href = data.url
+									}
+								})
 							}
 						});
 						return false;
@@ -158,12 +176,12 @@
 	    	</div>
 		</form>
 	</div>
-	
+
 	<!-- 返回顶部 -->
 	<div class="go_top">
 		<a class="btn_top"></a>
 	</div>
-	
+
 	<!-- 底部 -->
 	<div class="footer_box">
 		<div class="footer">
@@ -178,7 +196,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 </div>
 
 

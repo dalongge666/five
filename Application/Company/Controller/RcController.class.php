@@ -22,22 +22,27 @@ class RcController extends Controller {
                           ->find();
 
          $this -> assign('res',$res);
-        $this -> display('index/zrc/rc_detail',['res']);
+        $this -> display('index/zrc/rc_detail');
     }
     //邀请面试
     public function invite($id){
-         if(IS_POST){
-             $data['content'] = I('content');
-             $data['add_time'] = time();
-             $data['aid'] = session('mid');
-             $data['mid'] = $id;
+         if(session('mid')){
+             if(IS_POST){
+                 $data['content'] = I('content');
+                 $data['add_time'] = time();
+                 $data['aid'] = session('mid');
+                 $data['mid'] = $id;
 
-             if(M('mail') -> insert($data)){
-                $this -> success('发送成功',U('Company/Rc/re_detail'),0);
-             }else{
-                 $this -> error('发送失败',U('Company/Rc/rc_detail'),0);
+                 if(M('mail') -> add($data)){
+                     $this -> success('发送成功',U('Company/Rc/re_detail'),1);
+                 }else{
+                     $this -> error('发送失败',U('Company/Rc/rc_detail'),1);
+                 }
              }
+         }else{
+             $this -> error('登录后才可以发送邀请',U('Home/Login/login'),1);
          }
+
     }
 
      //项目合伙人

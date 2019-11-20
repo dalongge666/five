@@ -239,7 +239,7 @@ End Preloader
     	<ul>
 			<foreach name="resume" item="v" key="k">
     		<li>
-    			<a href="rc_list_xq.html">
+    			<a href="{:U('Company/Rc/rc_detail',array('id'=>$v['id']))}">
     				<div class="item_tit rc_tit fix">
     					<h2 class="l pct80"><b>{$v.username}</b><b>{$v.sex}</b><b>32岁</b><b>求职:{$v.expectPosition}</b></h2>
     					<span class="r">{:date('Y-m-d',$v[add_time])}</span>
