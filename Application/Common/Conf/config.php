@@ -26,5 +26,5 @@ return array(
         '__IMAGE__' => 'http://www.wwda.top', // 更改默认的/Public 替换规则
 
     )
-    
+
 );
