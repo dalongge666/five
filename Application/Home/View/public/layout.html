@@ -40,11 +40,20 @@
 	<!-- 底部 -->
 	<div class="footer_box">
 		<div class="footer">
-			<h2>
-				<a href="../web_login/login.html">登录</a><!--
-			 --><a href="../web_login/register.html">注册</a><!--
+			<if condition="(session('?mid'))">
+				<h2>
+					<a>圆圆</a><!--
 			 --><a href="../web_ruzhu/apply_index.html">同行入驻</a>
-			</h2>
+				</h2>
+				<else/>
+				<h2>
+					<a href="{:U('Home/login/login')}">登录</a><!--
+			 --><a href="{:U('Home/login/register')}">注册</a><!--
+			 --><a href="../web_ruzhu/apply_index.html">同行入驻</a>
+				</h2>
+			</if>
+
+
 			<h3>
 				<span><a href="../web_other/about.html">关于我们</a></span>
 				<span><a href="../web_other/about.html">求职指南</a></span>
@@ -60,9 +69,9 @@
 	<!-- 底部导航 -->
 	<div class="foot_menu">
 		<ul>
-			<li class="cur">
+			<li>
 				<a href="{:U('Home/Index/index')}">
-					<i><img src="/Public/home/images/menu_icon01_r.png"></i>
+					<i><img src="/Public/home/images/menu_icon01.png"></i>
 					<span>首页</span>
 				</a>
 			</li>
@@ -90,6 +99,7 @@
 
 <block name="content-footer"></block>
 </div>
+<block name="body-footer"></block>
 </body>
 
 <block name="script">
@@ -136,6 +146,7 @@
 					}
 			)
 		})
+
 	</script>
 
 	<script type="text/javascript">

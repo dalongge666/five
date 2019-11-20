@@ -9,8 +9,24 @@ return array(
     'DB_PWD'                 => 'five', // 密码
     'DB_PORT'                => '3306', // 端口
     'DB_PREFIX'              => 'my_', // 数据库表前缀
+<<<<<<< HEAD
     'TOKEN_ON'      =>    true,  // 是否开启令牌验证 默认关闭
     'TOKEN_NAME'    =>    '__hash__',    // 令牌验证的表单隐藏字段名称，默认为__hash__
     'TOKEN_TYPE'    =>    'md5',  //令牌哈希验证规则 默认为MD5
     'TOKEN_RESET'   =>    true,  //令牌验证出错后是否重置令牌 默认为true
+=======
+
+    //数据库字段取消转小写
+
+    'DB_PARAMS' => array(\PDO::ATTR_CASE => \PDO::CASE_NATURAL),
+
+    //跟踪查看
+    'SHOW_PAGE_TRACE' => true,
+
+    'TMPL_PARSE_STRING'  =>array(
+        '__IMAGE__' => 'http://www.wwda.top', // 更改默认的/Public 替换规则
+
+    )
+
+>>>>>>> b217f46024b2d1b1eb17ad13ee369c8df8aca1ab
 );
