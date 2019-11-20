@@ -33,7 +33,7 @@
 		<div class="one"><img src="/Public/home/images/logo.png"></div><!-- 注释去间隙
  间隙--><div class="box">
 			<span><img src="/Public/home/images/icon_search.png"></span>
-		    <input type="text" placeholder="请输入关键词搜索" value="">
+		    <input type="text" placeholder="请输入关键词搜索" value="{$search}">
 	    </div><!-- 注释去间隙
  间隙--><div class="r">
 	    	<img src="/Public/home/images/pin.png"><a href="../web_other/weizhi.html"><span>贵阳</span></a>
@@ -150,11 +150,11 @@
 
 		<div class="tuij_box tuij_gz">
 	    	<ul>
-				<foreach name="resume" item="v" key="k">
+				<volist name="resume" id="v" key="k" empty="$empty">
 					<li>
 						<a href="{:U('Company/Rc/rc_detail',array('id' => $v['id']))}">
 							<div class="item_tit rc_tit fix">
-								<h2 class="l pct80"><b>{$v.username}</b><b>{$v.sex}</b><b>32岁</b><b>求职:{$v.expectPosition}</b></h2>
+								<h2 class="l pct80"><b>{$v.username}</b><b>{$v.sex}</b><b>{$v.year}岁</b><b>求职:{$v.expectPosition}</b></h2>
 								<span class="r">{:date('Y-m-d',$v[add_time])}</span>
 							</div>
 							<div class="item_tit">
@@ -167,15 +167,15 @@
 										<case value="5">不限</case>
 										<default />无
 									</switch>
-								</b><b>已工作：{$v.workYear}年</b>&emsp;期待月薪：<b class="gr">{$v.expectSalary}千</b></h2>
+								</b><b>已工作：{$v.workYear}年</b>&emsp;期待月薪：<b class="gr">{$v.expectSalary}K</b></h2>
 							</div>
 							<div class="item_tit fix">
-								<h2 class="l">期望工作地点：{$v.expectCity}</h2>
+								<h2 class="l">期望工作地点：{$v.expectCity}&emsp;电话:{$v.tel}</h2>
 								<em class="r n">已核查</em>
 							</div>
 						</a>
 					</li>
-				</foreach>
+				</volist>
 	    	</ul>
 	    </div>
 
@@ -185,18 +185,9 @@
 	    		<h2><span>热门求职</span></h2>
 	    	</div>
 	    	<ul>
-	    		<li><a href="work.html">公共营养师</a></li>
-	    		<li><a href="work.html">育婴师</a></li>
-	    		<li><a href="work.html">养老护理师</a></li>
-	    		<li><a href="work.html">茶艺师</a></li>
-	    		<li><a href="work.html">插花师</a></li>
-	    		<li><a href="work.html">园林绿化工程师</a></li>
-	    		<li><a href="work.html">建筑工人</a></li>
-	    		<li><a href="work.html">高级早教师</a></li>
-	    		<li><a href="work.html">装饰设计师</a></li>
-	    		<li><a href="work.html">导购员</a></li>
-	    		<li><a href="work.html">促销员</a></li>
-	    		<li><a href="work.html">电子商务师</a></li>
+				<foreach name="hotsearch" item="v" key="k" >
+					<li><a href="{:U('Company/Rc/zrc',array('search'=>$v.name))}">{$v.name}</a></li>
+				</foreach>
 	    	</ul>
 	    </div>
 	    <!-- 翻页 -->
@@ -222,11 +213,17 @@
 	<!-- 底部 -->
 	<div class="footer_box">
 		<div class="footer">
-			<h2>
-				<a href="../web_login/login.html">登录</a><!-- 
-			 --><a href="../web_login/register.html">注册</a><!-- 
+			<if condition="!isset($_SESSION['mid'])">
+				<h2>
+					<a href="{:U('Home/Login/login')}">登录</a><!--
+			 --><a href="{:U('Home/Login/register')}">注册</a><!--
 			 --><a href="../web_ruzhu/apply_index.html">同行入驻</a>
-			</h2>
+				</h2>
+				<else />
+				<h2>
+					<a href="../web_ruzhu/apply_index.html">同行入驻</a>
+				</h2>
+			</if>
 			<h3>
 				<span><a href="../web_other/about.html">关于我们</a></span>
 				<span><a href="../web_other/about.html">求职指南</a></span>
@@ -234,7 +231,7 @@
 				<span><a href="../web_other/about.html">免责声明</a></span>
 			</h3>
 			<div class="txt">
-				<p>&copy; 2019 XX公司&nbsp;&nbsp;ICP备XXXXXXXX号<br/>技术支持：<a href="http://www.jsdaima.com/" title="js代码" target="_blank">js代码（www.jsdaima.com）</a></p>
+				<p>&copy; 2019 XX公司&nbsp;&nbsp;ICP备XXXXXXXX号<br/>技术支持：<a href="http://www.wwda.top/" title="网页版" target="_blank">旺旺达网（www.wwda.top）</a></p>
 			</div>
 		</div>
 	</div>
@@ -278,7 +275,7 @@
 		<a><img src="/Public/home/images/back_jt.png"><span>返回</span></a>
 		<div>
 			<form>
-			    <input type="text" name="" placeholder="请输入关键词搜索"><!-- 
+			    <input type="text" name="search" placeholder="请通过性别.职位.地点搜索"><!--
 			 --><button type="submit"><img src="/Public/home/images/icon_search.png"></button>
 			</form>
 		</div>
@@ -286,17 +283,9 @@
 	<div class="search_txt">
 		<h2>大家都在搜</h2>
 		<ul>
-			<li><a href="work.html">公告营养师</a></li>
-			<li><a href="work.html">园艺设计</a></li>
-			<li><a href="work.html">建筑设计</a></li>
-			<li><a href="work.html">育婴师</a></li>
-			<li><a href="work.html">养护师</a></li>
-			<li><a href="work.html">平面设计</a></li>
-			<li><a href="work.html">web工程师</a></li>
-			<li><a href="work.html">学前教育</a></li>
-			<li><a href="work.html">环保工程师</a></li>
-			<li><a href="work.html">母婴护理师</a></li>
-			<li><a href="work.html">保育员</a></li>
+			<foreach name="hotsearch" item="v" key="k" >
+				<li><a href="{:U('Company/Rc/zrc',array('search'=>$v['name']))}">{$v.name}</a></li>
+			</foreach>
 		</ul>
 	</div>
 </div>

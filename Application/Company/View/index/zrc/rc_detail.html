@@ -62,7 +62,10 @@
 								<default />
 							</switch>
 						</em></span>
-						<span class="r"><em>发布时间：{:date('Y-m-d',$res['add_time'])}</em><em></em></span>
+						<span class="r">
+                            <em>{:date('Y-m-d',$res['add_time'])}</em>
+                            <em>浏览量:{$res['look_num']>9999? '9999+' : $res['look_num']}</em>
+                        </span>
 					</dd>
 				</dl>
 			</div>
@@ -185,6 +188,17 @@
 	<!-- 底部 -->
 	<div class="footer_box">
 		<div class="footer">
+            <if condition="!isset($_SESSION['mid'])">
+                <h2>
+                    <a href="{:U('Home/Login/login')}">登录</a><!--
+			 --><a href="{:U('Home/Login/register')}">注册</a><!--
+			 --><a href="../web_ruzhu/apply_index.html">同行入驻</a>
+                </h2>
+            <else />
+                <h2>
+                    <a href="../web_ruzhu/apply_index.html">同行入驻</a>
+                </h2>
+            </if>
 			<h3>
 				<span><a href="../web_other/about.html">关于我们</a></span>
 				<span><a href="../web_other/about.html">求职指南</a></span>
