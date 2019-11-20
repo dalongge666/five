@@ -36,7 +36,7 @@
 			<div class="one"><img src="/Public/home/images/logo.png"></div><!-- 注释去间隙
  间隙--><div class="box">
 			<span><img src="/Public/home/images/icon_search.png"></span>
-			<input type="text" placeholder="请输入关键词搜索" value="">
+			<input type="text" placeholder="请输入关键词搜索" value="{$name}">
 		</div><!-- 注释去间隙
  间隙--><div class="r">
 			<img src="/Public/home/images/pin.png"><a href="../web_other/weizhi.html"><span>贵阳</span></a>
@@ -61,11 +61,10 @@
 				<div class="box workbox fix">
 					<ul>
 						<li class="work" is_click="no">全部工作</li>
-						<li class="work" is_click="yes">销售</li>
-						<li class="work" is_click="yes">技工/工人</li>
-						<li class="work" is_click="yes">计算机/互联网</li>
-						<li class="work" is_click="yes">电子商务</li>
-						<li class="work" is_click="yes">园艺设计</li>
+						<foreach name="cateTree" item="v" key="k">
+							<li class="work" id="{$v.id}" is_click="yes">{$v.catename}</li>
+						</foreach>
+
 					</ul>
 					<ul>
 						<li>
@@ -79,6 +78,8 @@
 							<span class="work">商务主管/经理</span>
 						</li>
 					</ul>
+
+
 				</div>
 				<div class="box">
 					<ul>
@@ -119,7 +120,7 @@
 
 		<div class="tuij_gz">
 			<ul>
-				<foreach name="positions" item="v" key="k">
+				<volist name="positions" id="v" key="k" empty="$empty">
 					<li>
 						<a href="{:U('Home/Position/detail',array('id'=>$v['id']))}">
 							<div class="job_tit fix">
@@ -140,12 +141,12 @@
 							</div>
 							<div class="job_fuli fix job_who">
 								<p class="l pct66">{$v.positionAddress}</p>
-								<span class="r">浏览次数：{$v.look_num}</span>
+								<span class="r">浏览次数：{$v['look_num']>999?'999+':$v['look_num']}</span>
 							</div>
 						</a>
 						<a class="apply abs">申请职位</a>
 					</li>
-				</foreach>
+				</volist>
 
 
 
@@ -179,18 +180,10 @@
 				<h2><span>热门职位</span></h2>
 			</div>
 			<ul>
-				<li><a href="work.html">公共营养师</a></li>
-				<li><a href="work.html">育婴师</a></li>
-				<li><a href="work.html">养老护理师</a></li>
-				<li><a href="work.html">茶艺师</a></li>
-				<li><a href="work.html">插花师</a></li>
-				<li><a href="work.html">园林绿化工程师</a></li>
-				<li><a href="work.html">建筑工人</a></li>
-				<li><a href="work.html">高级早教师</a></li>
-				<li><a href="work.html">装饰设计师</a></li>
-				<li><a href="work.html">导购员</a></li>
-				<li><a href="work.html">促销员</a></li>
-				<li><a href="work.html">电子商务师</a></li>
+				<foreach name="hotposition" item="v" key="k">
+					<li><a href="{:U('Home/Position/detail',array('id'=>$v['id']))}">{$v.positionName}</a></li>
+				</foreach>
+
 			</ul>
 		</div>
 		<!-- 翻页 -->
@@ -216,7 +209,7 @@
 			<a><img src="/Public/home/images/back_jt.png"><span>返回</span></a>
 			<div>
 				<form>
-					<input type="text" name="search" placeholder="请输入关键词搜索"><!--
+					<input type="text" name="search" value="" placeholder="请输入关键词搜索"><!--
 			 --><button type="submit"><img src="/Public/home/images/icon_search.png"></button>
 				</form>
 			</div>
@@ -224,17 +217,10 @@
 		<div class="search_txt">
 			<h2>大家都在搜</h2>
 			<ul>
-				<li><a href="work.html">公告营养师</a></li>
-				<li><a href="work.html">园艺设计</a></li>
-				<li><a href="work.html">建筑设计</a></li>
-				<li><a href="work.html">育婴师</a></li>
-				<li><a href="work.html">养护师</a></li>
-				<li><a href="work.html">平面设计</a></li>
-				<li><a href="work.html">web工程师</a></li>
-				<li><a href="work.html">学前教育</a></li>
-				<li><a href="work.html">环保工程师</a></li>
-				<li><a href="work.html">母婴护理师</a></li>
-				<li><a href="work.html">保育员</a></li>
+				<foreach name="hotsearch" item="v" key="k">
+					<li><a href="{:U('Home/Position/list',array('search'=>$v['hotName']))}">{$v.hotName}</a></li>
+				</foreach>
+
 			</ul>
 		</div>
 	</div>
@@ -243,6 +229,7 @@
 
 <block name="script">
 	<script type="text/javascript">
+
 		$(function(){
 			$(".zy_search_top .box").click(
 					function(){
@@ -297,8 +284,13 @@
 			var work_UL2=$(".zy_category_list .workbox ul:last-child");
 			work_UL1.find("li").mousedown(
 					function(){
+
 						var ks=$(this).attr("is_click");
 						if (ks=="yes") {
+							$.get("{:U('Home/Position/secondTree')}",{pid:$(this).attr('id')},function (data) {
+								console.log(data);
+								$(work_UL2).find('li').html(data);
+							},'html');
 							work_UL1.animate({width:"25%"},300)
 							work_UL2.find("li").show();
 						}

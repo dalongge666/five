@@ -192,7 +192,7 @@
 									<em>{:explode('，',$v['positionAdvantage'])[$i]}</em>
 								</for>
 							</p>
-							<span class="r">浏览次数：{$v.look_num}</span>
+							<span class="r">浏览次数：{$v['look_num']>999?'999+':$v['look_num']}</span>
 						</div>
 					</a>
 				</li>
@@ -206,21 +206,12 @@
 	<div class="hot_work bgwh mb6">
 		<div class="title hot_tit">
 			<h2><span>热门职位</span></h2>
-			<a href="work.html">查看更多></a>
 		</div>
 		<ul>
-			<li><a href="work.html">公共营养师</a></li>
-			<li><a href="work.html">育婴师</a></li>
-			<li><a href="work.html">养老护理师</a></li>
-			<li><a href="work.html">茶艺师</a></li>
-			<li><a href="work.html">插花师</a></li>
-			<li><a href="work.html">园林绿化工程师</a></li>
-			<li><a href="work.html">建筑工人</a></li>
-			<li><a href="work.html">高级早教师</a></li>
-			<li><a href="work.html">装饰设计师</a></li>
-			<li><a href="work.html">导购员</a></li>
-			<li><a href="work.html">促销员</a></li>
-			<li><a href="work.html">电子商务师</a></li>
+			<foreach name="hotposition" item="v" key="k">
+				<li><a href="{:U('Home/Position/detail',array('id'=>$v['id']))}">{$v.positionName}</a></li>
+			</foreach>
+
 		</ul>
 	</div>
 
@@ -321,17 +312,10 @@
 		<div class="search_txt">
 			<h2>大家都在搜</h2>
 			<ul>
-				<li><a href="work.html">公告营养师</a></li>
-				<li><a href="work.html">园艺设计</a></li>
-				<li><a href="work.html">建筑设计</a></li>
-				<li><a href="work.html">育婴师</a></li>
-				<li><a href="work.html">养护师</a></li>
-				<li><a href="work.html">平面设计</a></li>
-				<li><a href="work.html">web工程师</a></li>
-				<li><a href="work.html">学前教育</a></li>
-				<li><a href="work.html">环保工程师</a></li>
-				<li><a href="work.html">母婴护理师</a></li>
-				<li><a href="work.html">保育员</a></li>
+				<foreach name="hotsearch" item="v" key="k">
+					<li><a href="{:U('Home/Position/list',array('search'=>$v['hotName']))}">{$v.hotName}</a></li>
+				</foreach>
+
 			</ul>
 		</div>
 	</div>

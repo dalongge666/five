@@ -51,7 +51,7 @@
 				<h2>{$detail.positionName}</h2>
 				<p class="fix">
 					<a class="l gr">{$detail.salaryMin}k-{$detail.salaryMax}k</a>
-					<a class="r g9"><span>{:date('Y-m-d H:i',$detail['add_time'])}</span><span>浏览量：{$detail['look_num']}</span></a>
+					<a class="r g9"><span>{:date('Y-m-d H:i',$detail['add_time'])}</span><span>浏览量：{$detail['look_num']>999?'999+':$detail['look_num']}</span></a>
 				</p>
 			</div>
 			<div class="work_info p_2">
@@ -60,7 +60,14 @@
 					<p>
 						<em>10人</em>
 						<em>{$detail['edu'][$detail['education']]}</em>
-						<em>{:explode(',',$detail['workYear'])[0]}-{:explode(',',$detail['workYear'])[1]}年</em>
+						<em>
+							<if condition="($detail['workYear'] eq '0,999')">
+								经验不限
+								<else/>
+								{:explode(',',$detail['workYear'])[0]}-{:explode(',',$detail['workYear'])[1]}年
+							</if>
+
+						</em>
 					</p>
 				</div>
 				<div><span>地点：</span><p>{$detail.positionAddress}</p></div>
