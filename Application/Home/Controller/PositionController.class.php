@@ -7,12 +7,14 @@ class PositionController extends Controller
 {
     //职位列表
     public function list(){
-
-        $where['positionName'] = array('like',I('post.search'));
-
+        $name = I('get.search');
+        $where['positionName'] = array('like',"%$name%");
+        $where['workAddress'] = array('like',"%$name%");
+        $where['_logic'] = 'or';
         //查询职位
         $positions = D('Position')
             ->order('add_time desc')
+            ->where($where)
             ->limit(10)
             ->select();
         //分配数据
