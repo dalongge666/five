@@ -9,7 +9,6 @@ class LoginController extends Controller
     public function login(){
 
         if(IS_POST){
-
             $member = D('Member');
             $rule = array(
                 array('username','require','用户名不能为空'),
