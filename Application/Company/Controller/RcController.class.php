@@ -76,6 +76,34 @@ class RcController extends HSController {
     }
     //人才定制
     public function rcdz(){
-        $this->display('index/rcdz/rc_order');
+             //接收
+            if(IS_POST){
+                $data['major'] = I('major');
+                $data['number'] = I('number');
+                $data['require'] = I('require');
+                $data['price'] = I('price');
+                $data['linkman'] = I('linkman');
+                $data['linktel'] = trim(I('linktel'));
+                $data['linkaddress'] = I('linkaddress');
+
+                    //添加
+                    if(M('company_rcdz')->add($data)){
+                        $this -> success('定制成功,尽快为您找到合适的人才');
+                    }else{
+                        $this -> error('定制失败');
+                    }
+
+            }else{
+                $id = session('mid');
+                $com = M('company')->where("mid = $id")->find();;
+
+                $this -> assign('com',$com);
+                $this->display('index/rcdz/rc_order');
+            }
     }
+    //我的人才定制
+    public function myorder(){
+        $this -> display('index/rcdz/myorder');
+    }
+
 }

@@ -25,6 +25,7 @@
 <script type="text/javascript" src="/Public/home/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/swiper.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/public.js"></script>
+<script type="text/javascript" src="/Public/home/js/layer/layer.js"></script>
 
 </head>
 <body>
@@ -33,7 +34,7 @@
 		<div class="one" href="javascript:" onclick="history.back();"><img src="/Public/home/images/back_jt.png"><span>返回</span></div>
 		<h1>人才定制</h1>
 		<div class="r">
-	    	<a href="user_myorder.html">我的定制</a>
+	    	<a href="{:U('Company/Rc/myorder')}">我的定制</a>
 	    </div>
 	</div>
 </header>	
@@ -48,19 +49,19 @@
 		<div class="txt">
 			<p>
 				<span class="ge04">温馨提示：</span>以下所有选项为必填项，请认真填写所有选项，提交人才定制后工作人员会在1-2个工作日内与贵单位取得联系，如有问题请联系我们：
-				<span class="ge04">0851-85982133</span>
+				<span class="ge04">15539988362</span>
 			</p>
 		</div>
 		<div class="write_order">
-			<form>
-				<div class="line"><label><input type="text" name="" placeholder="请填写定制专业"></label></div>
-				<div class="line"><label><input type="text" name="" placeholder="请填写需求人数"></label></div>
-				<div class="line"><label><textarea placeholder="请填写技能要求"></textarea></label></div>
-				<div class="line"><label><input type="text" name="" placeholder="请填写薪酬区间"></label></div>
-				<div class="line"><label><input type="text" name="" value="XX科技集团"></label></div>
-				<div class="line"><label><input type="text" name="" placeholder="请填写联系人"></label></div>
-				<div class="line"><label><input type="text" name="" placeholder="请填写联系电话"></label></div>
-				<div class="line"><label><input type="text" name="" placeholder="请填写联系地址"></label></div>
+			<form action="{:U('Company/Rc/rcdz')}" method="post">
+				<div class="line"><label><input type="text" name="major" placeholder="请填写定制专业"></label></div>
+				<div class="line"><label><input type="text" name="number" placeholder="请填写需求人数"></label></div>
+				<div class="line"><label><textarea name="require" placeholder="请填写技能要求"></textarea></label></div>
+				<div class="line"><label><input type="text" name="price" placeholder="请填写薪酬区间"></label></div>
+				<div class="line"><label><input type="text" disabled value="{$com.companyName}"></label></div>
+				<div class="line"><label><input type="text" name="linkman" placeholder="请填写联系人"></label></div>
+				<div class="line"><label><input type="text" name="linktel" placeholder="请填写联系电话"></label></div>
+				<div class="line"><label><input type="text" name="linkaddress" placeholder="请填写联系地址"></label></div>
 				<button class="zy_butn bord_3">立即定制人才</button>
 			</form>
 		</div>
@@ -75,8 +76,8 @@
 	<div class="footer_box">
 		<div class="footer">
 			<h2>
-				<a>XX科技集团</a><!-- 
-			 --><a href="../web_ruzhu/apply_index.html">同行入驻</a>
+
+			 <a href="../web_ruzhu/apply_index.html">同行入驻</a>
 			</h2>
 			<h3>
 				<span><a href="../web_other/about.html">关于我们</a></span>
@@ -125,4 +126,28 @@
 
 
 </body>
+<script>
+	$('form').submit(function(){
+		var me = this;
+		$.post($(me).attr('action'),$(me).serialize(),function(data){
+			if(data.status === 1){
+				layer.open({
+					content:data.info,
+					time:2,
+					skin:'msg',
+					end:function(){
+						location.reload(true);
+					}
+				})
+			}else{
+				layer.open({
+					content:data.info,
+					time:2,
+					skin:'msg'
+				})
+			}
+		});
+		return false;
+	})
+</script>
 </html>
