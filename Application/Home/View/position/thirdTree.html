@@ -1,4 +1,5 @@
 
-<foreach name="secondTree" item="v" key="k">
-    <span id="{$v.id}" class="work">{$v.catename}</span>
+<foreach name="thirdTree" item="v" key="k">
+    <a href="{:U('Home/Position/list')}?search={$name}&type={$type}&salaryMin={$salaryMin}&salaryMax={$salaryMax}&education={$education}&cid={$v.id}" class="work third-cate">{$v.catename}</a>
+    <br>
 </foreach>
