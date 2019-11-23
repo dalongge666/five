@@ -40,8 +40,22 @@
 				background: #eee;
 				padding-left: 2em;
 			}
-			div.zy_fanye a,span{
-
+			#page div{
+				height: 2.5em;
+				padding-left: 1em;
+				margin: 0.5em auto;
+			}
+			#page div a,span.current{
+				line-height: 2.5em;
+				float:left;
+				padding: 0 1em;
+				margin: 0 1px;
+				font-size: 1.2em;
+				background: #ddd;
+			}
+			#page div span.current{
+				background: #f2dd00;
+				font-weight: bold;
 			}
 
 
@@ -196,9 +210,11 @@
 			</ul>
 		</div>
 		<!-- 翻页 -->
-		<div class="zy_fanye dis_flex">
+		<div id="page">
 			{$page}
 		</div>
+
+
 
 	</div>
 </block>
@@ -227,7 +243,6 @@
 	</div>
 </block>
 
-
 <block name="script">
 	<script type="text/javascript">
 
@@ -252,6 +267,10 @@
 	<!-- 类别js -->
 	<script type="text/javascript">
 		$(function(){
+			//页码显示
+			$('.prev').text('上一页');
+			$('.next').text('下一页');
+
 			$('.foot_menu ul li').eq(1).addClass('cur');
 			$('.foot_menu ul li').eq(1).find('img').attr('src','/Public/home/images/person_img/menu_icon02_01_r.png');
 			// 不同条件选择切换选择
