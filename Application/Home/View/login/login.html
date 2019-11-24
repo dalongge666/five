@@ -25,6 +25,9 @@
 <script type="text/javascript" src="/Public/home/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/swiper.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/public.js"></script>
+<script type="text/javascript" src="/Public/home/js/public.js"></script>
+<script type="text/javascript" src="/Public/home/js/layer/layer.js"></script>
+<script type="text/javascript" src="/Public/home/js/jquery.validate/jquery.validate.min.js"></script>
 	<style>
 		div.validate-error{
 			color: #F2B300;
@@ -49,7 +52,7 @@
 	<div class="zy_module-content">
 		<div class="login_box">
 			<div class="logo"><img src="/Public/home/images/common_img/logo02.png"></div>
-			<form action="" method="post">
+			<form action="" method="post" id="loginForm">
 				<div class="login_style"><span class="cur">找工作</span><span>找人才</span></div>
 
 				<div class="form_line">
@@ -73,15 +76,44 @@
 </body>
 <script type="text/javascript">
 
-	$('.zy_login_btn').click(function(){
-		$.post('{:U("Home/Login/login")}','',function(msg){
-			layer.open({
-				content:msg
-				,skin: 'msg'
-				,time: 2 //2秒后自动关闭
-			});
-		})
+
+	$('#loginForm').submit(function(){
+		// if(s.form()){
+			$.post('{:U("Home/Login/login")}',$(this).serialize(),function(data){
+				if(data.status=='ok'){
+					layer.open({
+						content:data.msg,
+						skin: 'msg',
+						time: 2 ,//2秒后自动关闭
+						end:function(){
+							location = '{:U("Home/Index/index")}';
+						}
+					});
+                    
+				}else{
+					layer.open({
+						content:data.msg,
+						skin: 'msg',
+						time: 2 //2秒后自动关闭
+					});
+					// return false;
+				}
+
+				},'json');
+			//
+		return false;
 	})
+
+
+	// $('.zy_login_btn').click(function(){
+	// 	$.post('{:U("Home/Login/login")}','',function(msg){
+	// 		layer.open({
+	// 			content:msg
+	// 			,skin: 'msg'
+	// 			,time: 2 //2秒后自动关闭
+	// 		});
+	// 	})
+	// })
 
 </script>
 </html>

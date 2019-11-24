@@ -16,8 +16,9 @@ class MemberModel extends Model{
         array('password','require','密码不能为空'),
 //        array('password','/^\w{3,15}]$/','密码格式不正确'),
         array('tel','require','手机号不能为空'),
+        array('tel','','手机号已存在',2,'unique',1),
         array('tel','/^1[3456789]\d{9}$/','手机号格式不正确'),
-        array('captcha','require','验证码不能为空')
+        array('msg_code','require','验证码不能为空')
     );
 
 

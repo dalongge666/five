@@ -28,13 +28,14 @@ class LoginController extends Controller
                     session('type',$user['type']);
                     session('mname',$username);
                     if($user['type'] ==1){
-                        $this->success('登录成功',U('/'),0);
+
+                        $this->ajaxReturn(['msg'=>'登录成功','status'=>'ok']);
                     }elseif($user['type'] ==2){
-                        $this->success('登录成功',U('Company/Index/list'),0);
+                        $this->ajaxReturn(['msg'=>'登录成功','status'=>'ok']);
                     }
 
                 }else{
-                    $this->error('用户名或密码不正确');
+                    $this->ajaxReturn(['msg'=>'用户名或密码不正确','status'=>'error']);
                 }
 
 
