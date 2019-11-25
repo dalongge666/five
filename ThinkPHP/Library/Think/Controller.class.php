@@ -10,6 +10,8 @@
 // +----------------------------------------------------------------------
 namespace Think;
 
+use Behavior\TokenBuildBehavior;
+
 /**
  * ThinkPHP 控制器基类 抽象类
  */
@@ -284,10 +286,14 @@ abstract class Controller
     {
         if (true === $ajax || IS_AJAX) {
             // AJAX提交
+            $tokenduixiang=new TokenBuildBehavior();
+            $token = $tokenduixiang->getToken();
+
             $data           = is_array($ajax) ? $ajax : array();
             $data['info']   = $message;
             $data['status'] = $status;
             $data['url']    = $jumpUrl;
+            $data['token'] = $token[1].'_'.$token[2];
             $this->ajaxReturn($data);
         }
         if (is_int($ajax)) {

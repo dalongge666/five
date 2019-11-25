@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta content="招聘" http-equiv="keywords">
+<meta name="description" content="招聘,培训">
+<meta name="format-detection" content="telephone=no"><!-- 禁止IPHONE识别手机号码 -->
+<meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
+<meta name="renderer" content="webkit" />
+
+<title>js代码（www.jsdaima.com）- IT资源下载平台</title>
+<!-- css -->
+<link rel="stylesheet" type="text/css" href="/Public/home/css/index.css">
+<link rel="stylesheet" type="text/css" href="/Public/home/css/swiper.min.css">
+
+<!-- public_css -->
+<link rel="stylesheet" type="text/css" href="/Public/home/css/public/public_lib.css">
+
+<!-- zy_public_css -->
+<link rel="stylesheet" type="text/css" href="/Public/home/css/zy_public.css">
+<!-- 子页css -->
+<link rel="stylesheet" type="text/css" href="/Public/home/css/children.css">
+
+<!-- js -->
+<script type="text/javascript" src="/Public/home/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/Public/home/js/swiper.min.js"></script>
+<script type="text/javascript" src="/Public/home/js/public.js"></script>
+<script src="/Public/home/js/jquery.validate.min.js"></script>
+	<script src="/Public/home/js/layer/layer.js"></script>
+	<style>
+		label.error{
+			color: #dd3646;
+			font-weight: bold;
+			background: #ddd;
+			text-indent: 2em;
+		}
+	</style>
+</head>
+<body>
+<header class="zy_search_top_box scroll_fix">
+	<div class="zy_title_top fix">
+		<div class="one" href="javascript:" onclick="history.back();"><img src="/Public/home/images/back_jt.png"><span>返回</span></div>
+		<h1>合伙信息</h1>
+		<div class="r">
+	    	<a>清除信息</a>
+	    </div>
+	</div>
+</header>	
+
+<!-- 占位框 -->
+<div class="top_zhanwei_box"></div>	
+
+<!-- 内容框 -->
+<div class="zy_module-content zy_vip_conbox">
+	<div class="vip_user_info_mima vip_user_createbox">
+		<form id="mypartForm" action="{:U('Home/Partner/mypart')}" method="post">
+
+			<div class="headpic mb6 bgwh">
+				<i><img src="__IMAGE__{$member.avater}"/></i>
+			</div>
+			<div class="write bgwh">
+				<div class="form_line">
+					<label><span>姓名</span><input type="text" name="username" value="{:session('mname')}"></label>
+				</div>
+				<div class="form_line sexbox bbd">
+	                <span>性别</span>
+	                <label><input type="radio" name="sex" checked="checked">男</label>
+	                <label><input type="radio" name="sex">女</label>
+	            </div>
+	            <div class="form_line">
+					<label><span>年龄</span><input type="text" name="age" value="{$member.year}" placeholder="请输入年龄"></label>
+				</div>
+				<div class="form_line bbd xzbox">
+					<span>学历</span>
+					<select name="education">
+						<option value="">请选择学历</option>
+						<option value="1">大专</option>
+						<option value="2">本科</option>
+						<option value="3">硕士</option>
+						<option value="4">博士</option>
+						<option value="999">其他</option>
+					</select>
+				</div>
+				<div class="form_line bbd xzbox work_style">
+
+					<label><span>职业</span><input type="text" name="position" value="" placeholder="请输入你的职业"></label>
+				</div>
+				<div class="form_line bbd xzbox">
+					<span>行业经验</span>
+					<select name="workYear">
+						<option value="">请选择工作经验</option>
+						<option value="0,1">实习</option>
+						<option value="1,3">1-3年</option>
+						<option value="3,5">3-5年</option>
+						<option value="5,10">5-10年</option>
+						<option value="10,99">10年以上</option>
+					</select>
+				</div>
+				<div class="form_line">
+					<label><span>现居住地</span><input type="text" name="address" placeholder="请填写现居住地"></label>
+				</div>
+				<div class="form_line tel"><label><span>联系电话</span><input type="text" name="mobile" value="" placeholder="请输入联系电话"></label></div>
+				<div class="form_line" id="tip">
+					<label>
+						<span>我的标签</span>
+						<input type="text" name="keyword" value="" placeholder="如：人脉广 善于创新 每个标签用空格隔开">
+
+					</label>
+
+				</div>
+				<div class="form_line">
+					<label><span>工作经历</span><textarea name="work_experience" placeholder="请输入工作经历"></textarea></label>
+				</div>
+				<div class="form_line">
+					<label><span>教育经历</span><textarea name="edu_experience" placeholder="请输入教育经历"></textarea></label>
+				</div>
+				<div class="form_line">
+					<label><span>我的技能</span><textarea name="my_skill" placeholder="请输入专业技能"></textarea></label>
+				</div>
+				<div class="form_line">
+					<label><span>需求技能</span><textarea name="need_skill" placeholder="请输入需求技能"></textarea></label>
+				</div>
+				<div class="form_line">
+					<label><span>自我描述</span><textarea name="description" placeholder="请输入自我描述"></textarea></label>
+				</div>
+				<button class="zy_butn bord_3" type="submit">发布合伙信息</button> 
+			</div>
+			
+		</form>
+	</div>
+</div>
+
+</body>
+<script type="text/javascript">
+	$(function(){
+		$("#tip ul li").mousedown(function(){
+			if ($(this).hasClass("cur")) {
+				$(this).removeClass("cur");
+			}else{
+				$(this).addClass("cur");
+			}
+		})
+	});
+
+	//生成新的令牌
+
+
+	//表单验证
+	var validate = $('#mypartForm').validate({
+		rules:{
+			username:{
+				required:true
+			},
+			age:{
+				required:true,
+				number:true
+			},
+			education:{
+				required:true
+			},
+			position:{
+				required:true
+			},
+			workYear:{
+				required:true
+			},
+			address:{
+				required:true
+			},
+			mobile:{
+				required:true,
+				mobile:true
+			},
+			keyword:{
+				required:true
+			},
+			work_experience:{
+				required:true
+			},
+			edu_experience:{
+				required:true
+			},
+			my_skill:{
+				required:true
+			},
+			need_skill:{
+				required:true
+			},
+			description:{
+				required:true
+			}
+		},
+		messages:{
+			username:{
+				required:'请输入您的姓名'
+			},
+			age:{
+				required:'请输入您的年龄',
+				number:'年龄必须为数字'
+			},
+			education:{
+				required:'请选择你的学历'
+			},
+			position:{
+				required:'请输入您的职业'
+			},
+			workYear:{
+				required:'请选择你的工作经验'
+			},
+			address:{
+				required:'请输入您的现居住地'
+			},
+			mobile:{
+				required:'请输入您的联系方式'
+			},
+			keyword:{
+				required:'请输入您的标签'
+			},
+			work_experience:{
+				required:'请输入您的工作经历'
+			},
+			edu_experience:{
+				required:'请输入您的教育经历'
+			},my_skill:{
+				required:'请输入您的专业技能'
+			},
+			need_skill:{
+				required:'请输入需求专业技能'
+			},
+			description:{
+				required:'请输入自我描述'
+			}
+
+		}
+	});
+
+	//手机号正则
+	jQuery.validator.addMethod("mobile", function(value, element) {
+		var mobileReg = /^1[34578][0-9]{9}$/;
+		return this.optional(element) || (mobileReg.test(value));
+	}, "您的联系电话有误");
+
+
+	$('#mypartForm').submit(function () {
+		if(validate.form()){
+			$.post('',$(this).serialize(),function (data) {
+			   if(data.status==1){
+					layer.open({
+						content:data.info,
+						time:2,
+						skin:'msg',
+						end:function () {
+							location = data.url;
+						}
+					});
+			   }else{
+				   $('input[name="__hash__"]').val(data.token);
+				   layer.open({
+					   content:data.info,
+					   time:2.5,
+					   skin:'msg',
+					   end:function () {
+						   location.reload();
+					   }
+				   })
+			   }
+
+			},'json');
+		}
+
+		return false;
+	});
+</script>
+</html>
