@@ -25,6 +25,25 @@
 <script type="text/javascript" src="/Public/home/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/swiper.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/public.js"></script>
+<script type="text/javascript" src="/Public/home/css/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/Public/home/js/layer/layer.js"></script>
+
+		<style type=text/css>
+		input.error { border: 1px solid #EA5200;background: #ffdbb3;}
+
+		label.error {
+			padding-left: 13px;
+			padding-bottom: 2px;
+			font-weight: bold;
+			color: #EA5200;
+			vertical-align: middle
+		}
+
+		label.ok {
+			color: #99ea87;
+		}
+	</style>
+
 
 </head>
 <body>
@@ -33,7 +52,7 @@
 		<div class="one" href="javascript:" onclick="history.back();"><img src="/Public/home/images/back_jt.png"><span>返回</span></div>
 		<h1>人才定制</h1>
 		<div class="r">
-	    	<a href="user_myorder.html">我的定制</a>
+	    	<a href="{:U('Company/Rc/myorder')}">我的定制</a>
 	    </div>
 	</div>
 </header>	
@@ -48,19 +67,45 @@
 		<div class="txt">
 			<p>
 				<span class="ge04">温馨提示：</span>以下所有选项为必填项，请认真填写所有选项，提交人才定制后工作人员会在1-2个工作日内与贵单位取得联系，如有问题请联系我们：
-				<span class="ge04">0851-85982133</span>
+				<span class="ge04">15539988362</span>
 			</p>
 		</div>
 		<div class="write_order">
-			<form>
-				<div class="line"><label><input type="text" name="" placeholder="请填写定制专业"></label></div>
-				<div class="line"><label><input type="text" name="" placeholder="请填写需求人数"></label></div>
-				<div class="line"><label><textarea placeholder="请填写技能要求"></textarea></label></div>
-				<div class="line"><label><input type="text" name="" placeholder="请填写薪酬区间"></label></div>
-				<div class="line"><label><input type="text" name="" value="XX科技集团"></label></div>
-				<div class="line"><label><input type="text" name="" placeholder="请填写联系人"></label></div>
-				<div class="line"><label><input type="text" name="" placeholder="请填写联系电话"></label></div>
-				<div class="line"><label><input type="text" name="" placeholder="请填写联系地址"></label></div>
+			<form action="{:U('Company/Rc/rcdz')}" method="post" id="form">
+				<div class="line">
+                    <label><input type="text" name="major" placeholder="请填写定制专业" style="width:90%"></label>
+
+
+                </div>
+				<div class="line">
+                    <label><input type="text" name="number" placeholder="请填写需求人数" style="width:90%"></label>
+
+                </div>
+				<div class="line">
+                    <label><textarea name="require" placeholder="请填写技能要求" style="width:90%"></textarea></label>
+
+                </div>
+				<div class="line">
+                    <label><input type="text" name="price1" placeholder="薪酬区间" style="width:18%">K</label>
+					&nbsp;~~&nbsp;
+                    <label><input type="text" name="price2" placeholder="薪酬区间" style="width:18%">K</label>
+
+                </div>
+				<div class="line">
+                    <label><input type="text" disabled value="{$com.companyName}" style="width:90%"></label>
+                </div>
+				<div class="line">
+                    <label><input type="text" name="linkman" placeholder="请填写联系人" style="width:90%"></label>
+
+                </div>
+				<div class="line">
+                    <label><input type="text" name="linktel" placeholder="请填写联系电话" style="width:90%"></label>
+
+                </div>
+				<div class="line">
+                    <label><input type="text" name="linkaddress" placeholder="请填写联系地址" style="width:90%"></label>
+
+                </div>
 				<button class="zy_butn bord_3">立即定制人才</button>
 			</form>
 		</div>
@@ -75,8 +120,8 @@
 	<div class="footer_box">
 		<div class="footer">
 			<h2>
-				<a>XX科技集团</a><!-- 
-			 --><a href="../web_ruzhu/apply_index.html">同行入驻</a>
+
+			 <a href="../web_ruzhu/apply_index.html">同行入驻</a>
 			</h2>
 			<h3>
 				<span><a href="../web_other/about.html">关于我们</a></span>
@@ -125,4 +170,110 @@
 
 
 </body>
+<script>
+	//前台验证
+	var validate = $('#form').validate({
+			//设置验证规则
+		rules:{
+			major:{
+				required:true
+			},
+			number:{
+				required:true,
+				digits:true
+			},
+			require:{
+				required:true
+			},
+			price1:{
+				required:true,
+				number:true
+			},
+			price2:{
+				required:true,
+				number:true
+			},
+			linkman:{
+				required:true
+			},
+			linktel:{
+				required:true,
+				mobile:true
+			},
+			linkaddress:{
+				required:true
+			}
+		},
+		messages:{
+			major:{
+				required:'专业不能为空'
+			},
+			number:{
+				required:'人数不能为空',
+				digits:'只能为数字'
+			},
+			require:{
+				required:'要求不能为空'
+			},
+			price1:{
+				required:'*',
+				number:'*'
+			},
+			price2:{
+				required:'*',
+				number:'*'
+			},
+			linkman:{
+				required:'联系人不能为空'
+			},
+			linktel:{
+				required:'联系电话不能为空',
+				mobile:'请填写正确的手机号'
+			},
+			linkaddress:{
+				required:'地址不能为空'
+			}
+		},
+		errorElement: "label",
+		success: function(label) {
+			label.addClass("ok").html('验证成功');
+		},
+		validClass: "ok"
+
+	});
+
+	jQuery.validator.addMethod("mobile", function(value, element) {
+		var mobileReg = /^1[34578][0-9]{9}$/;
+		return this.optional(element) || (mobileReg.test(value));
+	}, "请正确填写您的手机号码");
+
+	//定制表单提交
+	$('#form').submit(function(){
+		var me = this;
+		//表单验证
+		if(validate.form()){
+			//异步提交
+			$.post($(me).attr('action'),$(me).serialize(),function(data){
+				if(data.status === 1){
+					layer.open({
+						content:data.info,
+						time:2,
+						skin:'msg',
+						end:function(){
+							location.reload(true);
+						}
+					})
+				}else{
+					layer.open({
+						content: data.info,
+						time: 2,
+						skin: 'msg',
+					})
+				}
+			},'json');
+		}
+
+		return false;
+	})
+</script>
 </html>

@@ -22,6 +22,7 @@ return array(
     //跟踪查看
     'SHOW_PAGE_TRACE' => true,
 
+//网站根目录
     'TMPL_PARSE_STRING'  =>array(
         '__IMAGE__' => 'http://www.wwda.top', // 更改默认的/Public 替换规则
     //文件上传的目录

@@ -42,7 +42,7 @@
 		<div class="footer">
 			<if condition="(session('?mid'))">
 				<h2>
-					<a>圆圆</a><!--
+					<a>{:session('mname')}</a><!--
 			 --><a href="../web_ruzhu/apply_index.html">同行入驻</a>
 				</h2>
 				<else/>
@@ -55,10 +55,10 @@
 
 
 			<h3>
-				<span><a href="../web_other/about.html">关于我们</a></span>
-				<span><a href="../web_other/about.html">求职指南</a></span>
-				<span><a href="../web_other/about.html">联系我们</a></span>
-				<span><a href="../web_other/about.html">免责声明</a></span>
+				<span><a href="{:U('Home/Other/about')}">关于我们</a></span>
+				<span><a href="{:U('Home/Other/about')}">求职指南</a></span>
+				<span><a href="{:U('Home/Other/about')}">联系我们</a></span>
+				<span><a href="{:U('Home/Other/about')}">免责声明</a></span>
 			</h3>
 			<div class="txt">
 				<p>&copy; 2019 XX公司&nbsp;&nbsp;ICP备XXXXXXXX号<br/>技术支持：<a href="http://www.jsdaima.com/" title="js代码" target="_blank">js代码（www.jsdaima.com）</a></p>
