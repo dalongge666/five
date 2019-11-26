@@ -81,10 +81,13 @@ class RcController extends HSController {
                 $data['major'] = I('major');
                 $data['number'] = I('number');
                 $data['require'] = I('require');
-                $data['price'] = I('price');
+                $data['price'] = trim(I('price1')).'-'.trim(I('price2'));
                 $data['linkman'] = I('linkman');
                 $data['linktel'] = trim(I('linktel'));
                 $data['linkaddress'] = I('linkaddress');
+                $data['add_time'] = time();
+                $data['mid'] = session('mid');
+
 
                     //添加
                     if(M('company_rcdz')->add($data)){
@@ -93,9 +96,11 @@ class RcController extends HSController {
                         $this -> error('定制失败');
                     }
 
+
+
             }else{
                 $id = session('mid');
-                $com = M('company')->where("mid = $id")->find();;
+                $com = M('company')->where("mid = $id")->find();
 
                 $this -> assign('com',$com);
                 $this->display('index/rcdz/rc_order');
@@ -103,7 +108,33 @@ class RcController extends HSController {
     }
     //我的人才定制
     public function myorder(){
+         $id = session('mid');
+        $rcdz = M('company_rcdz')->where("mid = $id")->order('add_time desc')->select();
+
+        $this -> assign('rcdz',$rcdz);
         $this -> display('index/rcdz/myorder');
+    }
+    //取消定制
+    public function canl($id){
+         if(IS_AJAX){
+
+             if( M('company_rcdz') -> where("id = $id") -> data(['type' => 3]) -> save()){
+                 $this -> success('取消定制成功');
+             }else{
+               $this -> error('取消定制失败');
+             }
+         }
+    }
+
+    //删除记录
+    public function del($id){
+         if(IS_AJAX){
+             if(M('company_rcdz') -> delete($id)){
+                 $this -> success('删除成功');
+             }else{
+                 $this -> error('删除失败');
+             }
+         }
     }
 
 }

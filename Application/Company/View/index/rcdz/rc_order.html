@@ -25,7 +25,25 @@
 <script type="text/javascript" src="/Public/home/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/swiper.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/public.js"></script>
+<script type="text/javascript" src="/Public/home/css/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/layer/layer.js"></script>
+
+		<style type=text/css>
+		input.error { border: 1px solid #EA5200;background: #ffdbb3;}
+
+		label.error {
+			padding-left: 13px;
+			padding-bottom: 2px;
+			font-weight: bold;
+			color: #EA5200;
+			vertical-align: middle
+		}
+
+		label.ok {
+			color: #99ea87;
+		}
+	</style>
+
 
 </head>
 <body>
@@ -53,15 +71,41 @@
 			</p>
 		</div>
 		<div class="write_order">
-			<form action="{:U('Company/Rc/rcdz')}" method="post">
-				<div class="line"><label><input type="text" name="major" placeholder="请填写定制专业"></label></div>
-				<div class="line"><label><input type="text" name="number" placeholder="请填写需求人数"></label></div>
-				<div class="line"><label><textarea name="require" placeholder="请填写技能要求"></textarea></label></div>
-				<div class="line"><label><input type="text" name="price" placeholder="请填写薪酬区间"></label></div>
-				<div class="line"><label><input type="text" disabled value="{$com.companyName}"></label></div>
-				<div class="line"><label><input type="text" name="linkman" placeholder="请填写联系人"></label></div>
-				<div class="line"><label><input type="text" name="linktel" placeholder="请填写联系电话"></label></div>
-				<div class="line"><label><input type="text" name="linkaddress" placeholder="请填写联系地址"></label></div>
+			<form action="{:U('Company/Rc/rcdz')}" method="post" id="form">
+				<div class="line">
+                    <label><input type="text" name="major" placeholder="请填写定制专业" style="width:90%"></label>
+
+
+                </div>
+				<div class="line">
+                    <label><input type="text" name="number" placeholder="请填写需求人数" style="width:90%"></label>
+
+                </div>
+				<div class="line">
+                    <label><textarea name="require" placeholder="请填写技能要求" style="width:90%"></textarea></label>
+
+                </div>
+				<div class="line">
+                    <label><input type="text" name="price1" placeholder="薪酬区间" style="width:18%">K</label>
+					&nbsp;~~&nbsp;
+                    <label><input type="text" name="price2" placeholder="薪酬区间" style="width:18%">K</label>
+
+                </div>
+				<div class="line">
+                    <label><input type="text" disabled value="{$com.companyName}" style="width:90%"></label>
+                </div>
+				<div class="line">
+                    <label><input type="text" name="linkman" placeholder="请填写联系人" style="width:90%"></label>
+
+                </div>
+				<div class="line">
+                    <label><input type="text" name="linktel" placeholder="请填写联系电话" style="width:90%"></label>
+
+                </div>
+				<div class="line">
+                    <label><input type="text" name="linkaddress" placeholder="请填写联系地址" style="width:90%"></label>
+
+                </div>
 				<button class="zy_butn bord_3">立即定制人才</button>
 			</form>
 		</div>
@@ -127,26 +171,108 @@
 
 </body>
 <script>
-	$('form').submit(function(){
-		var me = this;
-		$.post($(me).attr('action'),$(me).serialize(),function(data){
-			if(data.status === 1){
-				layer.open({
-					content:data.info,
-					time:2,
-					skin:'msg',
-					end:function(){
-						location.reload(true);
-					}
-				})
-			}else{
-				layer.open({
-					content:data.info,
-					time:2,
-					skin:'msg'
-				})
+	//前台验证
+	var validate = $('#form').validate({
+			//设置验证规则
+		rules:{
+			major:{
+				required:true
+			},
+			number:{
+				required:true,
+				digits:true
+			},
+			require:{
+				required:true
+			},
+			price1:{
+				required:true,
+				number:true
+			},
+			price2:{
+				required:true,
+				number:true
+			},
+			linkman:{
+				required:true
+			},
+			linktel:{
+				required:true,
+				mobile:true
+			},
+			linkaddress:{
+				required:true
 			}
-		});
+		},
+		messages:{
+			major:{
+				required:'专业不能为空'
+			},
+			number:{
+				required:'人数不能为空',
+				digits:'只能为数字'
+			},
+			require:{
+				required:'要求不能为空'
+			},
+			price1:{
+				required:'*',
+				number:'*'
+			},
+			price2:{
+				required:'*',
+				number:'*'
+			},
+			linkman:{
+				required:'联系人不能为空'
+			},
+			linktel:{
+				required:'联系电话不能为空',
+				mobile:'请填写正确的手机号'
+			},
+			linkaddress:{
+				required:'地址不能为空'
+			}
+		},
+		errorElement: "label",
+		success: function(label) {
+			label.addClass("ok").html('验证成功');
+		},
+		validClass: "ok"
+
+	});
+
+	jQuery.validator.addMethod("mobile", function(value, element) {
+		var mobileReg = /^1[34578][0-9]{9}$/;
+		return this.optional(element) || (mobileReg.test(value));
+	}, "请正确填写您的手机号码");
+
+	//定制表单提交
+	$('#form').submit(function(){
+		var me = this;
+		//表单验证
+		if(validate.form()){
+			//异步提交
+			$.post($(me).attr('action'),$(me).serialize(),function(data){
+				if(data.status === 1){
+					layer.open({
+						content:data.info,
+						time:2,
+						skin:'msg',
+						end:function(){
+							location.reload(true);
+						}
+					})
+				}else{
+					layer.open({
+						content: data.info,
+						time: 2,
+						skin: 'msg',
+					})
+				}
+			},'json');
+		}
+
 		return false;
 	})
 </script>

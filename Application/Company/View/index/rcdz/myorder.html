@@ -25,6 +25,7 @@
 <script type="text/javascript" src="/Public/home/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/swiper.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/public.js"></script>
+<script type="text/javascript" src="/Public/home/js/layer/layer.js"></script>
 
 </head>
 <body>
@@ -45,16 +46,23 @@
 	<div class="zy_content">
 		<div class="zy_myorder">
 			<ul>
-				<li class="list_box">
-					<div class="list_info">
-						<a href="user_myorder_xq.html" class="dis_flex">
-							<h2 class="pct75 tl">人力资源管理师<span class="ge04 dib">（5人）</span></h2>
-							<span class="g9 pct20 tr">2019-04-02</span>
-						</a>
-						<h3><span>等待定制</span><span onclick="alert('确定取消人才定制吗？')">取消定制</span></h3>
-					</div>
-					<div class="list_delete"><span>删除</span></div>
-				</li>
+				<volist name="rcdz" id="v" key="k" empty="暂时没有数据">
+					<li class="list_box">
+						<div class="list_info">
+							<a href="user_myorder_xq.html" class="dis_flex">
+								<h2 class="pct75 tl">{$v.major}<span class="ge04 dib">（{$v.number}人）</span></h2>
+								<span class="g9 tr">{:date('Y-m-d',$v['add_time'])}</span>
+							</a>
+							<if condition="$v.type eq 1">
+								<h3><span>等待定制中</span><span style="margin-left: 40px;"><a href="{:U('Company/Rc/canl',array('id' => $v['id']))}"  class="cansel" style="color:white">取消定制</a></span></h3>
+							<elseif condition="$v.type eq 2" />
+								<h3><span>已定制成功</span><span style="margin-left: 40px;"><a href="{:U('Company/Rc/del',array('id'=>$v['id']))}" class="del" style="color:white">删除记录</a></span></h3>
+							<else/>
+								<h3><span>已取消定制</span><span style="margin-left: 40px;"><a href="{:U('Company/Rc/del',array('id'=>$v['id']))}" class="del" style="color:white">删除记录</a></span></h3>
+							</if>
+						</div>
+					</li>
+				</volist>
 			</ul>
 			<script type="text/javascript">
 				huadong(".list_info",".list_delete");
@@ -71,8 +79,7 @@
 	<div class="footer_box">
 		<div class="footer">
 			<h2>
-				<a>XX科技集团</a><!-- 
-			 --><a href="../web_ruzhu/apply_index.html">同行入驻</a>
+			 <a href="../web_ruzhu/apply_index.html">同行入驻</a>
 			</h2>
 			<h3>
 				<span><a href="../web_other/about.html">关于我们</a></span>
@@ -90,4 +97,39 @@
 
 
 </body>
+<script>
+	//取消定制
+	$('.cansel').click(function(){
+
+		$.get($(this).attr('href'),'',function(data){
+			if(data.status === 1){
+				layer.open({
+					content:data.info,
+					time:1,
+					end:function(){
+						location.reload(true);
+					}
+				})
+			}
+		});
+		return false;
+	});
+
+	//删除记录
+	$('.del').click(function(){
+
+		$.get($(this).attr('href'),'',function(data){
+				if(data.status === 1){
+					layer.open({
+						content:data.info,
+						time:1,
+						end:function(){
+							location.reload();
+						}
+					})
+				}
+		});
+		return false;
+	})
+</script>
 </html>
