@@ -87,493 +87,37 @@
 				</div>
 
 			</div>
-			<!-- 类别js -->
-			<script type="text/javascript">
-				$(function(){
-					// 不同条件选择切换选择
-					$(".zy_category div").mousedown(function(){
-						var m=$(this).index();
-						if ($(this).hasClass("cur")) {
-							$(this).removeClass("cur");
-							$(".zy_black_bg").hide();
-						}else{
-							$(this).addClass("cur");
-							$(this).siblings().removeClass("cur");
-							$(".zy_black_bg").show();
-						}
 
-						$(".zy_category_list .box").eq(m).toggle();
-						$(".zy_category_list .box").eq(m).siblings().hide();
-
-						//后面这两段放在这里才能点击后获取到显示的高度
-						var work_H=$(".zy_category_list .workbox ul:first-child").height();
-						work_UL2.css("height",work_H);
-					})
-					//点击背景隐藏
-					$(".zy_black_bg").mousedown(function(){
-						$(this).hide();
-						$(".zy_category_list .box").hide();
-						$(".zy_category>div").removeClass("cur");
-					})
-
-					// 工作类型选择
-					var work_UL1=$(".zy_category_list .workbox ul:first-child");
-					var work_UL2=$(".zy_category_list .workbox ul:last-child");
-					work_UL1.find("li").mousedown(
-							function(){
-								var ks=$(this).attr("is_click");
-								if (ks=="yes") {
-									work_UL1.animate({width:"25%"},300)
-									work_UL2.find("li").show();
-								}
-								$(this).css("color","#f2b300");
-								$(this).siblings().css("color","#333");
-							}
-					)
-
-					//滑动页面后类别筛选浮动固定在顶部
-					var h1=$(".zy_search_top_box").height();
-					var h2=$(".zy_category_box").innerHeight();
-
-					$(window).scroll(function(){
-						var s = $(document).scrollTop();
-						if (s>h1) {
-							$(".zy_category_box").addClass('scroll_fix');
-							$(".zy_category_box").css("position","fixed");
-							$(".zy_find_work").css("padding-top",h2);
-						}else{
-							$(".zy_category_box").removeClass('scroll_fix');
-							$(".zy_category_box").css("position","relative");
-							$(".zy_find_work").css("padding-top",0);
-						}
-					});
-				})
-			</script>
 		</div>
 		<!-- 类别筛选 end-->
 
 		<div class="tuij_gz tuij_hhcy">
 			<ul>
+				<volist name="partners" id="v" key="k" empty="$empty">
 				<li>
-					<a href="partner_xq.html">
+					<a href="{:U('Home/Partner/detail',array('id'=>$v['id']))}">
 						<div class="job_tit fix">
-							<h2 class="l pct80">李丽丽</h2>
-							<span class="r">今天</span>
+							<h2 class="l pct80">{$v.username}</h2>
+							<span class="r">{:date('Y-m-d',$v['add_time'])}</span>
 						</div>
 						<div class="job_money">
-							<span>职业：<em class="gr n">营养师</em></span>
+							<span>职业：<em class="gr n">{$v.position}</em></span>
 						</div>
 						<div class="job_fuli fix rel">
 							<p class="l pct70">
-								<em>人脉广</em><em>善于沟通</em><em>有创新力</em>
+								<for star="0" end="count(explode(' ',$v['keyword']))">
+									<em>{:explode(' ',$v['keyword'])[$i]}</em>
+								</for>
 							</p>
 						</div>
 						<div class="job_fuli fix job_who">
-							<p class="l pct66">现居住地：贵州省贵阳市</p>
-							<span class="r">浏览次数：9999+</span>
+							<p class="l pct66">现居住地：{$v.address}</p>
+							<span class="r">浏览次数：{$v['look_num']>999?'999+':$v['look_num']}</span>
 						</div>
 					</a>
 					<a href="tel:18956655566" class="apply abs">邀请创业</a>
 				</li>
-				<li>
-					<a href="partner_xq.html">
-						<div class="job_tit fix">
-							<h2 class="l pct80">吕小布</h2>
-							<span class="r">20小时前</span>
-						</div>
-						<div class="job_money">
-							<span>职业：<em class="gr n">婚礼策划</em></span>
-						</div>
-						<div class="job_fuli fix rel">
-							<p class="l pct70">
-								<em>K歌达人</em><em>有创业经验</em><em>热情开朗</em>
-							</p>
-						</div>
-						<div class="job_fuli fix job_who">
-							<p class="l pct66">现居住地：贵州省安顺市</p>
-							<span class="r">浏览次数：992</span>
-						</div>
-					</a>
-					<a href="tel:18985156645" class="apply abs">邀请创业</a>
-				</li>
-				<li>
-					<a href="partner_xq.html">
-						<div class="job_tit fix">
-							<h2 class="l pct80">仲泉</h2>
-							<span class="r">04-01</span>
-						</div>
-						<div class="job_money">
-							<span>职业：<em class="gr n">影视后期</em></span>
-						</div>
-						<div class="job_fuli fix rel">
-							<p class="l pct70">
-								<em>人脉广</em><em>善于沟通</em><em>有创新力</em>
-							</p>
-						</div>
-						<div class="job_fuli fix job_who">
-							<p class="l pct66">现居住地：贵州省贵阳市</p>
-							<span class="r">浏览次数：99</span>
-						</div>
-					</a>
-					<a href="tel:18956655566" class="apply abs">邀请创业</a>
-				</li>
-				<li>
-					<a href="partner_xq.html">
-						<div class="job_tit fix">
-							<h2 class="l pct80">花花</h2>
-							<span class="r">03-31</span>
-						</div>
-						<div class="job_money">
-							<span>职业：<em class="gr n">PHP工程师</em></span>
-						</div>
-						<div class="job_fuli fix rel">
-							<p class="l pct70">
-								<em>K歌达人</em><em>有创业经验</em><em>热情开朗</em>
-							</p>
-						</div>
-						<div class="job_fuli fix job_who">
-							<p class="l pct66">现居住地：贵州省安顺市</p>
-							<span class="r">浏览次数：992</span>
-						</div>
-					</a>
-					<a href="tel:18985156645" class="apply abs">邀请创业</a>
-				</li>
-				<li>
-					<a href="partner_xq.html">
-						<div class="job_tit fix">
-							<h2 class="l pct80">李丽丽</h2>
-							<span class="r">今天</span>
-						</div>
-						<div class="job_money">
-							<span>职业：<em class="gr n">营养师</em></span>
-						</div>
-						<div class="job_fuli fix rel">
-							<p class="l pct70">
-								<em>人脉广</em><em>善于沟通</em><em>有创新力</em>
-							</p>
-						</div>
-						<div class="job_fuli fix job_who">
-							<p class="l pct66">现居住地：贵州省贵阳市</p>
-							<span class="r">浏览次数：9999+</span>
-						</div>
-					</a>
-					<a href="tel:18956655566" class="apply abs">邀请创业</a>
-				</li>
-				<li>
-					<a href="partner_xq.html">
-						<div class="job_tit fix">
-							<h2 class="l pct80">吕小布</h2>
-							<span class="r">20小时前</span>
-						</div>
-						<div class="job_money">
-							<span>职业：<em class="gr n">婚礼策划</em></span>
-						</div>
-						<div class="job_fuli fix rel">
-							<p class="l pct70">
-								<em>K歌达人</em><em>有创业经验</em><em>热情开朗</em>
-							</p>
-						</div>
-						<div class="job_fuli fix job_who">
-							<p class="l pct66">现居住地：贵州省安顺市</p>
-							<span class="r">浏览次数：992</span>
-						</div>
-					</a>
-					<a href="tel:18985156645" class="apply abs">邀请创业</a>
-				</li>
-				<li>
-					<a href="partner_xq.html">
-						<div class="job_tit fix">
-							<h2 class="l pct80">仲泉</h2>
-							<span class="r">04-01</span>
-						</div>
-						<div class="job_money">
-							<span>职业：<em class="gr n">影视后期</em></span>
-						</div>
-						<div class="job_fuli fix rel">
-							<p class="l pct70">
-								<em>人脉广</em><em>善于沟通</em><em>有创新力</em>
-							</p>
-						</div>
-						<div class="job_fuli fix job_who">
-							<p class="l pct66">现居住地：贵州省贵阳市</p>
-							<span class="r">浏览次数：99</span>
-						</div>
-					</a>
-					<a href="tel:18956655566" class="apply abs">邀请创业</a>
-				</li>
-				<li>
-					<a href="partner_xq.html">
-						<div class="job_tit fix">
-							<h2 class="l pct80">花花</h2>
-							<span class="r">03-31</span>
-						</div>
-						<div class="job_money">
-							<span>职业：<em class="gr n">PHP工程师</em></span>
-						</div>
-						<div class="job_fuli fix rel">
-							<p class="l pct70">
-								<em>K歌达人</em><em>有创业经验</em><em>热情开朗</em>
-							</p>
-						</div>
-						<div class="job_fuli fix job_who">
-							<p class="l pct66">现居住地：贵州省安顺市</p>
-							<span class="r">浏览次数：992</span>
-						</div>
-					</a>
-					<a href="tel:18985156645" class="apply abs">邀请创业</a>
-				</li>
-				<li>
-					<a href="partner_xq.html">
-						<div class="job_tit fix">
-							<h2 class="l pct80">李丽丽</h2>
-							<span class="r">今天</span>
-						</div>
-						<div class="job_money">
-							<span>职业：<em class="gr n">营养师</em></span>
-						</div>
-						<div class="job_fuli fix rel">
-							<p class="l pct70">
-								<em>人脉广</em><em>善于沟通</em><em>有创新力</em>
-							</p>
-						</div>
-						<div class="job_fuli fix job_who">
-							<p class="l pct66">现居住地：贵州省贵阳市</p>
-							<span class="r">浏览次数：9999+</span>
-						</div>
-					</a>
-					<a href="tel:18956655566" class="apply abs">邀请创业</a>
-				</li>
-				<li>
-					<a href="partner_xq.html">
-						<div class="job_tit fix">
-							<h2 class="l pct80">吕小布</h2>
-							<span class="r">20小时前</span>
-						</div>
-						<div class="job_money">
-							<span>职业：<em class="gr n">婚礼策划</em></span>
-						</div>
-						<div class="job_fuli fix rel">
-							<p class="l pct70">
-								<em>K歌达人</em><em>有创业经验</em><em>热情开朗</em>
-							</p>
-						</div>
-						<div class="job_fuli fix job_who">
-							<p class="l pct66">现居住地：贵州省安顺市</p>
-							<span class="r">浏览次数：992</span>
-						</div>
-					</a>
-					<a href="tel:18985156645" class="apply abs">邀请创业</a>
-				</li>
-				<li>
-					<a href="partner_xq.html">
-						<div class="job_tit fix">
-							<h2 class="l pct80">仲泉</h2>
-							<span class="r">04-01</span>
-						</div>
-						<div class="job_money">
-							<span>职业：<em class="gr n">影视后期</em></span>
-						</div>
-						<div class="job_fuli fix rel">
-							<p class="l pct70">
-								<em>人脉广</em><em>善于沟通</em><em>有创新力</em>
-							</p>
-						</div>
-						<div class="job_fuli fix job_who">
-							<p class="l pct66">现居住地：贵州省贵阳市</p>
-							<span class="r">浏览次数：99</span>
-						</div>
-					</a>
-					<a href="tel:18956655566" class="apply abs">邀请创业</a>
-				</li>
-				<li>
-					<a href="partner_xq.html">
-						<div class="job_tit fix">
-							<h2 class="l pct80">花花</h2>
-							<span class="r">03-31</span>
-						</div>
-						<div class="job_money">
-							<span>职业：<em class="gr n">PHP工程师</em></span>
-						</div>
-						<div class="job_fuli fix rel">
-							<p class="l pct70">
-								<em>K歌达人</em><em>有创业经验</em><em>热情开朗</em>
-							</p>
-						</div>
-						<div class="job_fuli fix job_who">
-							<p class="l pct66">现居住地：贵州省安顺市</p>
-							<span class="r">浏览次数：992</span>
-						</div>
-					</a>
-					<a href="tel:18985156645" class="apply abs">邀请创业</a>
-				</li>
-				<li>
-					<a href="partner_xq.html">
-						<div class="job_tit fix">
-							<h2 class="l pct80">李丽丽</h2>
-							<span class="r">今天</span>
-						</div>
-						<div class="job_money">
-							<span>职业：<em class="gr n">营养师</em></span>
-						</div>
-						<div class="job_fuli fix rel">
-							<p class="l pct70">
-								<em>人脉广</em><em>善于沟通</em><em>有创新力</em>
-							</p>
-						</div>
-						<div class="job_fuli fix job_who">
-							<p class="l pct66">现居住地：贵州省贵阳市</p>
-							<span class="r">浏览次数：9999+</span>
-						</div>
-					</a>
-					<a href="tel:18956655566" class="apply abs">邀请创业</a>
-				</li>
-				<li>
-					<a href="partner_xq.html">
-						<div class="job_tit fix">
-							<h2 class="l pct80">吕小布</h2>
-							<span class="r">20小时前</span>
-						</div>
-						<div class="job_money">
-							<span>职业：<em class="gr n">婚礼策划</em></span>
-						</div>
-						<div class="job_fuli fix rel">
-							<p class="l pct70">
-								<em>K歌达人</em><em>有创业经验</em><em>热情开朗</em>
-							</p>
-						</div>
-						<div class="job_fuli fix job_who">
-							<p class="l pct66">现居住地：贵州省安顺市</p>
-							<span class="r">浏览次数：992</span>
-						</div>
-					</a>
-					<a href="tel:18985156645" class="apply abs">邀请创业</a>
-				</li>
-				<li>
-					<a href="partner_xq.html">
-						<div class="job_tit fix">
-							<h2 class="l pct80">仲泉</h2>
-							<span class="r">04-01</span>
-						</div>
-						<div class="job_money">
-							<span>职业：<em class="gr n">影视后期</em></span>
-						</div>
-						<div class="job_fuli fix rel">
-							<p class="l pct70">
-								<em>人脉广</em><em>善于沟通</em><em>有创新力</em>
-							</p>
-						</div>
-						<div class="job_fuli fix job_who">
-							<p class="l pct66">现居住地：贵州省贵阳市</p>
-							<span class="r">浏览次数：99</span>
-						</div>
-					</a>
-					<a href="tel:18956655566" class="apply abs">邀请创业</a>
-				</li>
-				<li>
-					<a href="partner_xq.html">
-						<div class="job_tit fix">
-							<h2 class="l pct80">花花</h2>
-							<span class="r">03-31</span>
-						</div>
-						<div class="job_money">
-							<span>职业：<em class="gr n">PHP工程师</em></span>
-						</div>
-						<div class="job_fuli fix rel">
-							<p class="l pct70">
-								<em>K歌达人</em><em>有创业经验</em><em>热情开朗</em>
-							</p>
-						</div>
-						<div class="job_fuli fix job_who">
-							<p class="l pct66">现居住地：贵州省安顺市</p>
-							<span class="r">浏览次数：992</span>
-						</div>
-					</a>
-					<a href="tel:18985156645" class="apply abs">邀请创业</a>
-				</li>
-				<li>
-					<a href="partner_xq.html">
-						<div class="job_tit fix">
-							<h2 class="l pct80">李丽丽</h2>
-							<span class="r">今天</span>
-						</div>
-						<div class="job_money">
-							<span>职业：<em class="gr n">营养师</em></span>
-						</div>
-						<div class="job_fuli fix rel">
-							<p class="l pct70">
-								<em>人脉广</em><em>善于沟通</em><em>有创新力</em>
-							</p>
-						</div>
-						<div class="job_fuli fix job_who">
-							<p class="l pct66">现居住地：贵州省贵阳市</p>
-							<span class="r">浏览次数：9999+</span>
-						</div>
-					</a>
-					<a href="tel:18956655566" class="apply abs">邀请创业</a>
-				</li>
-				<li>
-					<a href="partner_xq.html">
-						<div class="job_tit fix">
-							<h2 class="l pct80">吕小布</h2>
-							<span class="r">20小时前</span>
-						</div>
-						<div class="job_money">
-							<span>职业：<em class="gr n">婚礼策划</em></span>
-						</div>
-						<div class="job_fuli fix rel">
-							<p class="l pct70">
-								<em>K歌达人</em><em>有创业经验</em><em>热情开朗</em>
-							</p>
-						</div>
-						<div class="job_fuli fix job_who">
-							<p class="l pct66">现居住地：贵州省安顺市</p>
-							<span class="r">浏览次数：992</span>
-						</div>
-					</a>
-					<a href="tel:18985156645" class="apply abs">邀请创业</a>
-				</li>
-				<li>
-					<a href="partner_xq.html">
-						<div class="job_tit fix">
-							<h2 class="l pct80">仲泉</h2>
-							<span class="r">04-01</span>
-						</div>
-						<div class="job_money">
-							<span>职业：<em class="gr n">影视后期</em></span>
-						</div>
-						<div class="job_fuli fix rel">
-							<p class="l pct70">
-								<em>人脉广</em><em>善于沟通</em><em>有创新力</em>
-							</p>
-						</div>
-						<div class="job_fuli fix job_who">
-							<p class="l pct66">现居住地：贵州省贵阳市</p>
-							<span class="r">浏览次数：99</span>
-						</div>
-					</a>
-					<a href="tel:18956655566" class="apply abs">邀请创业</a>
-				</li>
-				<li>
-					<a href="partner_xq.html">
-						<div class="job_tit fix">
-							<h2 class="l pct80">花花</h2>
-							<span class="r">03-31</span>
-						</div>
-						<div class="job_money">
-							<span>职业：<em class="gr n">PHP工程师</em></span>
-						</div>
-						<div class="job_fuli fix rel">
-							<p class="l pct70">
-								<em>K歌达人</em><em>有创业经验</em><em>热情开朗</em>
-							</p>
-						</div>
-						<div class="job_fuli fix job_who">
-							<p class="l pct66">现居住地：贵州省安顺市</p>
-							<span class="r">浏览次数：992</span>
-						</div>
-					</a>
-					<a href="tel:18985156645" class="apply abs">邀请创业</a>
-				</li>
+				</volist>
 			</ul>
 		</div>
 
@@ -645,6 +189,68 @@
 </block>
 
 <block name="script">
+	<!-- 类别js -->
+	<script type="text/javascript">
+		$(function(){
+			// 不同条件选择切换选择
+			$(".zy_category div").mousedown(function(){
+				var m=$(this).index();
+				if ($(this).hasClass("cur")) {
+					$(this).removeClass("cur");
+					$(".zy_black_bg").hide();
+				}else{
+					$(this).addClass("cur");
+					$(this).siblings().removeClass("cur");
+					$(".zy_black_bg").show();
+				}
+
+				$(".zy_category_list .box").eq(m).toggle();
+				$(".zy_category_list .box").eq(m).siblings().hide();
+
+				//后面这两段放在这里才能点击后获取到显示的高度
+				var work_H=$(".zy_category_list .workbox ul:first-child").height();
+				work_UL2.css("height",work_H);
+			})
+			//点击背景隐藏
+			$(".zy_black_bg").mousedown(function(){
+				$(this).hide();
+				$(".zy_category_list .box").hide();
+				$(".zy_category>div").removeClass("cur");
+			})
+
+			// 工作类型选择
+			var work_UL1=$(".zy_category_list .workbox ul:first-child");
+			var work_UL2=$(".zy_category_list .workbox ul:last-child");
+			work_UL1.find("li").mousedown(
+					function(){
+						var ks=$(this).attr("is_click");
+						if (ks=="yes") {
+							work_UL1.animate({width:"25%"},300)
+							work_UL2.find("li").show();
+						}
+						$(this).css("color","#f2b300");
+						$(this).siblings().css("color","#333");
+					}
+			)
+
+			//滑动页面后类别筛选浮动固定在顶部
+			var h1=$(".zy_search_top_box").height();
+			var h2=$(".zy_category_box").innerHeight();
+
+			$(window).scroll(function(){
+				var s = $(document).scrollTop();
+				if (s>h1) {
+					$(".zy_category_box").addClass('scroll_fix');
+					$(".zy_category_box").css("position","fixed");
+					$(".zy_find_work").css("padding-top",h2);
+				}else{
+					$(".zy_category_box").removeClass('scroll_fix');
+					$(".zy_category_box").css("position","relative");
+					$(".zy_find_work").css("padding-top",0);
+				}
+			});
+		})
+	</script>
 	<script type="text/javascript">
 	$(function(){
 		$(".zy_search_top .box").mousedown(

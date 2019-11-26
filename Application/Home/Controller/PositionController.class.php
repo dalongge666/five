@@ -42,6 +42,7 @@ class PositionController extends ShareController
             $map['1'] = '1';
         }
 
+        //分页
         $count = D('Position') -> where($map)-> count('id');
         $Page = new Page($count,4);
         $show = $Page -> show();
