@@ -36,7 +36,7 @@ class TokenBuildBehavior
     }
 
     //获得token
-    private function getToken()
+    public function getToken()
     {
         $tokenName = C('TOKEN_NAME', null, '__hash__');
         $tokenType = C('TOKEN_TYPE', null, 'md5');

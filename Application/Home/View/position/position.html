@@ -26,7 +26,58 @@
 		<script type="text/javascript" src="/Public/home/js/jquery-3.3.1.min.js"></script>
 		<script type="text/javascript" src="/Public/home/js/swiper.min.js"></script>
 		<script type="text/javascript" src="/Public/home/js/public.js"></script>
+		<style>
+			a{
+				color: #333;
+			}
 
+			li.rank a{
+				display: block;
+				height: 100%;
+			}
+			li.money a{
+				display: block;
+				height: 100%;
+			}
+			li.work a{
+				display: block;
+				height: 100%;
+			}
+			li.fuli a{
+				display: block;
+				height: 100%;
+			}
+			span.second-cate b{
+				color: #666;
+			}
+			a.third-cate{
+				display: inline-block;
+				width: 100%;
+				color: #333;
+				background: #eee;
+				padding-left: 2em;
+			}
+			#page div{
+				height: 2.5em;
+				padding-left: 1em;
+				margin: 0.5em auto;
+			}
+			#page div a,span.current{
+				line-height: 2.5em;
+				float:left;
+				padding: 0 1em;
+				margin: 0 1px;
+				font-size: 1.2em;
+				background: #ddd;
+			}
+			#page div span.current{
+				background: #F2B300;
+				font-weight: bold;
+			}
+
+
+
+		</style>
 	</head>
 </block>
 
@@ -52,64 +103,53 @@
 		<div class="zy_category_box mb6">
 			<div class="zy_black_bg"></div>
 			<div class="zy_category bgwh dis_flex">
-				<div class="xz_work brd pct25"><span>全部工作</span></div>
-				<div class="xz_money brd pct25"><span>薪资</span></div>
-				<div class="xz_fuli brd pct25"><span>福利</span></div>
-				<div class="xz_rank pct25"><span>智能排序</span></div>
+				<div class="xz_work brd pct25"><span>{$catename|default='全部工作'}</span></div>
+				<div class="xz_money brd pct25"><span>{$salary|default='薪资'}</span></div>
+				<div class="xz_fuli brd pct25"><span>{$edu|default='学历'}</span></div>
+				<div class="xz_rank pct25"><span>{$rank|default='智能排序'}</span></div>
 			</div>
 			<div class="zy_category_list">
 				<div class="box workbox fix">
 					<ul>
-						<li class="work" is_click="no">全部工作</li>
+						<li class="work" is_click="no"><a href="{:U('Home/Position/list')}?search={$name}&type={$type}&salaryMin={$salaryMin}&salaryMax={$salaryMax}&education={$education}">全部工作</a></li>
 						<foreach name="cateTree" item="v" key="k">
 							<li class="work" id="{$v.id}" is_click="yes">{$v.catename}</li>
 						</foreach>
 
 					</ul>
-					<ul>
+					<ul id="secondCate">
 						<li>
-							<span class="work">全部</span>
-							<span class="work">电话销售</span>
-							<span class="work">销售代表</span>
-							<span class="work">销售助理</span>
-							<span class="work">销售主管/经理</span>
-							<span class="work">商务主管/经理</span>
-							<span class="work">商务主管/经理</span>
-							<span class="work">商务主管/经理</span>
+
 						</li>
 					</ul>
 
+				</div>
+				<div class="box">
+					<ul>
+						<li class="money"><a href="{:U('Home/Position/list')}?search={$name}&cid={$cid}&education={$education}&type={$type}">不限</a></li>
+						<li class="money"><a href="{:U('Home/Position/list')}?search={$name}&cid={$cid}&education={$education}&type={$type}&salaryMin=1&salaryMax=2">2k以下</a></li>
+						<li class="money"><a href="{:U('Home/Position/list')}?search={$name}&cid={$cid}&education={$education}&type={$type}&salaryMin=2&salaryMax=5">2k-5k</a></li>
+						<li class="money"><a href="{:U('Home/Position/list')}?search={$name}&cid={$cid}&education={$education}&type={$type}&salaryMin=5&salaryMax=10">5k-10k</a></li>
+						<li class="money"><a href="{:U('Home/Position/list')}?search={$name}&cid={$cid}&education={$education}&type={$type}&salaryMin=10&salaryMax=15">10k-15k</a></li>
+						<li class="money"><a href="{:U('Home/Position/list')}?search={$name}&cid={$cid}&education={$education}&type={$type}&salaryMin=15&salaryMax=25">15k-25k</a></li>
+						<li class="money"><a href="{:U('Home/Position/list')}?search={$name}&cid={$cid}&education={$education}&type={$type}&salaryMin=25&salaryMax=50">25k-50k</a></li>
+						<li class="money"><a href="{:U('Home/Position/list')}?search={$name}&cid={$cid}&education={$education}&type={$type}&salaryMin=50&salaryMax=999">50k以上</a></li>
+					</ul>
+				</div>
+				<div class="box">
+					<ul>
+						<li class="fuli"><a href="{:U('Home/Position/list')}?search={$name}&cid={$cid}&type={$type}&salaryMin={$salaryMin}&salaryMax={$salaryMax}">不限</a></li>
+						<li class="fuli"><a href="{:U('Home/Position/list')}?search={$name}&cid={$cid}&type={$type}&salaryMin={$salaryMin}&salaryMax={$salaryMax}&education=1">大专</a></li>
+						<li class="fuli"><a href="{:U('Home/Position/list')}?search={$name}&cid={$cid}&type={$type}&salaryMin={$salaryMin}&salaryMax={$salaryMax}&education=2">本科</a></li>
+						<li class="fuli"><a href="{:U('Home/Position/list')}?search={$name}&cid={$cid}&type={$type}&salaryMin={$salaryMin}&salaryMax={$salaryMax}&education=3">硕士</a></li>
+						<li class="fuli"><a href="{:U('Home/Position/list')}?search={$name}&cid={$cid}&type={$type}&salaryMin={$salaryMin}&salaryMax={$salaryMax}&education=4">博士</a></li>
 
-				</div>
-				<div class="box">
-					<ul>
-						<li class="money">不限</li>
-						<li class="money">面议</li>
-						<li class="money">1000~2000元</li>
-						<li class="money">2000~3000元</li>
-						<li class="money">3000~5000元</li>
-						<li class="money">5000~8000元</li>
-						<li class="money">8000~12000元</li>
-						<li class="money">12000~15000元</li>
-						<li class="money">15000~20000元</li>
-						<li class="money">20000元以上</li>
 					</ul>
 				</div>
 				<div class="box">
 					<ul>
-						<li class="fuli">不限</li>
-						<li class="fuli">五险一金</li>
-						<li class="fuli">周末双休</li>
-						<li class="fuli">包吃住</li>
-						<li class="fuli">带薪年假</li>
-						<li class="fuli">加班补助</li>
-						<li class="fuli">年底双薪</li>
-					</ul>
-				</div>
-				<div class="box">
-					<ul>
-						<li class="rank">最新发布</li>
-						<li class="rank">热门职位</li>
+						<li class="rank"><a href="{:U('Home/Position/list')}?search={$name}&cid={$cid}&salaryMin={$salaryMin}&salaryMax={$salaryMax}&education={$education}&type=1">最新发布</a></li>
+						<li class="rank"><a href="{:U('Home/Position/list')}?search={$name}&cid={$cid}&salaryMin={$salaryMin}&salaryMax={$salaryMax}&education={$education}&type=2">热门职位</a></li>
 					</ul>
 				</div>
 
@@ -187,17 +227,11 @@
 			</ul>
 		</div>
 		<!-- 翻页 -->
-		<div class="zy_fanye dis_flex">
-			<a href="#">上一页</a>
-			<span>
-				<b><em>1</em>/<i>2</i></b>
-				<select>
-					<option>第1页</option>
-					<option>第2页</option>
-				</select>
-			</span>
-			<a href="#">下一页</a>
+		<div id="page">
+			{$page}
 		</div>
+
+
 
 	</div>
 </block>
@@ -226,7 +260,6 @@
 	</div>
 </block>
 
-
 <block name="script">
 	<script type="text/javascript">
 
@@ -251,6 +284,10 @@
 	<!-- 类别js -->
 	<script type="text/javascript">
 		$(function(){
+			//页码显示
+			$('.prev').text('上一页');
+			$('.next').text('下一页');
+
 			$('.foot_menu ul li').eq(1).addClass('cur');
 			$('.foot_menu ul li').eq(1).find('img').attr('src','/Public/home/images/person_img/menu_icon02_01_r.png');
 			// 不同条件选择切换选择
@@ -277,7 +314,7 @@
 				$(this).hide();
 				$(".zy_category_list .box").hide();
 				$(".zy_category>div").removeClass("cur");
-			})
+			});
 
 			// 工作类型选择
 			var work_UL1=$(".zy_category_list .workbox ul:first-child");
@@ -287,6 +324,7 @@
 
 						var ks=$(this).attr("is_click");
 						if (ks=="yes") {
+
 							$.get("{:U('Home/Position/secondTree')}",{pid:$(this).attr('id')},function (data) {
 								console.log(data);
 								$(work_UL2).find('li').html(data);
@@ -298,6 +336,25 @@
 						$(this).siblings().css("color","#333");
 					}
 			)
+			$('#secondCate').on('click','.second-cate',function () {
+
+				me =this;
+				if($(this).find('b').text() === '▼'){
+
+					$(this).find('b').text('▲');
+					$.get("{:U('Home/Position/thirdTree')}",{pid:$(this).attr('id'),name:'{$name}',type:'{$type}',salaryMin:'{$salaryMin}',salaryMax:'{$salaryMax}',education:'{$education}'},function (data) {
+						$(me).after(data);
+
+					},'html')
+				}else{
+					$(this).find('b').text('▼');
+						//删除
+						$(this).nextAll('a').detach();
+						$(this).nextAll('br').detach();
+				}
+
+			});
+
 
 			//滑动页面后类别筛选浮动固定在顶部
 			var h1=$(".zy_search_top_box").height();
@@ -316,5 +373,20 @@
 				}
 			});
 		})
+
+		//薪资
+		$('li.money a').click(function () {
+			$('.xz_money span').text($(this).text());
+		});
+
+		//学历
+		$('li.fuli a').click(function () {
+			$('.xz_fuli span').text($(this).text());
+		});
+
+		//智能排序
+		$('li.rank a').click(function () {
+			$('.xz_rank span').text($(this).text());
+		});
 	</script>
 </block>
