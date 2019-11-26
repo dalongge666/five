@@ -13,8 +13,8 @@ class LoginController extends Controller
             $rule = array(
                 array('username','require','用户名不能为空'),
                 array('password','require','密码不能为空')
-
             );
+
             if($member->validate($rule)->create(I('post.'))){
                 //验证通过
                 $username = trim(I('post.username'));
@@ -29,9 +29,9 @@ class LoginController extends Controller
                     session('mname',$username);
                     if($user['type'] ==1){
 
-                        $this->ajaxReturn(['msg'=>'登录成功','status'=>'ok']);
+                        $this->ajaxReturn(['status'=>'ok']);
                     }elseif($user['type'] ==2){
-                        $this->ajaxReturn(['msg'=>'登录成功','status'=>'ok']);
+                        $this->ajaxReturn(['status'=>'ok']);
                     }
 
                 }else{
@@ -77,17 +77,17 @@ class LoginController extends Controller
                         session('mid',$id);
                         session('mname',$data['username']);
                        if($data['type']==1){
-                           $this->success('注册成功',U('/'),2);
+                           $this->ajaxReturn(['status'=>'ok','msg'=>'注册成功']);
                        }elseif ($data['type']==2){
-                           $this->success('注册成功',U('/'),2);
+                           $this->ajaxReturn(['status'=>'ok','msg'=>'注册成功']);
                        }
 
                    }else{
-                       $this->error('注册失败');
+                       $this->ajaxReturn(['status'=>'error','msg'=>'注册失败']);
                    }
 
                }else{
-                   $this->error('验证码不正确');
+                   $this->ajaxReturn(['status'=>'error','msg'=>'验证码不正确']);
                }
             }
 
@@ -97,10 +97,13 @@ class LoginController extends Controller
 
     }
 
+
     public function logout(){
-        session(null);
-        $this->success('退出成功',U('Home/Index/index'));
+            session(null);
+        $this->ajaxReturn(['status'=>'ok']);
+
     }
+
 
     //发送短信验证码
     public function sendMsg(){
@@ -118,5 +121,24 @@ class LoginController extends Controller
             echo 'false';
         }
     }
+    public function chkUsername(){
+        $where['username'] = I('post.username');
+        if(M('Member')->where($where)->find()
+        ){
+            return 'false';
+        }else{
+            return 'true';
+        }
+    }
+
+    public function chkTel(){
+        $where['tel'] = I('post.tel');
+        if(M('Member')->where($where)->find()){
+            return 'false';
+        }else{
+            return 'true';
+        }
+    }
+
 
 }

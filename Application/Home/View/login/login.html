@@ -29,9 +29,9 @@
 <script type="text/javascript" src="/Public/home/js/layer/layer.js"></script>
 <script type="text/javascript" src="/Public/home/js/jquery.validate/jquery.validate.min.js"></script>
 	<style>
-		div.validate-error{
+		div.error{
 			color: #F2B300;
-			text-indent: 2em;
+			text-indent: 3em;
 			font-size: 1em;
 		}
 	</style>
@@ -57,11 +57,11 @@
 
 				<div class="form_line">
 					<label><a><img src="/Public/home/images/zy_icon_user.png"></a><input type="text" name="username" placeholder="请输入用户名"></label>
-					<div class="validate-error">{$errors.username}</div>
+<!--					<div class="validate-error">{$errors.username}</div>-->
 				</div>
 				<div class="form_line">
 					<label><a><img src="/Public/home/images/zy_icon_mm.png"></a><input type="password" name="password" placeholder="请输入密码"></label>
-					<div class="validate-error">{$errors.password}</div>
+<!--					<div class="validate-error">{$errors.password}</div>-->
 				</div>
 				<button class="zy_login_btn">登 录</button>
 				<h2>
@@ -76,31 +76,56 @@
 </body>
 <script type="text/javascript">
 
+var s =$('#loginForm').validate({
+	rules:{
+		username:{
+			required:true
+		},
+		password:{
+			required:true,
+		}
+	},
+	messages:{
+		username:{
+			required:'用户名不能为空'
+		},
+		password:{
+			required:'密码不能为空'
+		}
+	},
+	errorElement: "div",
+	success: function(div) {
+		div.addClass("ok").html('验证格式正确');
+	},
+	validClass: "ok"
+})
+
 
 	$('#loginForm').submit(function(){
-		// if(s.form()){
-			$.post('{:U("Home/Login/login")}',$(this).serialize(),function(data){
-				if(data.status=='ok'){
+		if(s.form()) {
+			$.post('{:U("Home/Login/login")}', $(this).serialize(), function (data) {
+				if (data.status == 'ok') {
 					layer.open({
-						content:data.msg,
+						content: '登录成功',
 						skin: 'msg',
-						time: 2 ,//2秒后自动关闭
-						end:function(){
+						time: 2,//2秒后自动关闭
+						end: function () {
 							location = '{:U("Home/Index/index")}';
 						}
 					});
-                    
-				}else{
+
+				} else {
 					layer.open({
-						content:data.msg,
+						content: data.msg,
 						skin: 'msg',
 						time: 2 //2秒后自动关闭
 					});
 					// return false;
 				}
 
-				},'json');
+			}, 'json');
 			//
+		}
 		return false;
 	})
 

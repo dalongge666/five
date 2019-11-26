@@ -25,12 +25,20 @@
 <script type="text/javascript" src="/Public/home/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/swiper.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/public.js"></script>
+	<script type="text/javascript" src="/Public/home/js/layer/layer.js"></script>
+	<script type="text/javascript" src="/Public/home/js/jquery.validate/jquery.validate.min.js"></script>
 	<style>
 		div.validate-error{
 			color: #F2B300;
 			text-indent: 1em;
 			font-size: 1em;
 		}
+		div.error{
+			color: #F2B300;
+			text-indent: 2em;
+			font-size: 1em;
+		}
+
 	</style>
 </head>
 <body>
@@ -50,7 +58,7 @@
 		<div class="login_box zhuce_box">
 			<div class="zhuce_con">
 				<div class="zhuce_tel">
-					<form action="" method="post">
+					<form action="" method="post" id="loginForm">
 						<input type="hidden" name="type" value="1">
 						<div class="login_style">
 							<span class="cur" value="1" >找工作</span><span value="2" >找人才</span>
@@ -90,6 +98,124 @@
 	// 	// console.log(data);
 	// 	alert('aa');
 	// },'json');
+
+
+	var myvalidate=$('#loginForm').validate({
+
+		//设置验证规则
+		rules:{
+			username:{
+				required:true,
+				minlength:2,
+				maxlength:16,
+
+				remote:{
+					url:'{:U("Home/Login/chkUsername")}',
+					type:'post',
+					data:{
+						_token:'{{csrf_token()}}'
+					}
+				}
+			},
+			password:{
+				required:true,
+				minlength:3,
+				maxlength:15,
+			},
+
+			tel:{
+				required:true,
+				tel:true,
+				remote:{
+					url:'{:U("Home/Login/chkTel")}',
+					type:'post',
+					data:{_token:'{{csrf_token()}}'}
+				}
+			},
+			msg_code:{
+				required:true,
+				remote:{
+					url:'{:U("Home/Login/chkMsg")}',
+					type:'post',
+					data:{_token:'{{csrf_token()}}'}
+				}
+			}
+
+
+		},
+		//验证提示信息
+		messages:{
+
+			username:{
+				required:'用户名不能为空',
+				minlength:'用户名至少两个字符',
+				maxlength:'用户名最多16字符',
+
+				remote:'用户名已被占用'
+			},
+
+			password:{
+				required:'密码不能为空',
+				minlength:'密码至少3个字符',
+				maxlength:'密码最多15字符',
+			},
+			tel:{
+				required:'手机号不能为空',
+				tel:'手机号格式不正确',
+				remote:'手机号已被占用'
+			},
+			msg_code:{
+				required:'验证码不能为空',
+				remote:'短信验证码错误'
+			}
+
+		},
+
+		//显示错误提示标签
+		errorElement:'div',
+		success:function(div){
+			div.addClass('ok').html('验证通过');
+
+		},
+		validClass:'ok'
+
+	});
+
+	//自定义手机号码规则
+	jQuery.validator.addMethod("tel", function(value, element) {
+		var mobileReg = /^1[34578][0-9]{9}$/;
+		return this.optional(element) || (mobileReg.test(value));
+	},"请您正确填写您的手机号码");
+
+
+
+	//提交表单
+	$('#loginForm').submit(function(){
+		if(myvalidate.form()) {
+			$.post('{:U("Home/Login/register")}', $(this).serialize(), function (data) {
+				if (data.status === 'ok') {
+					layer.open({
+						content: data.msg,
+						skin: 'msg',
+						time: 2,//2秒后自动关闭
+						end: function () {
+							location = '{:U("Home/Index/index")}';
+						}
+					})
+				} else {
+					layer.open({
+						content: data.msg,
+						skin: 'msg',
+						time: 2,//2秒后自动关闭
+
+					})
+				}
+			}, 'json');
+		}
+		return false
+	});
+
+
 
 	$('#yzmBtn').click(function () {
 		getMsg();

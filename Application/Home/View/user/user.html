@@ -24,6 +24,7 @@
 		<!-- js -->
 		<script type="text/javascript" src="/Public/home/js/jquery-3.3.1.min.js"></script>
 		<script type="text/javascript" src="/Public/home/js/swiper.min.js"></script>
+		<script type="text/javascript" src="/Public/home/js/layer/layer.js"></script>
 		<script type="text/javascript" src="/Public/home/js/public.js"></script>
 
 	</head>
@@ -51,7 +52,13 @@
 					})
 				</script>
 			</div>
-			<div class="exit"><a href="{:U('Home/Login/logout')}">退出</a></div>
+			<if condition="!session('?mid')">
+				<div class="login"><a href="{:U('Home/Login/login')}">登录/注册</a></div>
+				<else/>
+					<div class="exit"><a href="{:U('Home/Login/logout')}">退出</a></div>
+			</if>
+
+
 		</div>
 		<div class="vip_menu">
 			<ul class="mb6">
@@ -68,7 +75,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="user_myresume.html">
+					<a href="{:U('Home/User/resume')}">
 						<img src="/Public/home/images/common_img/vip_icon_02.png">
 						<span>我的简历</span>
 					</a>
@@ -116,6 +123,31 @@
 	<script>
 		$('.foot_menu ul li').eq(3).addClass('cur');
 		$('.foot_menu ul li').eq(3).find('img').attr('src','/Public/home/images/menu_icon04_r.png');
+		$('.exit').click(function(){
+					//询问框
+					layer.open({
+						content: '您确定要退出吗？',
+						btn: ['是', '不要'],
+						yes: function(index){
+							$.get('{:U("Home/Login/logout")}','',function(data){
+								if(data.status=='ok'){
+									// //提示
+									// layer.open({
+									// 	content: '退出成功'
+									// 	,skin: 'msg'
+									// 	,time: 2 //2秒后自动关闭
+									// });
+									location.reload();
+									layer.close(index);
+								}
+							},'json');
+
+						}
+					});
+
+		return false
+		})
+
 
 
 	</script>
