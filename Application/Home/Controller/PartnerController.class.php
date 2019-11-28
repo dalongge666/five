@@ -2,18 +2,71 @@
 namespace Home\Controller;
 
 use Think\Controller;
+use Think\Page;
 
 class PartnerController extends ShareController
 {
     public function list(){
 
-        //查询数据库
-        $partners = M('partner') -> select();
+        //搜索条件
+        $name = I('get.search');
+        //搜索框
+        $where['username'] = array('like',"%$name%");
+        $where['position'] = array('like',"%$name%");
+        $where['_logic'] = 'or';
+        $map['_complex'] = $where;
+
+        //有education条件则查询无则忽略
+        if(I('get.education')){
+            $map['education'] = array('eq',I('get.education'));
+        }else{
+            $map['1'] = '1';
+        }
+
+        //分页
+        $count = D('partner') -> where($map)-> count('id');
+        $Page = new Page($count,4);
+        $show = $Page -> show();
+
+        if(I('get.type')==1){
+            //最新发布
+            $partners = M('partner')
+                ->where($map)
+                ->order('add_time desc')
+                ->limit($Page->firstRow.',4')
+                ->select();
+        }elseif(I('get.type')==2){
+            //热门合伙人
+            $partners = M('partner')
+                ->where($map)
+                ->order('look_num desc')
+                ->limit($Page->firstRow.',4')
+                ->select();
+        }else{
+            //查询合伙人
+            $partners = M('partner')
+                ->where($map)
+                ->limit($Page->firstRow.',4')
+                ->select();
+        }
+
+        //分配education
+        if($map['education']){
+            $arr1 = array(1=>'大专',2=>'本科',3=>'硕士',4=>'博士');
+            $edu = $arr1[I('get.education')];
+            $this -> assign(array('edu'=>$edu,'education'=>I('get.education')));
+        }
+        //分配order
+        if(I('get.type')){
+            $rank = I('get.type')==1?'最新发布':'热门职位';
+            $this -> assign(array('type'=>I('get.type'),'rank'=>$rank));
+        }
 
         //暂无数据
         $empty = '<h2 style="color: #444444;text-indent: 1em;padding: 1em;background: #dddddd">没有找到满足条件的数据<h2/>';
 
-        $this -> assign(array('partners'=>$partners,'empty'=>$empty));
+        $this -> assign(array('partners'=>$partners,'empty'=>$empty,'name'=>$name,'page'=>$show));
+
         $this -> display('partner');
     }
 
@@ -50,9 +103,11 @@ class PartnerController extends ShareController
                 }
 
                 //写入数据库
-                $data = I('post');
+                $data = I('post.');
                 $data['mid'] = $mid;
                 $data['add_time'] = time();
+                $data['avatar']  = M('member') -> where("id=$mid") ->getField('avater');
+
                 if( $mypart -> add($data) ){
                     $this -> success('发布成功',U('Home/User/index'));
                 }else{
@@ -87,10 +142,6 @@ class PartnerController extends ShareController
         $work = $detail['workYear'];
         $detail['workYear'] = $arr1[$work];
 
-        //头像
-        $mid = session('mid');
-        $avatar = M('member') -> where("id=$mid") ->getField('avater');
-        $detail['avatar'] = $avatar;
 
         $this -> assign(array('detail'=>$detail));
 

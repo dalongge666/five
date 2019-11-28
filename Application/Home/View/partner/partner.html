@@ -26,7 +26,36 @@
 		<script type="text/javascript" src="/Public/home/js/jquery-3.3.1.min.js"></script>
 		<script type="text/javascript" src="/Public/home/js/swiper.min.js"></script>
 		<script type="text/javascript" src="/Public/home/js/public.js"></script>
-
+		<style>
+			a{
+				color: #333;
+			}
+			li.rank a{
+				display: block;
+				height: 100%;
+			}
+			li.fuli a{
+				display: block;
+				height: 100%;
+			}
+			#page div{
+				height: 2.5em;
+				padding-left: 1em;
+				margin: 0.5em auto;
+			}
+			#page div a,span.current{
+				line-height: 2.5em;
+				float:left;
+				padding: 0 1em;
+				margin: 0 1px;
+				font-size: 1.2em;
+				background: #ddd;
+			}
+			#page div span.current{
+				background: #F2B300;
+				font-weight: bold;
+			}
+		</style>
 	</head>
 </block>
 
@@ -37,7 +66,7 @@
 			<div class="one"><img src="/Public/home/images/logo.png"></div><!-- 注释去间隙
  间隙--><div class="box">
 			<span><img src="/Public/home/images/icon_search.png"></span>
-			<input type="text" placeholder="请输入关键词搜索" value="">
+			<input type="text" placeholder="请输入关键词搜索" value="{$name}">
 		</div><!-- 注释去间隙
  间隙--><div class="r">
 			<img src="/Public/home/images/pin.png"><a href="../web_other/weizhi.html"><span>贵阳</span></a>
@@ -53,39 +82,26 @@
 		<div class="zy_category_box mb6">
 			<div class="zy_black_bg"></div>
 			<div class="zy_category bgwh dis_flex">
-				<div class="xz_work brd pct50"><span>全部职业</span></div>
-				<div class="xz_rank pct50"><span>智能排序</span></div>
+				<div class="xz_work brd pct50"><span>{$edu|default='学历要求'}</span></div>
+				<div class="xz_rank pct50"><span>{$rank|default='智能排序'}</span></div>
 			</div>
 			<div class="zy_category_list">
-				<div class="box workbox fix">
+				<div class="box">
 					<ul>
-						<li class="work" is_click="no">全部工作</li>
-						<li class="work" is_click="yes">销售</li>
-						<li class="work" is_click="yes">技工/工人</li>
-						<li class="work" is_click="yes">计算机/互联网</li>
-						<li class="work" is_click="yes">电子商务</li>
-						<li class="work" is_click="yes">园艺设计</li>
-					</ul>
-					<ul>
-						<li>
-							<span class="work">全部</span>
-							<span class="work">电话销售</span>
-							<span class="work">销售代表</span>
-							<span class="work">销售助理</span>
-							<span class="work">销售主管/经理</span>
-							<span class="work">商务主管/经理</span>
-							<span class="work">商务主管/经理</span>
-							<span class="work">商务主管/经理</span>
-						</li>
+						<li class="fuli"><a href="{:U('Home/Partner/list')}?search={$name}&type={$type}">不限</a></li>
+						<li class="fuli"><a href="{:U('Home/Partner/list')}?search={$name}&type={$type}&education=1">大专</a></li>
+						<li class="fuli"><a href="{:U('Home/Partner/list')}?search={$name}&type={$type}&education=2">本科</a></li>
+						<li class="fuli"><a href="{:U('Home/Partner/list')}?search={$name}&type={$type}&education=3">硕士</a></li>
+						<li class="fuli"><a href="{:U('Home/Partner/list')}?search={$name}&type={$type}&education=4">博士</a></li>
+
 					</ul>
 				</div>
 				<div class="box">
 					<ul>
-						<li class="rank">最新发布</li>
-						<li class="rank">热门职位</li>
+						<li class="rank"><a href="{:U('Home/Partner/list')}?search={$name}&education={$education}&type=1">最新发布</a></li>
+						<li class="rank"><a href="{:U('Home/Partner/list')}?search={$name}&education={$education}&type=2">热门职位</a></li>
 					</ul>
 				</div>
-
 			</div>
 
 		</div>
@@ -127,31 +143,17 @@
 				<h2><span>推荐合伙职业</span></h2>
 			</div>
 			<ul>
-				<li><a href="work.html">公共营养师</a></li>
-				<li><a href="work.html">育婴师</a></li>
-				<li><a href="work.html">养老护理师</a></li>
-				<li><a href="work.html">茶艺师</a></li>
-				<li><a href="work.html">插花师</a></li>
-				<li><a href="work.html">园林绿化工程师</a></li>
-				<li><a href="work.html">建筑工人</a></li>
-				<li><a href="work.html">高级早教师</a></li>
-				<li><a href="work.html">装饰设计师</a></li>
-				<li><a href="work.html">导购员</a></li>
-				<li><a href="work.html">促销员</a></li>
-				<li><a href="work.html">电子商务师</a></li>
+				<foreach name="partners" item="v1" key="k">
+					<li><a href="{:U('Home/Partner/detail',array('id'=>$v1['id']))}">{$v1.position}</a></li>
+				</foreach>
+
+
 			</ul>
 		</div>
+
 		<!-- 翻页 -->
-		<div class="zy_fanye dis_flex">
-			<a href="#">上一页</a>
-			<span>
-				<b><em>1</em>/<i>2</i></b>
-				<select>
-					<option>第1页</option>
-					<option>第2页</option>
-				</select>
-			</span>
-			<a href="#">下一页</a>
+		<div id="page">
+			{$page}
 		</div>
 
 	</div>
@@ -163,8 +165,8 @@
 		<div class="search_top fix">
 			<a><img src="/Public/home/images/back_jt.png"><span>返回</span></a>
 			<div>
-				<form>
-					<input type="text" name="" placeholder="请输入关键词搜索"><!--
+				<form >
+					<input type="text" name="search" placeholder="请输入关键词搜索"><!--
 			 --><button type="submit"><img src="/Public/home/images/icon_search.png"></button>
 				</form>
 			</div>
@@ -192,6 +194,10 @@
 	<!-- 类别js -->
 	<script type="text/javascript">
 		$(function(){
+			//页码显示
+			$('.prev').text('上一页');
+			$('.next').text('下一页');
+
 			// 不同条件选择切换选择
 			$(".zy_category div").mousedown(function(){
 				var m=$(this).index();
@@ -253,9 +259,10 @@
 	</script>
 	<script type="text/javascript">
 	$(function(){
-		$(".zy_search_top .box").mousedown(
+		$(".zy_search_top .box").click(
 				function(){
 					$(".search_bomb_box").show()
+					$('input[name="search"]').focus();
 					$(".zy_search_top_box").hide()
 					$(".zy_module-content").hide()
 				}
@@ -268,6 +275,16 @@
 				}
 		)
 	})
+
+	//学历
+	$('li.fuli a').click(function () {
+		$('.xz_fuli span').text($(this).text());
+	});
+
+	//智能排序
+	$('li.rank a').click(function () {
+		$('.xz_rank span').text($(this).text());
+	});
 </script>
 </block>
 
