@@ -25,9 +25,8 @@ return array(
 //网站根目录
     'TMPL_PARSE_STRING'  =>array(
         '__IMAGE__' => 'http://www.wwda.top', // 更改默认的/Public 替换规则
-    //文件上传的目录
+    ),
+
+ //文件上传的目录
         'UPLOAD' => './upload/'
-
-    )
-
 );

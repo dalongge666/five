@@ -110,7 +110,7 @@ var s =$('#loginForm').validate({
 						skin: 'msg',
 						time: 2,//2秒后自动关闭
 						end: function () {
-							location = '{:U("Home/Index/index")}';
+							location = data.url;
 						}
 					});
 

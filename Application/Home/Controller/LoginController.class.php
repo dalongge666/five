@@ -31,7 +31,7 @@ class LoginController extends Controller
 
                         $this->ajaxReturn(['status'=>'ok']);
                     }elseif($user['type'] ==2){
-                        $this->ajaxReturn(['status'=>'ok']);
+                        $this->ajaxReturn(['status'=>'ok','url'=>U('Company/Index/list')]);
                     }
 
                 }else{

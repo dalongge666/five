@@ -25,6 +25,27 @@
 <script type="text/javascript" src="/Public/home/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/swiper.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/public.js"></script>
+<script type="text/javascript" src="/Public/home/js/jquery.form.js"></script>
+<script type="text/javascript" src="/Public/home/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/Public/home/js/preview/preview.js"></script>
+<script type="text/javascript" src="/Public/home/js/layer/layer.js"></script>
+
+	<style type=text/css>
+		input.error { border: 1px solid #EA5200;background: #ffdbb3;}
+
+		div.error {
+			padding-left: 13px;
+			padding-bottom: 2px;
+			font-weight: bold;
+			color: #EA5200;
+			vertical-align: middle
+		}
+
+		div.ok {
+			color: #99ea87;
+		}
+	</style>
+
 
 </head>
 <body class="bgwh">
@@ -41,14 +62,15 @@
 <!-- 内容框 -->
 <div class="zy_module-content zy_vip_conbox">	
 	<div class="vip_user_info_mima vip_user_info_person">
-		<form>
+		<form method="post" enctype="multipart/form-data">
 			<div class="headup form_line">
-				<span>头像上传</span>
-				<img src="__IMAGE__{$com.logo}"/>
+				<span>公司图像</span>
+				<img src="__IMAGE__/{$com.logo}" style="width:50px;height:50px;"/>
 			</div>
-            <div class="form_line"><label><span>企业名称</span><input type="text" name="companyName" value="{$com.companyName}"></label></div>
+
+			<div class="form_line"><label><span>企业名称</span><input type="text" name="companyName" value="{$com.companyName}"></label></div>
             <div class="form_line"><label><span>企业网址</span><input type="text" name="website" value="{$com.website}"></label></div>
-            <div class="form_line"><label><span>企业地址</span><input type="text" name="city" placeholder="{$com.city}"></label></div>
+            <div class="form_line"><label><span>企业地址</span><input type="text" name="city" value="{$com.city}"></label></div>
             <div class="form_line tel"><label><span>联系电话</span><input type="text" name="mobile" value="{$com.mobile}"></label></div>
             <div class="form_line"><label><span>电子邮件</span><input type="text" name="email" value="{$com.email}"></label></div>
 
@@ -88,8 +110,56 @@
 			},
 			website:{
 				required:'网址不能为空',
+				url:'请输入正确的网址'
+			},
+			city:{
+				required:'地址不能为空'
+			},
+			mobile:{
+				required:'手机号不能为空',
+				mobile:'请填写正确的手机号'
+			},
+			email:{
+				required:'邮箱不能为空',
+				email:'请填写正确的邮箱'
 			}
+		},
+		errorElement: "div",
+		success: function(div) {
+			div.addClass("ok").html('验证成功');
+		},
+		validClass: "ok"
+	});
+	//手机号格式
+	jQuery.validator.addMethod("mobile", function(value, element) {
+		var mobileReg = /^1[34578][0-9]{9}$/;
+		return this.optional(element) || (mobileReg.test(value));
+	}, "请正确填写您的手机号码");
+
+	//修改信息
+	$('form').submit(function(){
+		//前端验证
+		if(validate.form()){
+			//提交
+			$(this).ajaxSubmit(function(data){
+				if(data.status === 1){
+					layer.open({
+						content:data.info,
+						time:1,
+						end:function(){
+							location.reload();
+						}
+					})
+				}else{
+					layer.open({
+						content:data.info,
+						time:1
+					})
+				}
+			})
 		}
+		return false;
 	})
+
 </script>
 </html>
