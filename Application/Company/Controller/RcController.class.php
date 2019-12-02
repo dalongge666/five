@@ -18,12 +18,11 @@ class RcController extends HSController {
              //人才搜索
              $where['expectPosition'] = array('like',"%$search%");
              $where['expectCity'] = array('like',"$search");
-             $where['sex'] = array('like',"$search");
              $where['_logic'] = 'or';
 
              $resume = M()->table('my_resume as r')
                  ->join('my_member as m on m.id = r.mid')
-                 ->field('r.*,m.username,m.sex,m.workYear,m.tel,m.year')
+                 ->field('r.*,m.username,m.workYear,m.tel,m.year')
                  ->order('add_time desc')
                  ->where($where)
                  ->select();
