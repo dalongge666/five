@@ -56,53 +56,104 @@
 				<div class="exit"><a href="{:U('Home/Login/logout')}">退出</a></div>
 			</if>
 		</div>
-		<div class="vip_menu">
+			<div class="vip_menu">
 			<ul class="mb6">
 				<li>
-					<a href="{:U('Company/Mine/modifyInfo')}">
-						<img src="/Public/home/images/common_img/vip_icon_01.png">
-						<span>资料设置</span>
-					</a>
+					<if condition="!session('?mid')">
+						<a href="{:U('Home/Login/login')}">
+							<img src="/Public/home/images/common_img/vip_icon_01.png">
+							<span>资料设置</span>
+						</a>
+						<else />
+						<a href="{:U('Company/Mine/modifyInfo')}">
+							<img src="/Public/home/images/common_img/vip_icon_01.png">
+							<span>资料设置</span>
+						</a>
+					</if>
+
 				</li>
 				<li>
-					<a href="../../../../index.php">
-						<img src="/Public/home/images/common_img/vip_icon_02.png">
-						<span>发布招聘/项目</span>
-					</a>
+					<if condition="!session('?mid')">
+						<a href="{:U('Home/Login/login')}">
+							<img src="/Public/home/images/common_img/vip_icon_02.png">
+							<span>发布招聘/项目</span>
+						</a>
+					<else />
+						<a href="../../../../index.php">
+							<img src="/Public/home/images/common_img/vip_icon_02.png">
+							<span>发布招聘/项目</span>
+						</a>
+					</if>
 				</li>
 				<li>
-					<a href="../../../../index.php">
-						<img src="/Public/home/images/common_img/vip_icon_03.png">
-						<span>我的发布</span>
-					</a>
+					<if condition="!session('?mid')">
+						<a href="{:U('Home/Login/login')}">
+							<img src="/Public/home/images/common_img/vip_icon_03.png">
+							<span>我的发布</span>
+						</a>
+						<else />
+						<a href="../../../../index.php">
+							<img src="/Public/home/images/common_img/vip_icon_03.png">
+							<span>我的发布</span>
+						</a>
+					</if>
 				</li>
 				<li>
-					<a href="../../../../index.php">
-						<img src="/Public/home/images/common_img/vip_icon_04.png">
-						<span>收到的求职简历</span>
-						<em class="n r gr">12</em>
-					</a>
+					<if condition="!session('?mid')">
+						<a href="{:U('Home/Login/login')}">
+							<img src="/Public/home/images/common_img/vip_icon_04.png">
+							<span>收到的求职简历</span>
+						</a>
+						<else />
+						<a href="../../../../index.php">
+							<img src="/Public/home/images/common_img/vip_icon_04.png">
+							<span>收到的求职简历</span>
+							<em class="n r gr">12</em>
+						</a>
+					</if>
 				</li>
 				<li>
-					<a href="{:U('Company/Rc/myorder')}">
-						<img src="/Public/home/images/common_img/vip_icon_05.png">
-						<span>我的定制</span>
-					</a>
+					<if condition="!session('?mid')">
+						<a href="{:U('Home/Login/login')}">
+							<img src="/Public/home/images/common_img/vip_icon_05.png">
+							<span>我的定制</span>
+						</a>
+						<else />
+						<a href="{:U('Company/Rc/myorder')}">
+							<img src="/Public/home/images/common_img/vip_icon_05.png">
+							<span>我的定制</span>
+						</a>
+					</if>
 				</li>
 				<li>
-					<a href="../../../../index.php">
-						<img src="/Public/home/images/common_img/vip_icon_06.png">
-						<span>我的收藏</span>
-					</a>
+					<if condition="!session('?mid')">
+						<a href="{:U('Home/Login/login')}">
+							<img src="/Public/home/images/common_img/vip_icon_06.png">
+							<span>我的收藏</span>
+						</a>
+						<else />
+						<a href="../../../../index.php">
+							<img src="/Public/home/images/common_img/vip_icon_06.png">
+							<span>我的收藏</span>
+						</a>
+					</if>
 				</li>
 			</ul>
 			<ul>
 				<li>
-					<a href="../../../../index.php">
-						<img src="/Public/home/images/common_img/vip_icon_07.png">
-						<span>我的人才库</span>
-						<em class="n r g9">需开通入驻</em>
-					</a>
+					<if condition="!session('?mid')">
+						<a href="{:U('Home/Login/login')}">
+							<img src="/Public/home/images/common_img/vip_icon_07.png">
+							<span>我的人才库</span>
+							<em class="n r g9">需开通入驻</em>
+						</a>
+						<else />
+						<a href="../../../../index.php">
+							<img src="/Public/home/images/common_img/vip_icon_07.png">
+							<span>我的人才库</span>
+							<em class="n r g9">需开通入驻</em>
+						</a>
+					</if>
 				</li>
 			</ul>
 		</div>
