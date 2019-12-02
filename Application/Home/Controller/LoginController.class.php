@@ -24,14 +24,16 @@ class LoginController extends Controller
                  $user =  M('Member')->where($where)->find();
 
                 if($user){
+
                     session('mid',$user['id']);
                     session('type',$user['type']);
                     session('mname',$username);
+
                     if($user['type'] ==1){
 
-                        $this->ajaxReturn(['status'=>'ok']);
+                        $this->ajaxReturn(['status'=>'ok','url'=>U('Home/Index/index')]);
                     }elseif($user['type'] ==2){
-                        $this->ajaxReturn(['status'=>'ok']);
+                        $this->ajaxReturn(['status'=>'ok','url'=>U('Company/Index/list')]);
                     }
 
                 }else{

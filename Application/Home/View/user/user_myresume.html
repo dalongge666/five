@@ -25,6 +25,8 @@
 <script type="text/javascript" src="/Public/home/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/swiper.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/public.js"></script>
+	<script type="text/javascript" src="/Public/home/js/layer/layer.js"></script>
+
 
 </head>
 <body>
@@ -43,30 +45,60 @@
 <div class="zy_module-content zy_vip_conbox">
 	<div class="vip_user_resume">
 		<ul>
+			<foreach name="resume" item="v" key="k">
 			<li>
 				<dl>
-					<dt>求职 呼叫中心客服</dt>
+					<dt>求职 {$v['expectPosition']}</dt>
 					<dd>更新：2019-04-10</dd>
 				</dl>
 				<h2>
-					<a href="user_myresume_edit.html">编辑</a>
-					<a>删除</a>
+					<a href="{:U('Home/User/edit',array(id=>$v['id']))}">编辑</a>
+					<a href="{:U('Home/User/delete',array(id=>$v['id']))}" id="delete1">删除</a>
 				</h2>
 			</li>
-			<li>
-				<dl>
-					<dt>求职 行政人事</dt>
-					<dd>更新：2018-10-10</dd>
-				</dl>
-				<h2>
-					<a href="user_myresume_edit.html">编辑</a>
-					<a>删除</a>
-				</h2>
-			</li>
+			</foreach>
 		</ul>
 		<div class="jianl"><a class="zy_butn db" href="{:U('Home/User/createResume')}">创建简历</a></div>
 	</div>
 </div>
 
 </body>
+<script>
+	$('#delete1').click(function(){
+		me = $(this);
+		//询问框
+		layer.open({
+			content: '您确定要删除吗？',
+			btn: ['是', '不要'],
+			yes: function(index){
+				$.get(me.attr('href'),'',function(data){
+					if(data.status==='ok'){
+						layer.open({
+							content:'删除成功',
+							skin:'msg',
+							time:1,
+							end:function(){
+								location.reload();
+								layer.close(index);
+							}
+						})
+
+					}else{
+						layer.open({
+							content:'删除失败',
+							skin:'msg',
+							time:1,
+							end:function(){
+								location.reload()
+							}
+						})
+					}
+
+				})
+
+			}
+		});
+		return false
+	})
+</script>
 </html>

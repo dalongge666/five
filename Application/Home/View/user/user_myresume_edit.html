@@ -26,15 +26,8 @@
 <script type="text/javascript" src="/Public/home/js/swiper.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/public.js"></script>
 	<script type="text/javascript" src="/Public/home/js/layer/layer.js"></script>
-<script type="text/javascript" src="/Public/home/js/jquery.validate/jquery.validate.min.js"></script>
-
-
+	<script type="text/javascript" src="/Public/home/js/jquery.validate/jquery.validate.min.js"></script>
 	<style>
-		/*div.validate-error{*/
-		/*	color: #F2B300;*/
-		/*	text-indent: 2em;*/
-		/*	font-size: 1em;*/
-		/*}*/
 		div.error{
 			color: #F2B300;
 			text-indent: 1em;
@@ -46,7 +39,7 @@
 <header class="zy_search_top_box scroll_fix">
 	<div class="zy_title_top fix">
 		<div class="one" href="javascript:" onclick="history.back();"><img src="/Public/home/images/back_jt.png"><span>返回</span></div>
-		<h1>创建简历</h1>
+		<h1>编辑简历</h1>
 		
 	</div>
 </header>	
@@ -57,21 +50,21 @@
 <!-- 内容框 -->
 <div class="zy_module-content zy_vip_conbox">
 	<div class="vip_user_info_mima vip_user_createbox">
-		<form action="" method="post" id="form1">
+		<form id="form1" method="post">
 			<div class="headpic mb6 bgwh">
 				<i><img src="/Public/home/images/common_img/woman.png"/></i>
 			</div>
 			<div class="write bgwh">
 				<div class="form_line">
-					<label><span>姓名</span><input type="text" name="" disabled value="{:session('mname')}"></label>
+					<label><span>姓名</span><input type="text" name="" value="{:session('mname')}"></label>
 				</div>
 				<div class="form_line sexbox bbd">
 	                <span>性别</span>
-	                <label><input type="radio" name="sex" value="男" checked="checked">男</label>
-	                <label><input type="radio" name="sex" value="女">女</label>
+	                <label><input type="radio" name="sex" checked="checked">男</label>
+	                <label><input type="radio" name="sex">女</label>
 	            </div>
 <!--	            <div class="form_line">-->
-<!--					<label><span>年龄</span><input type="text" name="workyear" value="25"></label>-->
+<!--					<label><span>年龄</span><input type="text"  name="" value=""></label>-->
 <!--				</div>-->
 				<div class="form_line bbd xzbox">
 					<span>学历</span>
@@ -85,13 +78,6 @@
 				</div>
 				<div class="form_line bbd xzbox work_style">
 					<span>求职意向</span>
-<!--					<select name="positionStyle">-->
-<!--						<option value="1">销售</option>-->
-<!--						<option value="2">技工/工人</option>-->
-<!--						<option value="3">计算机/互联网</option>-->
-<!--						<option value="4">电子商务</option>-->
-<!--						<option value="5">园林设计</option>-->
-<!--					</select>-->
 					<select  name="expectPosition">
 						<option value="产品经理">产品经理</option>
 						<option value="ceo">ceo</option>
@@ -112,7 +98,6 @@
 				</div>
 				<div class="form_line bbd xzbox">
 					<span>期望月薪</span>
-<!--					<input type="text" name="expectSalary" placeholder="请输入期待月薪">-->
 					<select name="expectSalary">
 						<option value="1">1000以下</option>
 						<option value="2">1000~2000元</option>
@@ -125,32 +110,26 @@
 						<option value="9">20000以上</option>
 					</select>
 				</div>
-
 				<div class="form_line">
-					<label><span>工作地点</span><input type="text"  name="expectCity" placeholder="请输入期望工作地点"></label>
-<!--					<div class="validate-error">{$errors.expectCity|default=''}</div>-->
+					<label><span>工作地点</span><input type="text" name="expectCity" value="{$resume['expectCity']}"></label>
 				</div>
-				<div class="form_line tel"><label><span>联系电话</span><input type="text" name="tel" placeholder="请输入联系电话" value=""></label></div>
-<!--				<div class="validate-error">{$errors.tel}</div>-->
+				<div class="form_line tel"><label><span>联系电话</span><input type="text" name="tel" value="17698753369"></label></div>
 				<div class="form_line">
-					<label><span>工作经历</span><textarea name="workYear" placeholder="请输入工作经历"></textarea></label>
-<!--					<div class="validate-error">{$errors.workYear}</div>-->
+					<label><span>工作经历</span><textarea name="workYear" >{$resume['workYear']}</textarea></label>
 				</div>
 				<div class="form_line">
-					<label><span>教育经历</span><textarea name="educationYear" placeholder="请输入教育经历"></textarea></label>
-<!--					<div class="validate-error">{$errors.educationYear}</div>-->
+					<label><span>教育经历</span><textarea name="educationYear" >{$resume['educationYear']}</textarea></label>
 				</div>
 				<div class="form_line">
-					<label><span>专业技能</span><textarea name="professionalJn" placeholder="请输入专业技能"></textarea></label>
-<!--					<div class="validate-error">{$errors.professionalJn}</div>-->
+					<label><span>专业技能</span><textarea name="professionalJn">{$resume['professionalJn']}</textarea></label>
 				</div>
 				<div class="form_line">
-					<label><span>自我描述</span><textarea name="selfDescription" placeholder="请输入自我描述"></textarea></label>
-<!--					<div class="validate-error">{$errors.selfDescription}</div>-->
+					<label><span>自我描述</span><textarea name="selfDescription">{$resume['selfDescription']}</textarea></label>
 				</div>
-				<button class="zy_butn bord_3">保存简历</button> 
+				<input type="hidden" name="id" value="{$resume['id']}">
+				<button class="zy_butn bord_3">保存修改</button> 
 			</div>
-			
+
 		</form>
 	</div>
 </div>
@@ -206,45 +185,31 @@
 		validClass: "ok"
 	});
 
+	$('#form1').submit(function(){
+		if(a.form()){
+		$.post('{:U("Home/User/edit")}',$(this).serialize(),function(data){
+			if(data.status==='ok'){
+				layer.open({
+					content:'修改成功',
+					skin:'msg',
+					time:2,
+					end:function(){
+						location=data.url;
 
-
-	$('#form1').submit(function() {
-if(a.form()){
-		$.ajax({
-			url: '{:U("Home/User/createResume")}',
-			type: 'post',
-			data: $(this).serialize(),
-			dataType: 'json',
-			success: function (data) {
-				if (data.status === 'ok') {
-					layer.open({
-						content:data.msg,
-						skin:"msg",
-						time:2,
-						end:function(){
-							location = '{:U("Home/User/resume")}';
-						}
-					})
-
-				}
-
-			},
-			error: function (xhr) {
-				var errors = JSON.parse(xhr.responseText).errors;
-				$('div.validate-error').html('');
-				if (errors) {
-					for (var i in errors) {
-						$('.' + i).text(errors[i][0])
 					}
-				}
+				})
+			}else{
+				layer.open({
+					content: '修改失败',
+					skin: 'msg',
+					time: 2,
+				})
 			}
-		});
+		},'json');
 
-	}
+		}
 		return false
 	})
-
-
 </script>
 </body>
 </html>

@@ -15,41 +15,29 @@ class UserController extends Controller
 
         $this->display('user_info');
     }
+
+
     public function changePwd(){
         if(IS_POST){
-//             dump(I('post.'));
-            $member = D('Member');
-
-            $rule = array(
-                array('password','require','密码不能为空'),
-                array('newPwd','require','新密码不能为空'),
-                array('rePwd','require','确认密码不能为空'),
-                array('rePwd','newPwd','两次密码不一致',0,'confirm'),
-            );
-            if($member->validate($rule)->create(I('post.'))){
-                $id = session('mid');
-                $password = md5(trim(I('post.password')));
-
-                $pwd=M('member')->where("id=$id")->find();
-                    if ($pwd['password']==$password){
-                        $where['id'] = $id;
-                        $where['password'] = $password;
-                        if(M('Member')->where($where)->data(array('password'=>md5(I('POST.newPwd'))))->save()){
-                            $this->success('更改成功',U('Home/User/user_info'));
-                        }else{
-                            $this->error('更改失败');
-                        }
+            $password = md5(trim(I('post.password')));
+            $newPwd = md5(trim(I('post.newPwd')));
+            $rePwd = md5(trim(I('post.rePwd')));
+            $id=session('mid');
+            $member = D('Member')->where("id=$id")->find();
+            if($password == $member['password']){
+                if($newPwd == $rePwd){
+                    $where['id'] = $id;
+                    $where['password'] = $password;
+                    if(M('Member')->where($where)->data(array('password'=>md5(I('POST.newPwd'))))->save()){
+                        $this->ajaxReturn(['status'=>'ok','msg'=>'更改成功','url'=>U('Home/User/user_info')]);
                     }else{
-                        $errors['password'] = '原密码错误';
-                        $this->assign('errors',$errors);
-                        $this->display('user_info_mima');
+                        $this->ajaxReturn(['status'=>'error','msg'=>'更改失败']);
                     }
-
+                }else{
+                    $this->ajaxReturn(['status'=>'error','msg'=>'两次密码输入不一致']);
+                }
             }else{
-                $errors = $member->getError();
-                $this->assign('data',I('post'));
-                $this->assign('errors',$errors);
-                $this->display('user_info_mima');
+                $this->ajaxReturn(['status'=>'error','msg'=>'原密码错误']);
             }
         }else{
             $this->display('user_info_mima');
@@ -100,6 +88,10 @@ class UserController extends Controller
 
     }
     public function resume(){
+        $mid = session('mid');
+        $resume = M('Resume')->where("mid=$mid")->select();
+
+        $this->assign('resume',$resume);
             $this->display('user_myresume');
     }
 
@@ -115,29 +107,22 @@ class UserController extends Controller
                 array('selfDescription','require','请填写自我描述'),
             );
             if($resume->validate($rule)->create(I('post'))){
-                $data['mid']=session('mid');
-                $data['sex']=I('post.sex');
-                $data['degree']=I('post.degree');
-                $data['positionStyle']=I('post.positionStyle');
-                $data['expectPosition']=I('post.expectPosition');
-                $data['companyTime']=I('post.companyTime');
-                $data['expectSalary']=I('post.expectSalary');
-                $data['expectCity']=I('post.expectCity');
-                $data['tel']=I('post.tel');
-                $data['workYear']=I('post.workYear');
-                $data['educationYear']=I('post.educationYear');
-                $data['professionalJn']=I('post.professionalJn');
-                $data['selfDescription']=I('post.selfDescription');
+                $data = I('post.');
                 $data['add_time']=time();
-                if(M('Resume')->where('mid=$data["mid"]')->find()){
-
-                }else{
+                $data['mid'] = session('mid');
+//                if($resume = M('Resume')->where("mid={$data['mid']}")->find()){
+//                    if(M('Resume')->where("mid={$data["mid"]}")->data($data)->save()){
+//                        $this->ajaxReturn(['msg'=>'保存成功','status'=>'ok']);
+//                    }else{
+//                        $this->ajaxReturn(['msg'=>'保存失败','status'=>'error']);
+//                    }
+//                }else{
                     if(M('Resume')->add($data)){
                         $this->ajaxReturn(['msg'=>'保存成功','status'=>'ok']);
                     }else{
                         $this->ajaxReturn(['msg'=>'保存失败','status'=>'error']);
                     }
-                }
+//                }
 
             }else{
                 $errors = $resume->getError();
@@ -151,4 +136,66 @@ class UserController extends Controller
 
     }
 
-}
+
+    public function edit($id)
+    {
+
+
+        if(IS_POST){
+            $id = I('post.id');
+            $resume = D('Resume');
+            $rule = array(
+                array('expectWork','require','请填写期望工作地点'),
+                array('tel','require','请填写联系电话'),
+                array('workYear','require','请填写工作经历'),
+                array('educationYear','require','请填写教育经历'),
+                array('professionalJn','require','请填写专业技能'),
+                array('selfDescription','require','请填写自我描述'),
+
+            );
+            if($resume->validate($rule)->create(I('post.'))){
+//             M('Resume')->where("id=$id")->find();
+                $data=I('post.');
+                if(M('Resume')->where("id=$id")->data($data)->save()){
+                    $this->ajaxReturn(['status'=>'ok','url'=>U('Home/User/resume')]);
+                }else{
+                    $this->ajaxReturn(['status'=>'error']);
+                }
+
+
+            }else{
+                $errors = $resume->getError();
+                $this->assign( 'data',I('post.') );
+                $this->assign( 'errors',$errors );
+                $this->display('user_myresume_edit');
+            }
+        }else{
+
+            $resume = M('Resume')->where("id=$id")->find();
+            $this->assign('resume', $resume);
+
+            $this->display('user_myresume_edit');
+        }
+
+
+    }
+
+
+        public function delete($id){
+                if(IS_AJAX){
+                   if(M('Resume')->where("id=$id")->delete()){
+                       $this->ajaxReturn(['status'=>'ok']);
+                   }else{
+                       $this->ajaxReturn(['status'=>'error']);
+                   }
+                }else{
+                    $this->display('user_myresume');
+                }
+        }
+
+
+
+
+    }
+
+
