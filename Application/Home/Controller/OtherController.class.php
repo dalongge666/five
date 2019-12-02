@@ -12,9 +12,11 @@ class OtherController extends ShareController
     }
     //新闻列表
     public function news(){
-
+        $this -> display('newslist');
     }
     //新闻详情
-    public function news_xq 
+    public function news_xq(){
+        $this -> display('news_xq');
+    }
 
 }

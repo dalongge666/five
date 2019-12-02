@@ -46,12 +46,13 @@
 	<!-- 消息 -->
 	<div class="zy_content zy_msg bgwh">
 		<ul>
-			<li>
-				<a href="../../../../index.php"><h3>您收到“圆圆”的求职申请<i></i></h3><span>03-25</span></a>
-			</li>
-			<li>
-				<a href="../../../../index.php"><h3>您收到“李丽丽”的求职申请<i></i></h3><span>03-20</span></a>
-			</li>
+			<if condition="!session('?mid')">
+			<else />
+				<li>
+					<a href=""><h3>您收到“”的求职申请<i></i></h3><span>shijian</span></a>
+				</li>
+			</if>
+
 		</ul>
 	</div>
 

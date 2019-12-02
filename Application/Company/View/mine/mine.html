@@ -35,60 +35,125 @@
 	<div class="zy_content zy_vipbox">
 		<div class="vip_head mb6">
 			<div class="head pb10">
-				<i><img src="/Public/home/images/common_img/man.png"></i>
-				<span>js代码（www.jsdaima.com）</span>
-				<h2>XX科技集团有限公司</h2>
+				<if condition="session('?mid')">
+					<i><img src="__IMAGE__/{$com.logo}"></i>
+					<else />
+					<i><img src="/Public/home/images/pic03.jpg"></i>
+				</if>
+
+				<span>{$com.website}</span>
+
+				<if condition="session('?mid')">
+					<h2>{$com.companyName}</h2>
+					<else />
+					<h2>游客</h2>
+				</if>
 				<!-- <div class="state"><em class="on">正找工作</em><em>不找工作</em></div> -->
 			</div>
-			<div class="exit">退出</div>
+			<if condition="!session('?mid')">
+				<div class="exit" style="width: 70px;"><a href="{:U('Home/Login/login')}">登录</a>|<a href="{:U('Home/Login/register')}">注册</a></div>
+			<else />
+				<div class="exit"><a href="{:U('Home/Login/logout')}">退出</a></div>
+			</if>
 		</div>
-		<div class="vip_menu">
+			<div class="vip_menu">
 			<ul class="mb6">
 				<li>
-					<a href="{:U('Company/Mine/modifyInfo')}">
-						<img src="/Public/home/images/common_img/vip_icon_01.png">
-						<span>资料设置</span>
-					</a>
+					<if condition="!session('?mid')">
+						<a href="{:U('Home/Login/login')}">
+							<img src="/Public/home/images/common_img/vip_icon_01.png">
+							<span>资料设置</span>
+						</a>
+						<else />
+						<a href="{:U('Company/Mine/modifyInfo')}">
+							<img src="/Public/home/images/common_img/vip_icon_01.png">
+							<span>资料设置</span>
+						</a>
+					</if>
+
 				</li>
 				<li>
-					<a href="../../../../index.php">
-						<img src="/Public/home/images/common_img/vip_icon_02.png">
-						<span>发布招聘/项目</span>
-					</a>
+					<if condition="!session('?mid')">
+						<a href="{:U('Home/Login/login')}">
+							<img src="/Public/home/images/common_img/vip_icon_02.png">
+							<span>发布招聘/项目</span>
+						</a>
+					<else />
+						<a href="../../../../index.php">
+							<img src="/Public/home/images/common_img/vip_icon_02.png">
+							<span>发布招聘/项目</span>
+						</a>
+					</if>
 				</li>
 				<li>
-					<a href="../../../../index.php">
-						<img src="/Public/home/images/common_img/vip_icon_03.png">
-						<span>我的发布</span>
-					</a>
+					<if condition="!session('?mid')">
+						<a href="{:U('Home/Login/login')}">
+							<img src="/Public/home/images/common_img/vip_icon_03.png">
+							<span>我的发布</span>
+						</a>
+						<else />
+						<a href="../../../../index.php">
+							<img src="/Public/home/images/common_img/vip_icon_03.png">
+							<span>我的发布</span>
+						</a>
+					</if>
 				</li>
 				<li>
-					<a href="../../../../index.php">
-						<img src="/Public/home/images/common_img/vip_icon_04.png">
-						<span>收到的求职简历</span>
-						<em class="n r gr">12</em>
-					</a>
+					<if condition="!session('?mid')">
+						<a href="{:U('Home/Login/login')}">
+							<img src="/Public/home/images/common_img/vip_icon_04.png">
+							<span>收到的求职简历</span>
+						</a>
+						<else />
+						<a href="../../../../index.php">
+							<img src="/Public/home/images/common_img/vip_icon_04.png">
+							<span>收到的求职简历</span>
+							<em class="n r gr">12</em>
+						</a>
+					</if>
 				</li>
 				<li>
-					<a href="{:U('Company/Rc/myorder')}">
-						<img src="/Public/home/images/common_img/vip_icon_05.png">
-						<span>我的定制</span>
-					</a>
+					<if condition="!session('?mid')">
+						<a href="{:U('Home/Login/login')}">
+							<img src="/Public/home/images/common_img/vip_icon_05.png">
+							<span>我的定制</span>
+						</a>
+						<else />
+						<a href="{:U('Company/Rc/myorder')}">
+							<img src="/Public/home/images/common_img/vip_icon_05.png">
+							<span>我的定制</span>
+						</a>
+					</if>
 				</li>
 				<li>
-					<a href="../../../../index.php">
-						<img src="/Public/home/images/common_img/vip_icon_06.png">
-						<span>我的收藏</span>
-					</a>
+					<if condition="!session('?mid')">
+						<a href="{:U('Home/Login/login')}">
+							<img src="/Public/home/images/common_img/vip_icon_06.png">
+							<span>我的收藏</span>
+						</a>
+						<else />
+						<a href="../../../../index.php">
+							<img src="/Public/home/images/common_img/vip_icon_06.png">
+							<span>我的收藏</span>
+						</a>
+					</if>
 				</li>
 			</ul>
 			<ul>
 				<li>
-					<a href="../../../../index.php">
-						<img src="/Public/home/images/common_img/vip_icon_07.png">
-						<span>我的人才库</span>
-						<em class="n r g9">需开通入驻</em>
-					</a>
+					<if condition="!session('?mid')">
+						<a href="{:U('Home/Login/login')}">
+							<img src="/Public/home/images/common_img/vip_icon_07.png">
+							<span>我的人才库</span>
+							<em class="n r g9">需开通入驻</em>
+						</a>
+						<else />
+						<a href="../../../../index.php">
+							<img src="/Public/home/images/common_img/vip_icon_07.png">
+							<span>我的人才库</span>
+							<em class="n r g9">需开通入驻</em>
+						</a>
+					</if>
 				</li>
 			</ul>
 		</div>
@@ -103,7 +168,10 @@
 	<div class="footer_box">
 		<div class="footer">
 			<h2>
-				<a>XX科技集团有限公司</a><!-- 
+				<if condition="session('?mid')">
+					<a>{$com.companyName}</a>
+				</if>
+				<!--
 			 --><a href="../web_ruzhu/apply_index.html">同行入驻</a>
 			</h2>
 			<h3>
