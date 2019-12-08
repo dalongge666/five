@@ -25,6 +25,7 @@
 <script type="text/javascript" src="/Public/home/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/swiper.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/public.js"></script>
+<script type="text/javascript" src="/Public/home/js/layer/layer.js"></script>
 
 </head>
 <body>
@@ -113,21 +114,29 @@
 
 		<!-- 详情底部栏 -->
 		<div class="xq_foot dis_flex">
-			<a onclick="img_hs(this)" is_show="true"><img src="/Public/home/images/common_img/zy_icon_sc.png"><span>收藏</span></a>
+			<a onclick="img_hs(this)" class="collect_position" id="{$detail.id}" is_show="true"><img src="/Public/home/images/common_img/zy_icon_sc.png"><span>收藏</span></a>
 			<a href="tel:18888899888"><img src="/Public/home/images/common_img/zy_icon_tel.png"><span>电话</span></a>
-			<div class="apply">申请职位</div>
+			<div class="apply" >申请职位</div>
 		</div>
 
 		<!-- 选择简历投递 -->
 	    <div class="resume_box">
 	    	<div class="resume">
-	    		<h2>申请职位</h2>
-	    		<span class="close">×</span>
-	    		<div>
-	    			<label><input type="radio" name="resume" checked="checked"><span>求职 呼叫中心客服</span></label>
-	    			<label><input type="radio" name="resume"><span>求职 行政人事</span></label>
-	    		</div>
-	    		<button class="zy_butn">发送简历</button>
+				<form action="" id="sendResumeForm" method="post">
+					<h2 >申请职位</h2>
+					<span class="close">×</span>
+					<div>
+						<input type="hidden" name="pid" value="{$detail.id}">
+						<input type="hidden" name="cmid" value="{$detail.cmid}">
+
+						<foreach name="myResume" item="v" key="k">
+							<label><input type="radio" name="rid" value="{$v.id}" checked="checked"><span style="display:inline-block;margin:3px 0;font-size: 1.2em">求职：{$v.expectPosition}</span></label>
+						</foreach>
+
+					</div>
+					<button class="zy_butn" id="sendResume">发送简历</button>
+				</form>
+
 	    	</div>
 
 	    </div>
@@ -172,25 +181,120 @@
 
 </body>
 <script type="text/javascript">
+
+	//发送简历
+	$('#sendResume').click(function () {
+		if('{:session("?mid")}'){
+			$.post("{:U('Home/Position/sendResume')}",$('#sendResumeForm').serialize(),function (data) {
+				if(data.status==1){
+					layer.open({
+						content:data.info,
+						time:1.5,
+						skin:'msg',
+						style: 'background-color:#f2b300; color:#fff; border:none;',
+						end:function () {
+							location.reload();
+						}
+					});
+				}else{
+					layer.open({
+						content:data.info,
+						time:1.5,
+						skin:'msg',
+						style: 'background-color:#f20000; color:#fff; border:none;',
+						end:function () {
+							location.reload();
+						}
+					});
+				}
+			},'json');
+		}else{
+			location = '{:U("Home/Login/login")}'
+		}
+		return false;
+	});
+
+
+	if('{$collect==1}'){
+
+		$('.collect_position').attr('is_show','true').find('img').attr('src','/Public/home/images/common_img/zy_icon_sc01.png');
+		$('.collect_position').find('span').text('已收藏').css('color','rgb(242, 179, 0)');
+	}else{
+		$('.collect_position').attr('is_show','false').find('img').attr('src','/Public/home/images/common_img/zy_icon_sc.png');
+		$('.collect_position').find('span').text('收藏');
+	}
+
 	function img_hs(obj){
-		var mr='../images/common_img/zy_icon_sc.png';
-		var sh='../images/common_img/zy_icon_sc01.png';
+		if('{:!session("?mid")}'){
+			location = '{:U("Home/Login/login")}'
+		}
+		var mr='/Public/home/images/common_img/zy_icon_sc.png';
+		var sh='/Public/home/images/common_img/zy_icon_sc01.png';
 		var bool=$(obj).attr("is_show");
 		if (bool=="true") {
-			$(obj).find("img").attr("src",sh);
-			$(obj).attr("is_show",'false');
-			$(obj).find("span").css("color","#f2b300").text("已收藏")
+			$.get("{:U('Home/Position/qx_collect')}",{pid:$(obj).attr('id')},function (data) {
+				if(data.status==1){
+					layer.open({
+						content:data.info,
+						time:1.5,
+						skin:'msg',
+						style: 'background-color:#f2b300; color:#fff; border:none;',
+						end:function () {
+							$(obj).find("img").attr("src",mr);
+							$(obj).attr("is_show",'false');
+							$(obj).find("span").css("color","#333").text("收藏")
+						}
+					});
+
+				}else{
+					layer.open({
+						content:data.info,
+						time:1,
+						skin:'msg',
+						style: 'background-color:#f20000; color:#fff; border:none;'
+					});
+				}
+			},'json');
+
 		}else{
-			$(obj).find("img").attr("src",mr);
-			$(obj).attr("is_show",'true');
-			$(obj).find("span").css("color","#333").text("收藏")
+			$.get("{:U('Home/Position/collect')}",{pid:$(obj).attr('id')},function (data) {
+				if(data.status==1){
+					layer.open({
+						content:data.info,
+						time:2,
+						skin:'msg',
+						style: 'background-color:#f2b300; color:#fff; border:none;',
+						end:function () {
+
+							$(obj).find("img").attr("src",sh);
+							$(obj).attr("is_show",'true');
+							$(obj).find("span").css("color","#f2b300").text("已收藏")
+						}
+					});
+
+				}else{
+					layer.open({
+						content:data.info,
+						time:2,
+						skin:'msg',
+						style: 'background-color:#f20000; color:#fff; border:none;'
+
+					});
+				}
+			},'json');
+
 		}
 	}
 </script>
 <script type="text/javascript">
 	$(function(){
 		$(".apply").mousedown(function(){
-			$(".resume_box").show()
+			if('{:session("?mid")}'){
+				$(".resume_box").show()
+			}else{
+				location = '{:U("Home/Login/login")}'
+			}
+
 		})
 		$(".close").mousedown(function(){
 			$(".resume_box").hide();

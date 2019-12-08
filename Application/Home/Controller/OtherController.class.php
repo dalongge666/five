@@ -15,7 +15,9 @@ class OtherController extends ShareController
         $this -> display('newslist');
     }
     //新闻详情
-    public function news_xq(){
+    public function news_xq($id){
+        $detail = M('news') -> where("id=$id") -> find();
+        $this -> assign('detail',$detail);
         $this -> display('news_xq');
     }
 

@@ -120,7 +120,7 @@ class PartnerController extends ShareController
         }else{
             $member = M('member') -> find(session('mid'));
             $this -> assign('member',$member);
-            $this -> display('user/user_mypart');
+            $this -> display('User/user_mypart');
         }
 
     }

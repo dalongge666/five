@@ -64,8 +64,8 @@
 				</div>
 				<div class="form_line sexbox bbd">
 	                <span>性别</span>
-	                <label><input type="radio" name="sex" checked="checked">男</label>
-	                <label><input type="radio" name="sex">女</label>
+	                <label><input type="radio" name="sex" checked="checked" value="男">男</label>
+	                <label><input type="radio" name="sex" value="女">女</label>
 	            </div>
 	            <div class="form_line">
 					<label><span>年龄</span><input type="text" name="age" value="{$member.year}" placeholder="请输入年龄"></label>
@@ -249,6 +249,7 @@
 						content:data.info,
 						time:2,
 						skin:'msg',
+						style: 'background-color:#09C1FF; color:#fff; border:none;',
 						end:function () {
 							location = data.url;
 						}
@@ -259,6 +260,7 @@
 					   content:data.info,
 					   time:2.5,
 					   skin:'msg',
+					   style: 'background-color:#09C1FF; color:#fff; border:none;',
 					   end:function () {
 						   location.reload();
 					   }
