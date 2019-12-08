@@ -25,6 +25,7 @@
 <script type="text/javascript" src="/Public/home/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/swiper.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/public.js"></script>
+	<script type="text/javascript" src="/Public/home/js/layer/layer.js"></script>
 
 </head>
 <body>
@@ -33,7 +34,7 @@
 		<div class="one" href="javascript:" onclick="history.back();"><img src="/Public/home/images/back_jt.png"><span>返回</span></div>
 		<h1>消息</h1>
 		<div class="r">
-	    	<a>清空消息</a>
+	    	<a href="{:U('Company/Msg/delAll')}" id="del">清空消息</a>
 	    </div>
 	</div>
 </header>
@@ -117,7 +118,22 @@
 	</div>
 	
 </div>
-
-
 </body>
+<script>
+	$('#del').click(function(){
+		var me = this;
+				layer.open({
+					content:'确定要删除吗？',
+					btn:['确定','取消'],
+					yes:function(){
+						$.get($(me).attr('href'),'',function (data) {
+							if(data.status === 1){
+							location = data.url;
+						}
+					})
+			}
+		},'json');
+		return false;
+	})
+</script>
 </html>

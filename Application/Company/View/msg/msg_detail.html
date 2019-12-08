@@ -116,18 +116,18 @@
 </body>
 <script>
 	$('#del').click(function(){
-		$.get($(this).attr('href'),'',function (data) {
-			if(data.status === 1){
-				layer.open({
-					content:'确定要删除吗？',
-					btn:['确定','取消'],
-					yes:function(){
+		var me = this;
+		layer.open({
+			content:'确定要删除吗？',
+			btn:['确定','取消'],
+			yes:function(){
+				$.get($(me).attr('href'),'',function (data) {
+					if(data.status === 1){
 						location = data.url;
 					}
-
 				})
 			}
-		});
+		},'json');
 		return false;
 	})
 </script>

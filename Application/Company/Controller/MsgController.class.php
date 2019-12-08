@@ -43,4 +43,17 @@ class MsgController extends Controller {
         }
 
     }
+    //清空消息
+    public function delAll()
+    {
+        if (IS_AJAX) {
+            $id = session('mid');
+            $cid = M('company')->where("mid = $id")->getField('id');
+            if (M('company_resume')->where("cmid = $cid")->delete()) {
+                $this->success('删除成功', U('Company/Msg/list'));
+            } else {
+                $this->error('删除失败', U('Company/Msg/list'));
+            }
+        }
+    }
 }
