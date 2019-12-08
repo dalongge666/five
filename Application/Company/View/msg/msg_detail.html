@@ -25,52 +25,46 @@
 <script type="text/javascript" src="/Public/home/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/swiper.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/public.js"></script>
+<script type="text/javascript" src="/Public/home/js/layer/layer.js"></script>
 
 </head>
 <body>
 <header class="zy_search_top_box scroll_fix">
 	<div class="zy_title_top fix">
 		<div class="one" href="javascript:" onclick="history.back();"><img src="/Public/home/images/back_jt.png"><span>返回</span></div>
-		<h1>消息</h1>
-		<div class="r">
-	    	<a>清空消息</a>
-	    </div>
+		<h1>消息详情</h1>
 	</div>
-</header>
+</header>	
 
 <!-- 占位框 -->
-<div class="top_zhanwei_box"></div>
+<div class="top_zhanwei_box"></div>		
 
 <!-- 内容框 -->
 <div class="zy_module-content">
 	<!-- 消息 -->
 	<div class="zy_content zy_msg bgwh">
-		<ul>
-			<if condition="!session('?mid')">
-
-			<else />
-				<volist name="res" id="v" key="k" empty="暂时没有数据">
-					<li>
-						<a href="{:U('Company/Msg/msg_detail',array('id'=>$v['id']))}">
-							<h3 style="width:230px;">您收到 "<b>{$v.username}</b>" 的求职申请<i></i></h3>
-							<div>{:date('Y-m-d H:i:s',$v['add_time'])}</div>
-						</a>
-					</li>
-				</volist>
-			</if>
-		</ul>
+		<div class="msg_xq p_2">
+			<div class="txt">
+				<div class="fix"><span class="l g9">标题：</span><p class="l g3">收到“<b>{$res.username}</b>”的求职申请</p></div>
+				<div class="fix"><span class="l g9">内容：</span><p class="l g3">{$res.companyName}，您好，您发布的“<b>{$res.positionName}</b>”职位收到“<b>{$res.username}</b>”的求职申请，请注意查看！</p></div>
+			</div>
+			<div class="btn">
+				<a href="{:U('Company/Rc/rc_detail',array('id'=>$res['id']))}">查看简历</a>
+				<a href="{:U('Company/Msg/msg_delete',array('id'=>$res['rcid']))}" id="del">拒绝并删除</a>
+			</div>
+		</div>
 	</div>
-
+	
 	<!-- 返回顶部 -->
 	<div class="go_top">
 		<a class="btn_top"></a>
 	</div>
-
+	
 	<!-- 底部 -->
 	<div class="footer_box">
 		<div class="footer">
 			<h2>
-				<a>XX科技集团</a><!--
+				<a>XX科技集团</a><!-- 
 			 --><a href="../web_ruzhu/apply_index.html">同行入驻</a>
 			</h2>
 			<h3>
@@ -120,4 +114,21 @@
 
 
 </body>
+<script>
+	$('#del').click(function(){
+		$.get($(this).attr('href'),'',function (data) {
+			if(data.status === 1){
+				layer.open({
+					content:'确定要删除吗？',
+					btn:['确定','取消'],
+					yes:function(){
+						location = data.url;
+					}
+
+				})
+			}
+		});
+		return false;
+	})
+</script>
 </html>

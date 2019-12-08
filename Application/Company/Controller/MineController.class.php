@@ -10,6 +10,10 @@ class MineController extends Controller {
         if($id = session('mid')){
             $com = M('company') ->where("mid = $id") ->find();
             $this -> assign('com',$com);
+
+            $res = M('company') -> where("mid = $id") ->getField('id');
+            $num = M('company_resume') -> where("cmid =$res" ) -> count('id');
+            $this -> assign('num',$num);
         }
         $this->display('mine/mine');
     }
