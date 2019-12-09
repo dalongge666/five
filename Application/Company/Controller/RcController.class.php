@@ -49,12 +49,15 @@ class RcController extends HSController {
         $this -> display('index/zrc/rc_detail');
     }
     //邀请面试
-    public function invite($id){
+    public function invite($id,$rid){
          if(session('mid')){
              if(IS_POST){
                  $data['content'] = I('content');
                  $data['add_time'] = time();
-                 $data['aid'] = session('mid');
+                 $mid = session('mid');
+                 $cmid = M('company') -> where("mid=$mid") -> getField('id');
+                 $data['aid'] = $cmid;
+                 $data['rid'] = $rid;
                  $data['mid'] = $id;
 
                  if(M('mail') -> add($data)){

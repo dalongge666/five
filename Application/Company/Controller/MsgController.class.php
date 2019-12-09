@@ -4,18 +4,20 @@ use Think\Controller;
 class MsgController extends Controller {
     //求职消息
     public function list(){
-        //查找求职
-        $id = session('mid');
-        $res = M()->table('my_resume as r')
-            ->join('left join my_company_resume as cr on cr.rid = r.id')
-            ->join('left join my_member as m on m.id = r.mid')
-            ->join('left join my_company as c on c.id = cr.cmid')
-            ->where("c.mid = $id")
-            ->field('r.*,m.username')
-            ->select();
+        if(session('mid')){
+            //查找求职
+            $id = session('mid');
+            $res = M()->table('my_resume as r')
+                ->join('left join my_company_resume as cr on cr.rid = r.id')
+                ->join('left join my_member as m on m.id = r.mid')
+                ->join('left join my_company as c on c.id = cr.cmid')
+                ->where("c.mid = $id")
+                ->field('r.*,m.username')
+                ->select();
 
+            $this -> assign('res',$res);
+        }
 
-        $this -> assign('res',$res);
         $this->display('msg/msg');
     }
     //求职消息详情

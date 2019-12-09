@@ -129,7 +129,7 @@
 			}
 		</script>
 		<!-- 邀请面试box -->
-		<form action="{:U('Company/Rc/invite',array('id'=>$res['mid']))}" method="post">
+		<form action="{:U('Company/Rc/invite',array('id'=>$res['mid'],'rid'=>$res['id']))}" method="post">
 			<div class="resume_box interview_box">
 				<div class="resume">
 					<h2>邀请：<b class="g3">{$res.username}</b></h2>
