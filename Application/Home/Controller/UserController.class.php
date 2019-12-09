@@ -48,42 +48,13 @@ class UserController extends Controller
 
     public function changeInfo(){
         if(IS_POST){
-
-            $config = array(
-                'maxSize' => 1048576,
-                'rootPath' => C('UPLOAD'),
-                'exts' => array('jpg','gif','png','jpeg'),
-                'autoSub' => true,
-                'subName' => array('date','Ym')
-            );
-            $upload = new Upload($config);
-            //判断目录是否存在
-            if(!file_exists($upload->rootPath)){
-                mkdir($upload->rootPath,'777');
-            }
-
-            //上传
-            $info = $upload ->upload();
-            //dump($info);
-            if($info){
-                foreach ($info as $file){
-                    $image = new Image();
-
-                    $filepath = $upload->rootPath . $file['savepath'] . $file['savename'];
-
-                    $filepath40 = $upload->rootPath . $file['savepath'] .'40_' . $file['savename'];
-                    //缩放
-                     $image -> open($filepath) -> thumb(40,40) -> save($filepath40);
-
-                }
-            }else{
-                $upload->getError();
-            }
-
-
+//            $data = I('post.');
+//            if(){
+//
+//            }
 
         }else{
-        $this->display('user_info_person');
+            $this->display('user_info_person');
         }
 
     }
@@ -140,7 +111,6 @@ class UserController extends Controller
     public function edit($id)
     {
 
-
         if(IS_POST){
             $id = I('post.id');
             $resume = D('Resume');
@@ -192,10 +162,26 @@ class UserController extends Controller
                     $this->display('user_myresume');
                 }
         }
+            //申请记录
+            public function myrecord(){
 
 
+                 $this->display('user_myrecord');
+            }
+
+        //收到面试邀请
+        public function msyq(){
 
 
-    }
+            $this->display('user_msyq');
+        }
+        //我的培训
+        public function mytrain(){
+
+
+            $this->display('user_mytrain');
+        }
+
+}
 
 

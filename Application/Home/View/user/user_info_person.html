@@ -26,6 +26,7 @@
 <script type="text/javascript" src="/Public/home/js/swiper.min.js"></script>
 <script type="text/javascript" src="/Public/home/js/public.js"></script>
 	<script src="/Public/home/js/preview/preview.js" type="text/javascript"></script>
+	<script type="text/javascript" src="/Public/home/js/jquery.validate/jquery.validate.min.js"></script>
 	<style>
 		.preview-label{
 			width: 70px;
@@ -38,6 +39,13 @@
 		div.headup{
 			width: 50px;
 		}
+
+		div.error{
+			color: #F2B300;
+			text-indent: 7em;
+			font-size: 1em;
+		}
+
 	</style>
 </head>
 <body class="bgwh">
@@ -54,7 +62,7 @@
 <!-- 内容框 -->
 <div class="zy_module-content zy_vip_conbox">	
 	<div class="vip_user_info_mima vip_user_info_person">
-		<form action="" method="post" enctype="multipart/form-data">
+		<form id="form1" action="" method="post" enctype="multipart/form-data">
 			<div class="headup form_line" >
 						<label for="pic" class="preview-label">头像上传</label>
 						<input type="file" id="pic" name="pic" onchange="preview(this,10,10)" class="preview-input">
@@ -67,22 +75,67 @@
                 <label><input type="radio" name="sex" checked="checked" >男</label>
                 <label><input type="radio" name="sex">女</label>
             </div>
-            <div class="form_line"><label><span>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄</span><input type="text" name="" placeholder="请填写年龄"></label></div>
-            <div class="form_line tel"><label><span>联系电话</span><input type="text" name="" value="18988999988"><em>已认证</em></label></div>
+            <div class="form_line"><label><span>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄</span><input type="text" name="year" placeholder="请填写年龄"></label></div>
+            <div class="form_line tel"><label><span>联系电话</span><input type="text" name="tel" placeholder="请填写手机号码" value=""></label></div>
             
             <button class="zy_butn bord_3">确认修改</button>   
 		</form>
-		
 	</div>
 </div>
 <script>
-	$('.zy_butn').click(function(){
-		$.post('{:U("Home/User/changeInfo")}',$('form').serialize(),function(data){
-			layer.open({
-				content: data.msg
-				,btn: '确定'
-			});
-		})
+	var c = $('#form1').validate({
+		rules:{
+
+			year:{
+				required:true,
+				minlength:1,
+				maxlength:2,
+			},
+			tel:{
+				required:true,
+				tel:true
+			}
+
+		},
+
+		messages:{
+
+			year:{
+				required:'年龄不能为空',
+				minlength:'年龄最少为一个字符',
+				maxlength:'年龄最多为两个字符'
+			},
+
+			tel:{
+				required:'手机号不能为空',
+				tel:'手机号格式不正确'
+			}
+
+		},
+		//显示错误标签
+		errorElement:"div",
+		success:function(div){
+			div.addClass("ok").html('验证格式正确')
+		},
+		validClass:"ok"
+
+	});
+	//自定义手机号码规则
+	jQuery.validator.addMethod("tel", function(value, element) {
+		var mobileReg = /^1[34578][0-9]{9}$/;
+		return this.optional(element) || (mobileReg.test(value));
+	},"请您正确填写您的手机号码");
+
+	$('#form1').submit(function(){
+			$.post('{:U("Home/User/changeInfo")}', $(this).serialize(), function (data) {
+				// layer.open({
+				// 	content: data.msg
+				// 	,btn: '确定'
+				// });
+			},'json');
+
+
+		return false
 	})
 </script>
 </body>

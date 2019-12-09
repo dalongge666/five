@@ -37,7 +37,7 @@
 		<div class="vip_head mb6">
 			<div class="head pt5">
 				<i><img src="/Public/home/images/common_img/woman.png"></i>
-				<span>普通人才</span>
+<!--				<span>普通人才</span>-->
 				<h2>{:session('mname')}</h2>
 				<!-- 是否找工作 -->
 				<div class="state rel"><em class="on">正找工作</em><em>不找工作</em><b></b></div>
@@ -81,20 +81,20 @@
 					</a>
 				</li>
 				<li>
-					<a href="user_myrecord.html">
+					<a href="{:U('Home/User/myrecord')}">
 						<img src="/Public/home/images/common_img/vip_icon_03.png">
 						<span>我的申请记录</span>
 					</a>
 				</li>
 				<li>
-					<a href="user_msyq.html">
+					<a href="{:U('Home/User/msyq')}">
 						<img src="/Public/home/images/common_img/vip_icon_04.png">
 						<span>收到的面试邀请</span>
 						<em class="n r gr">12</em>
 					</a>
 				</li>
 				<li>
-					<a href="user_mytrain.html">
+					<a href="{:U('Home/User/mytrain')}">
 						<img src="/Public/home/images/common_img/vip_icon_05.png">
 						<span>我的培训</span>
 					</a>

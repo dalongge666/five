@@ -141,7 +141,8 @@
 				required:true
 			},
 			tel:{
-				required:true
+				required:true,
+				tel:true
 			},
 			workYear:{
 				required:true
@@ -162,7 +163,8 @@
 				required:'期望工作地点不能为空'
 			},
 			tel:{
-				required:'联系电话不能为空'
+				required:'联系电话不能为空',
+				tel:'手机格式不正确'
 			},
 			workYear:{
 				required:'工作经历不能为空'
@@ -184,6 +186,13 @@
 		},
 		validClass: "ok"
 	});
+
+	//自定义手机号码规则
+	jQuery.validator.addMethod("tel", function(value, element) {
+		var mobileReg = /^1[34578][0-9]{9}$/;
+		return this.optional(element) || (mobileReg.test(value));
+	},"请您正确填写您的手机号码");
+
 
 	$('#form1').submit(function(){
 		if(a.form()){
