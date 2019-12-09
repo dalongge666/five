@@ -101,7 +101,7 @@ class UserController extends Controller
             $rule = array(
                 array('expectWork','require','请填写期望工作地点'),
                 array('tel','require','请填写联系电话'),
-                array('workYear','require','请填写工作经历'),
+                array('workExperience','require','请填写工作经历'),
                 array('educationYear','require','请填写教育经历'),
                 array('professionalJn','require','请填写专业技能'),
                 array('selfDescription','require','请填写自我描述'),
@@ -147,7 +147,7 @@ class UserController extends Controller
             $rule = array(
                 array('expectWork','require','请填写期望工作地点'),
                 array('tel','require','请填写联系电话'),
-                array('workYear','require','请填写工作经历'),
+                array('workExperience','require','请填写工作经历'),
                 array('educationYear','require','请填写教育经历'),
                 array('professionalJn','require','请填写专业技能'),
                 array('selfDescription','require','请填写自我描述'),

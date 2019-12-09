@@ -214,8 +214,6 @@
 		return false
 	});
 
-
-
 	$('#yzmBtn').click(function () {
 		getMsg();
 	});
@@ -225,25 +223,21 @@
 		var mobile=$('input[name="tel"]').val();
 		var mobileReg = /^1[34578][0-9]{9}$/;
 		if(mobileReg.test(mobile)){
-
 			$.post('{:U("sendMsg")}', {mobile:mobile,_token:$('input[name="__hash__"]').val()}, function(msg) {
-				// console.log(msg);
 				if(msg === '提交成功'){
 					RemainTime();
 				}else{
-					 // layer.tips( msg,'#yzmBtn',{tips:[3,'#FF7113']} );
+
 					layer.open({
 						content:msg
 						,skin: 'msg'
 						,time: 2 //2秒后自动关闭
 					});
-					// alert('aa');
+
 				}
 			})
 		}else{
-			// layer.tips('请输入正确的手机号码','#tel', {
-			// 	tips:[3,'#bb0000']
-			// });
+
 			layer.open({
 				content: '请输入正确手机号'
 				,skin: 'msg'
