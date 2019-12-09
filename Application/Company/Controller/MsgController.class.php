@@ -12,9 +12,16 @@ class MsgController extends Controller {
                 ->join('left join my_member as m on m.id = r.mid')
                 ->join('left join my_company as c on c.id = cr.cmid')
                 ->where("c.mid = $id")
-                ->field('r.*,m.username')
+                ->field('r.*,m.username,cr.active')
                 ->select();
 
+            //查未读的数量
+            $cmid = M('company')->where("mid = $id") -> getField('id');
+            $where['cmid'] = $cmid;
+            $where['active'] = 1;
+            $num = M('company_resume') -> where($where) ->count('id');
+
+            $this ->assign('num',$num);
             $this -> assign('res',$res);
         }
 
@@ -22,6 +29,9 @@ class MsgController extends Controller {
     }
     //求职消息详情
     public function msg_detail($id){
+        //变为已读
+        M('company_resume') -> where("rid = $id") -> save(['active'=>2]);
+
         $res = M()->table('my_resume as r')
             ->join('left join my_member as m on m.id = r.mid')
             ->join('left join my_company_resume as cr on cr.rid = r.id')

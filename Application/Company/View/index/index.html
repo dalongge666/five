@@ -344,7 +344,7 @@ End Preloader
 	<!-- 底部导航 -->
 	<div class="foot_menu">
 		<ul>
-			<li class="cur info">
+			<li class="cur">
 				<a href="{:U('Company/Index/list')}" >
 					<i><img src="/Public/home/images/menu_icon01_r.png"></i>
 					<span>首页</span>
@@ -356,11 +356,13 @@ End Preloader
 					<span>发布</span>
 				</a>
 			</li>
-			<li>
+			<li class="info">
 				<a href="{:U('Company/Msg/list')}">
 					<i><img src="/Public/home/images/menu_icon03.png"></i>
 					<span>消息</span>
-					<em></em>
+					<if condition="$num gt 0">
+						<em></em>
+					</if>
 				</a>
 			</li>
 			<li>

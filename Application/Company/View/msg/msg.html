@@ -53,7 +53,11 @@
 				<volist name="res" id="v" key="k" empty="暂时没有数据">
 					<li>
 						<a href="{:U('Company/Msg/msg_detail',array('id'=>$v['id']))}">
-							<h3 style="width:230px;">您收到 "<b>{$v.username}</b>" 的求职申请<i></i></h3>
+							<h3 style="width:230px;">您收到 "<b>{$v.username}</b>" 的求职申请
+								<if condition="$v.active eq 1">
+									<i></i>
+								</if>
+							</h3>
 							<div>{:date('Y-m-d H:i:s',$v['add_time'])}</div>
 						</a>
 					</li>
@@ -105,7 +109,10 @@
 				<a href="{:U('Company/Msg/list')}">
 					<i><img src="/Public/home/images/menu_icon03_r.png"></i>
 					<span>消息</span>
-					<em></em>
+					<if condition="$num gt 0">
+						<em></em>
+					</if>
+
 				</a>
 			</li>
 			<li>

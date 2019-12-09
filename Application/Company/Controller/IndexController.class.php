@@ -11,7 +11,16 @@ class IndexController extends HSController {
             ->field('r.*,m.username,m.sex,m.workYear,m.tel,m.year')
             ->limit(5)
             ->select();
+        //查未读的数量
+        $id = session('mid');
+        $cmid = M('company')->where("mid = $id") -> getField('id');
+        $where['cmid'] = $cmid;
+        $where['active'] = 1;
+        $num = M('company_resume') -> where($where) ->count('id');
+
+        $this ->assign('num',$num);
         $this->assign('resume',$resume);
+
         $this->display('index/index');
     }
 

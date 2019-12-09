@@ -42,14 +42,20 @@ class RcController extends HSController {
          $res = M('resume')->alias('r')
                           ->join('__MEMBER__ as m on m.id = r.mid')
                           ->where("r.id =$id")
-                          ->field('r.*,m.*')
+                          ->field('m.*,r.*')
                           ->find();
+
+         if(I('get.rcid')){
+             $res['rcid'] = I('get.rcid');
+         }
+
 
          $this -> assign('res',$res);
         $this -> display('index/zrc/rc_detail');
     }
     //邀请面试
-    public function invite($id,$rid){
+    public function invite(){
+
          if(session('mid')){
              if(IS_POST){
                  $data['content'] = I('content');
@@ -57,8 +63,9 @@ class RcController extends HSController {
                  $mid = session('mid');
                  $cmid = M('company') -> where("mid=$mid") -> getField('id');
                  $data['aid'] = $cmid;
-                 $data['rid'] = $rid;
-                 $data['mid'] = $id;
+                 $data['rid'] = I('post.rid');
+                 $data['mid'] = I('post.id');
+                 $data['rcid'] = I('post.rcid');
 
                  if(M('mail') -> add($data)){
                      $this -> success('发送成功',U('Company/Rc/re_detail'),1);

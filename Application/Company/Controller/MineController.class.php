@@ -14,6 +14,15 @@ class MineController extends Controller {
             $res = M('company') -> where("mid = $id") ->getField('id');
             $num = M('company_resume') -> where("cmid =$res" ) -> count('id');
             $this -> assign('num',$num);
+
+            //查信息未读的数量
+            $id = session('mid');
+            $cmid = M('company')->where("mid = $id") -> getField('id');
+            $where['cmid'] = $cmid;
+            $where['active'] = 1;
+            $num1 = M('company_resume') -> where($where) ->count('id');
+
+            $this ->assign('num1',$num1);
         }
         $this->display('mine/mine');
     }

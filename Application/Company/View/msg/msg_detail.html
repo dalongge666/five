@@ -49,7 +49,7 @@
 				<div class="fix"><span class="l g9">内容：</span><p class="l g3">{$res.companyName}，您好，您发布的“<b>{$res.positionName}</b>”职位收到“<b>{$res.username}</b>”的求职申请，请注意查看！</p></div>
 			</div>
 			<div class="btn">
-				<a href="{:U('Company/Rc/rc_detail',array('id'=>$res['id']))}">查看简历</a>
+				<a href="{:U('Company/Rc/rc_detail',array('id'=>$res['id'],'rcid'=>$res['rcid']))}">查看简历</a>
 				<a href="{:U('Company/Msg/msg_delete',array('id'=>$res['rcid']))}" id="del">拒绝并删除</a>
 			</div>
 		</div>
