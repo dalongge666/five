@@ -52,9 +52,6 @@ class MineController extends Controller {
             $data = I('post.');
 //            $data['logo'] =  $upload->rootPath.$info['logo']['savepath'].$info['logo']['savename'];
 
-
-
-
             $id = session('mid');
 
 
@@ -72,5 +69,46 @@ class MineController extends Controller {
 
             $this -> display('mine/modifyInfo');
         }
+    }
+    //我的收藏
+    public function collection(){
+
+        $this -> display('mine/collection');
+    }
+    //我的发布
+    public function release(){
+        $id = session('mid');
+        //职位招聘遍历
+        $pro = M('position as p')
+            ->join('my_company as c on c.id = p.cmid')
+            ->where("c.mid = $id")
+            ->field('p.*')
+            ->select();
+
+
+        $this -> assign('pro',$pro);
+        //创业项目遍历
+
+        $this -> display('mine/release/myrelease');
+    }
+    //重新发布或者取消发布
+    public function change_release($id,$type){
+
+        if(IS_GET){
+            $tp= $type==1?2:1;
+            $text = $type==1?'取消发布':'重新发布';
+            if(M('position') -> where("id = $id") -> save(['type'=>$tp])){
+                $this -> success($text.'成功');
+            }else{
+                $this -> error($text.'失败');
+            }
+        }
+
+    }
+    //职位招聘详情
+    public function myrelease_detail($id){
+
+
+        $this -> display('mine/release/myrelease_detail');
     }
 }

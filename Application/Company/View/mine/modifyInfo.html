@@ -145,6 +145,7 @@
 				if(data.status === 1){
 					layer.open({
 						content:data.info,
+						skin:'msg',
 						time:1,
 						end:function(){
 							location.reload();
@@ -153,7 +154,11 @@
 				}else{
 					layer.open({
 						content:data.info,
-						time:1
+						skin:'msg',
+						time:1,
+						end:function(){
+							location.reload();
+						}
 					})
 				}
 			})

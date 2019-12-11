@@ -49,16 +49,16 @@
 				<volist name="rcdz" id="v" key="k" empty="暂时没有数据">
 					<li class="list_box">
 						<div class="list_info">
-							<a href="user_myorder_xq.html" class="dis_flex">
+							<a href="{:U('Company/Rc/myorder_detail',array('id'=>$v['id']))}" class="dis_flex">
 								<h2 class="pct75 tl">{$v.major}<span class="ge04 dib">（{$v.number}人）</span></h2>
 								<span class="g9 tr">{:date('Y-m-d',$v['add_time'])}</span>
 							</a>
 							<if condition="$v.type eq 1">
-								<h3><span>等待定制中</span><span style="margin-left: 40px;"><a href="{:U('Company/Rc/canl',array('id' => $v['id']))}"  class="cansel" style="color:white">取消定制</a></span></h3>
+								<h3><span>等待人才中</span><span style="margin-left: 5px;"><a href="{:U('Company/Rc/canl',array('id' => $v['id']))}"  class="cansel" style="color:white">取消定制</a></span></h3>
 							<elseif condition="$v.type eq 2" />
-								<h3><span>已定制成功</span><span style="margin-left: 40px;"><a href="{:U('Company/Rc/del',array('id'=>$v['id']))}" class="del" style="color:white">删除记录</a></span></h3>
+								<h3><span>已定制成功</span><span style="margin-left: 5px;"><a href="{:U('Company/Rc/del',array('id'=>$v['id']))}" class="del" style="color:white">删除记录</a></span></h3>
 							<else/>
-								<h3><span>已取消定制</span><span style="margin-left: 40px;"><a href="{:U('Company/Rc/del',array('id'=>$v['id']))}" class="del" style="color:white">删除记录</a></span></h3>
+								<h3><span>已取消定制</span><span style="margin-left: 5px;"><a href="{:U('Company/Rc/del',array('id'=>$v['id']))}" class="del" style="color:white">删除记录</a></span></h3>
 							</if>
 						</div>
 					</li>

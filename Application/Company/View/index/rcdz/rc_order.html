@@ -86,11 +86,8 @@
 
                 </div>
 				<div class="line">
-                    <label><input type="text" name="price1" placeholder="薪酬区间" style="width:18%">K</label>
-					&nbsp;~~&nbsp;
-                    <label><input type="text" name="price2" placeholder="薪酬区间" style="width:18%">K</label>
-
-                </div>
+					<label><input type="text" name="price"  placeholder="请填写薪资区间" style="width:90%"></label>
+				</div>
 				<div class="line">
                     <label><input type="text" disabled value="{$com.companyName}" style="width:90%"></label>
                 </div>
@@ -185,13 +182,8 @@
 			require:{
 				required:true
 			},
-			price1:{
-				required:true,
-				number:true
-			},
-			price2:{
-				required:true,
-				number:true
+			price:{
+				required:true
 			},
 			linkman:{
 				required:true
@@ -215,13 +207,8 @@
 			require:{
 				required:'要求不能为空'
 			},
-			price1:{
-				required:'*',
-				number:'*'
-			},
-			price2:{
-				required:'*',
-				number:'*'
+			price:{
+				required:'价格区间不能为空'
 			},
 			linkman:{
 				required:'联系人不能为空'
