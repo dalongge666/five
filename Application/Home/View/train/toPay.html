@@ -1,0 +1,103 @@
+<extend name="public:layout"/>
+
+<block name="header">
+	<head>
+		<meta charset="utf-8">
+		<meta content="招聘" http-equiv="keywords">
+		<meta name="description" content="招聘,培训">
+		<meta name="format-detection" content="telephone=no"><!-- 禁止IPHONE识别手机号码 -->
+		<meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
+		<meta name="renderer" content="webkit" />
+
+		<title>js代码（www.jsdaima.com）- IT资源下载平台</title>
+		<!-- css -->
+		<link rel="stylesheet" type="text/css" href="/Public/home/css/index.css">
+		<link rel="stylesheet" type="text/css" href="/Public/home/css/swiper.min.css">
+
+		<!-- public_css -->
+		<link rel="stylesheet" type="text/css" href="/Public/home/css/public/public_lib.css">
+
+		<!-- zy_public_css -->
+		<link rel="stylesheet" type="text/css" href="/Public/home/css/zy_public.css">
+		<!-- 子页css -->
+		<link rel="stylesheet" type="text/css" href="/Public/home/css/children.css">
+
+		<!-- js -->
+		<script type="text/javascript" src="/Public/home/js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="/Public/home/js/swiper.min.js"></script>
+		<script type="text/javascript" src="/Public/home/js/public.js"></script>
+		<script type="text/javascript" src="/Public/home/js/layer/layer.js"></script>
+
+
+	</head>
+</block>
+
+<block name="content-header">
+	<header class="zy_search_top_box scroll_fix">
+		<div class="zy_title_top fix">
+			<div class="one" href="javascript:" onclick="history.back();"><img src="/Public/home/images/back_jt.png"><span>返回</span></div>
+			<h1>付款详情</h1>
+
+		</div>
+	</header>
+
+	<!-- 占位框 -->
+	<div class="top_zhanwei_box"></div>
+</block>
+		
+
+<block name="content">
+	<!-- 找工作 -->
+	<style type="text/css">
+		.zy_video_pay ul{ padding-top: 2%; }
+		.zy_video_pay ul li{padding: 0 2%;border-bottom: #ddd solid 1px;font-size: .24rem;color: #666; line-height: .8rem;}
+		.zy_video_pay ul li a{ float: right; color: #999; }
+		.zy_video_pay ul li:last-child *{ color: #333; }
+		.zy_video_pay .pay{ margin-left:2%; }
+		.zy_video_pay .pay a{ color: #666; line-height: .72rem; font-size: .24rem; display: inline-block; margin-top: 3%;}
+		.zy_video_pay .pay img{ width: .72rem; height: .72rem; vertical-align: middle; margin-right:.3em; }
+	</style>
+	<form action="{:U('Home/Train/order')}" method="post">
+		<input type="hidden" name="order_syn" value="{$order_syn}">
+		<input type="hidden" name="money" value="{$money}">
+		<input type="hidden" name="tid" value="{$tid}">
+
+	<div class="zy_content zy_video_pay bgwh">
+		<ul>
+			<li><span>商品描述</span><a>培训课程购买</a></li>
+			<li><span>订单号</span><a>{$order_syn}</a></li>
+			<li><span>订单时间</span><a>{:date('Y-m-d',$time)}</a></li>
+			<li><span>支付金额</span><a>{$money}元</a></li>
+		</ul>
+		<div class="pay">
+			<input type="radio" id="weChatPay" name="payType" value="1">
+			<label for="weChatPay">
+				<img src="/Public/home/images/WeChat_pay.png">微信支付
+
+			</label>
+			<br>
+			<input type="radio" id="yuePay" checked name="payType" value="2">
+			<label for="yuePay">
+				<img src="/Public/home/images/yue.jpg" width="10">余额支付
+
+			</label>
+
+		</div>
+		<input type="submit"  id="buyNow" value="确认购买" style="float:right;padding:.6em 1em;margin:2em 1em;background:#F2B300;text-align: center">
+	</div>
+
+
+
+
+	</form>
+
+
+
+</block>
+
+<block name="script">
+	<script>
+
+
+	</script>
+</block>

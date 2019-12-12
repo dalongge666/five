@@ -1,3 +1,8 @@
+<php>
+	$where['mid'] = session('mid');
+	$where['active'] = 1;
+	$mail = M('mail') -> where($where) -> count('id');
+</php>
 <!DOCTYPE html>
 <html>
 <block name="header">
@@ -85,7 +90,10 @@
 				<a href="{:U('Home/Msg/index')}">
 					<i><img src="/Public/home/images/menu_icon03.png"></i>
 					<span>消息</span>
-					<em></em>
+					<if condition="$mail gt 0">
+						<em></em>
+					</if>
+
 				</a>
 			</li>
 			<li>

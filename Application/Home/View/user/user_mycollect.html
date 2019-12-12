@@ -81,38 +81,25 @@
 			</div>
 			<div class="list hhr_sc">
 				<ul>
-					<li class="list_box">
-						<div class="list_info">
-			    			<a href='partner_xq.html'>
-			    				<div class="my_head fix">
-									<div class="pic l"><img src="/Public/home/images/common_img/man.png"></div>
-									<dl class="r">
-										<dt><span>吕小布</span><b>男 26岁 本科</b></dt>
-										<dd class="fix">
-											<span class="l"><em>职业：</em><em class="g3">婚礼策划</em></span>
-										</dd>
-									</dl>
-								</div>
-			    			</a>
-		    			</div>
-		    			<div class="list_delete"><span>删除</span></div>
-					</li>
-					<li class="list_box">
-						<div class="list_info">
-			    			<a href='partner_xq.html'>
-			    				<div class="my_head fix">
-									<div class="pic l"><img src="/Public/home/images/common_img/woman.png"></div>
-									<dl class="r">
-										<dt><span>圆圆</span><b>女 26岁 本科</b></dt>
-										<dd class="fix">
-											<span class="l"><em>职业：</em><em class="g3">园林设计</em></span>
-										</dd>
-									</dl>
-								</div>
-			    			</a>
-		    			</div>
-		    			<div class="list_delete"><span>删除</span></div>
-					</li>
+					<volist name="myPartnerCollect" id="v" key="k" empty="$empty">
+						<li class="list_box">
+							<div class="list_info">
+								<a href="{:U('Home/Partner/detail',array('id'=>$v['id']))}">
+									<div class="my_head fix">
+										<div class="pic l"><img src="__IMAGE__{$v.avatar}"></div>
+										<dl class="r">
+											<dt><span>{$v.username}</span><b>{$v.sex} {$v.age}岁 {$education[$v['education']]}</b></dt>
+											<dd class="fix">
+												<span class="l"><em>职业：</em><em class="g3">{$v.position}</em></span>
+											</dd>
+										</dl>
+									</div>
+								</a>
+							</div>
+							<div class="list_delete"><span>删除</span></div>
+						</li>
+					</volist>
+
 					
 				</ul>
 			</div>

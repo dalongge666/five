@@ -1,6 +1,6 @@
-<extend name="public:layout" />
+<extend name="public:layout"/>
 
-<block name="header" >
+<block name="header">
 	<head>
 		<meta charset="utf-8">
 		<meta content="招聘" http-equiv="keywords">
@@ -30,57 +30,32 @@
 	</head>
 </block>
 
-
 <block name="content-header">
 	<header class="zy_search_top_box scroll_fix">
 		<div class="zy_title_top fix">
 			<div class="one" href="javascript:" onclick="history.back();"><img src="/Public/home/images/back_jt.png"><span>返回</span></div>
-			<h1>消息</h1>
-			<div class="r">
-				<a>清空消息</a>
-			</div>
+			<h1>视频课程</h1>
+
 		</div>
 	</header>
 
 	<!-- 占位框 -->
 	<div class="top_zhanwei_box"></div>
-
 </block>
-
+		
 <block name="content">
-	<!-- 消息 -->
-	<div class="zy_content zy_msg bgwh">
-		<ul>
-			<volist name="msg" id="v" key="k" empty="$empty">
-				<li>
-					<a class="msgList" href="{:U('Home/Msg/msg_xq',array('id'=>$v['id']))}">
-						<h3>
-							您收到“{$v.companyName}”的面试邀请
-							<if condition="$v.active eq 1">
-								<i></i>
-							</if>
+	<!-- 找工作 -->
+	<div class="zy_content zy_video_play bgwh">
+		<div class="tit">
+			<h2>{$detail.trainName}</h2>
+			<span>第{$detail.num}集</span>
+		</div>
+		<video controls="controls" poster="__IMAGE__/{$detail.img}">
+			<source src="__IMAGE__/{$detail.videoUrl}" type="video/mp4">
+			您的浏览器不支持video标签，请升级到最新浏览器.
+		</video>
 
-						</h3>
-						<span>{:date('m-d',$v['add_time'])}</span>
-					</a>
-				</li>
-			</volist>
-
-
-		</ul>
 	</div>
-
 </block>
 
-<block name="script">
-	<script>
 
-		$('.msgList').click(function () {
-			$(this).find('i').detach();
-		});
-
-		$('.foot_menu ul li').eq(2).addClass('cur');
-		$('.foot_menu ul li').eq(2).find('img').attr('src','/Public/home/images/menu_icon03_r.png');
-
-	</script>
-</block>

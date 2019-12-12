@@ -188,9 +188,11 @@ class PositionController extends ShareController
 
     public function qx_collect($pid)
     {
-        $mid = session('mid');
-        //区分收藏还是取消
-        $collect = M('collect')->where('pid', $pid)->where('mid', $mid)->find();
+
+        //查询
+        $where['pid'] = $pid;
+        $where['mid'] = session('mid');
+        $collect = M('collect')->where($where)->find();
 
         //取消收藏
         if (M('collect')->delete($collect['id'])) {
@@ -203,6 +205,18 @@ class PositionController extends ShareController
 
     //职位收藏列表
     public function myCollect(){
+        //合伙人
+        $empty1 = '<h2 style="color: #444444;text-indent: 1em;padding: 1em;background: #dddddd">你还没有收藏职位<h2/>';
+
+        $mid = session('mid');
+        $myPartnerCollect = M('partnerCollect as pc') -> join('my_partner as p on p.id=pc.pid') ->field('pc.id,p.*') -> where("pc.mid=$mid") -> select();
+
+        $education= array(1 => '大专', 2 => '本科', 3 => '硕士', 4 => '博士', 999 => '不限');
+
+        $this -> assign(array('myPartnerCollect'=>$myPartnerCollect,'empty1'=>$empty1,'education'=>$education));
+
+
+        //职位
         $empty = '<h2 style="color: #444444;text-indent: 1em;padding: 1em;background: #dddddd">你还没有收藏职位<h2/>';
 
         $mid = session('mid');

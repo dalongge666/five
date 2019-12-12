@@ -142,9 +142,55 @@ class PartnerController extends ShareController
         $work = $detail['workYear'];
         $detail['workYear'] = $arr1[$work];
 
+        if(session('?mid')){
+            //查询是否被收藏
+            $where['mid'] = session('mid');
+            $where['pid'] = $id;
+            $collect = M('partnerCollect') -> where($where) -> count('id');
+            $this -> assign('collect',$collect);
+        }
 
         $this -> assign(array('detail'=>$detail));
 
         $this -> display('detail');
     }
+
+    //收藏合伙人
+    public function collect($pid)
+    {
+        $mid = session('mid');
+
+        //收藏
+        if (M('partnerCollect')->add(['pid' => $pid, 'mid' => $mid, 'add_time' => time()])) {
+
+            $this->success('收藏成功');
+        } else {
+
+            $this->error('收藏失败');
+        }
+
+
+    }
+
+    public function qx_collect($pid)
+    {
+       //查询
+        $where['pid'] = $pid;
+        $where['mid'] = session('mid');
+        $id = M('partnerCollect')->where($where) -> getField('id');
+
+        //取消收藏
+        if (M('partnerCollect')->delete($id)) {
+            $this->success('取消收藏成功');
+        } else {
+            $this->error('取消收藏失败');
+        }
+
+    }
+
+    //收藏合伙人列表
+    public function myCollect(){
+
+    }
+
 }

@@ -100,238 +100,31 @@
 					</div>
 
 				</div>
-				<!-- 类别js -->
-				<script type="text/javascript">
-					$(function(){
-						// 不同条件选择切换选择
-						$(".zy_category div").mousedown(function(){
-							var m=$(this).index();
-							if ($(this).hasClass("cur")) {
-								$(this).removeClass("cur");
-								$(".zy_black_bg").hide();
-							}else{
-								$(this).addClass("cur");
-								$(this).siblings().removeClass("cur");
-								$(".zy_black_bg").show();
-							}
 
-							$(".zy_category_list .box").eq(m).toggle();
-							$(".zy_category_list .box").eq(m).siblings().hide();
-
-							//后面这两段放在这里才能点击后获取到显示的高度
-							var work_H=$(".zy_category_list .workbox ul:first-child").height();
-							work_UL2.css("height",work_H);
-						})
-						//点击背景隐藏
-						$(".zy_black_bg").mousedown(function(){
-							$(this).hide();
-							$(".zy_category_list .box").hide();
-							$(".zy_category>div").removeClass("cur");
-						})
-
-						// 工作类型选择
-						var work_UL1=$(".zy_category_list .workbox ul:first-child");
-						var work_UL2=$(".zy_category_list .workbox ul:last-child");
-						work_UL1.find("li").mousedown(
-								function(){
-									var ks=$(this).attr("is_click");
-									if (ks=="yes") {
-										work_UL1.animate({width:"25%"},300)
-										work_UL2.find("li").show();
-									}
-									$(this).css("color","#f2b300");
-									$(this).siblings().css("color","#333");
-								}
-						)
-
-						//滑动页面后类别筛选浮动固定在顶部
-						var h1=$(".zy_search_top_box").height();
-						var h2=$(".zy_category_box").innerHeight();
-
-						$(window).scroll(function(){
-							var s = $(document).scrollTop();
-							if (s>h1) {
-								$(".zy_category_box").addClass('scroll_fix');
-								$(".zy_category_box").css("position","fixed");
-								$(".zy_find_work").css("padding-top",h2);
-							}else{
-								$(".zy_category_box").removeClass('scroll_fix');
-								$(".zy_category_box").css("position","relative");
-								$(".zy_find_work").css("padding-top",0);
-							}
-						});
-					})
-				</script>
 			</div>
 			<!-- 类别筛选 end-->
 
 			<div class="tuij_box tuij_list_px">
 				<ul>
-					<li>
-						<a href="train_xq.html">
-							<i class="l"><img src="/Public/home/images/pic01.jpg" /></i>
-							<dl class="l">
-								<dt>公共营养师</dt>
-								<dd class="ge04">理论与操作</dd>
-								<dd class="g6">报名人数：<span class="gr">291</span></dd>
-							</dl>
-							<span class="ge04 abs">优惠</span>
-						</a>
-					</li>
-					<li>
-						<a href="train_xq.html">
-							<i class="l"><img src="/Public/home/images/pic02.jpg" /></i>
-							<dl class="l">
-								<dt>养老护理师</dt>
-								<dd class="ge04">理论与操作</dd>
-								<dd class="g6">报名人数：<span class="gr">99</span></dd>
-							</dl>
-							<span class="ge04 abs">免费</span>
-						</a>
-					</li>
-					<li>
-						<a href="train_xq.html">
-							<i class="l"><img src="/Public/home/images/pic03.jpg" /></i>
-							<dl class="l">
-								<dt>育婴师</dt>
-								<dd class="ge04">理论与操作</dd>
-								<dd class="g6">报名人数：<span class="gr">27</span></dd>
-							</dl>
-							<span class="ge04 abs">免费</span>
-						</a>
-					</li>
-					<li>
-						<a href="train_xq.html">
-							<i class="l"><img src="/Public/home/images/pic04.jpg" /></i>
-							<dl class="l">
-								<dt>插花师</dt>
-								<dd class="ge04">理论与操作</dd>
-								<dd class="g6">报名人数：<span class="gr">89</span></dd>
-							</dl>
-							<span class="ge04 abs">优惠</span>
-						</a>
-					</li>
-					<li>
-						<a href="train_xq.html">
-							<i class="l"><img src="/Public/home/images/pic05.jpg" /></i>
-							<dl class="l">
-								<dt>环境产业水治理</dt>
-								<dd class="ge04">视频学习+理论与操作</dd>
-								<dd class="g6">报名人数：<span class="gr">29</span></dd>
-							</dl>
-							<span class="ge04 abs">免费</span>
-						</a>
-					</li>
-					<li>
-						<a href="train_xq.html">
-							<i class="l"><img src="/Public/home/images/pic01.jpg" /></i>
-							<dl class="l">
-								<dt>公共营养师</dt>
-								<dd class="ge04">理论与操作</dd>
-								<dd class="g6">报名人数：<span class="gr">291</span></dd>
-							</dl>
-							<span class="ge04 abs">优惠</span>
-						</a>
-					</li>
-					<li>
-						<a href="train_xq.html">
-							<i class="l"><img src="/Public/home/images/pic02.jpg" /></i>
-							<dl class="l">
-								<dt>养老护理师</dt>
-								<dd class="ge04">理论与操作</dd>
-								<dd class="g6">报名人数：<span class="gr">99</span></dd>
-							</dl>
-							<span class="ge04 abs">免费</span>
-						</a>
-					</li>
-					<li>
-						<a href="train_xq.html">
-							<i class="l"><img src="/Public/home/images/pic03.jpg" /></i>
-							<dl class="l">
-								<dt>育婴师</dt>
-								<dd class="ge04">理论与操作</dd>
-								<dd class="g6">报名人数：<span class="gr">27</span></dd>
-							</dl>
-							<span class="ge04 abs">免费</span>
-						</a>
-					</li>
-					<li>
-						<a href="train_xq.html">
-							<i class="l"><img src="/Public/home/images/pic04.jpg" /></i>
-							<dl class="l">
-								<dt>插花师</dt>
-								<dd class="ge04">理论与操作</dd>
-								<dd class="g6">报名人数：<span class="gr">89</span></dd>
-							</dl>
-							<span class="ge04 abs">优惠</span>
-						</a>
-					</li>
-					<li>
-						<a href="train_xq.html">
-							<i class="l"><img src="/Public/home/images/pic05.jpg" /></i>
-							<dl class="l">
-								<dt>环境产业水治理</dt>
-								<dd class="ge04">视频学习+理论与操作</dd>
-								<dd class="g6">报名人数：<span class="gr">29</span></dd>
-							</dl>
-							<span class="ge04 abs">免费</span>
-						</a>
-					</li>
-					<li>
-						<a href="train_xq.html">
-							<i class="l"><img src="/Public/home/images/pic01.jpg" /></i>
-							<dl class="l">
-								<dt>公共营养师</dt>
-								<dd class="ge04">理论与操作</dd>
-								<dd class="g6">报名人数：<span class="gr">291</span></dd>
-							</dl>
-							<span class="ge04 abs">优惠</span>
-						</a>
-					</li>
-					<li>
-						<a href="train_xq.html">
-							<i class="l"><img src="/Public/home/images/pic02.jpg" /></i>
-							<dl class="l">
-								<dt>养老护理师</dt>
-								<dd class="ge04">理论与操作</dd>
-								<dd class="g6">报名人数：<span class="gr">99</span></dd>
-							</dl>
-							<span class="ge04 abs">免费</span>
-						</a>
-					</li>
-					<li>
-						<a href="train_xq.html">
-							<i class="l"><img src="/Public/home/images/pic03.jpg" /></i>
-							<dl class="l">
-								<dt>育婴师</dt>
-								<dd class="ge04">理论与操作</dd>
-								<dd class="g6">报名人数：<span class="gr">27</span></dd>
-							</dl>
-							<span class="ge04 abs">免费</span>
-						</a>
-					</li>
-					<li>
-						<a href="train_xq.html">
-							<i class="l"><img src="/Public/home/images/pic04.jpg" /></i>
-							<dl class="l">
-								<dt>插花师</dt>
-								<dd class="ge04">理论与操作</dd>
-								<dd class="g6">报名人数：<span class="gr">89</span></dd>
-							</dl>
-							<span class="ge04 abs">优惠</span>
-						</a>
-					</li>
-					<li>
-						<a href="train_xq.html">
-							<i class="l"><img src="/Public/home/images/pic05.jpg" /></i>
-							<dl class="l">
-								<dt>环境产业水治理</dt>
-								<dd class="ge04">视频学习+理论与操作</dd>
-								<dd class="g6">报名人数：<span class="gr">29</span></dd>
-							</dl>
-							<span class="ge04 abs">免费</span>
-						</a>
-					</li>
+					<volist name="train" id="v" key="k" empty="$empty">
+						<li>
+							<a href="{:U('Home/Train/detail',array('id'=>$v['id']))}">
+								<i class="l"><img src="__IMAGE__/{$v.img}" /></i>
+								<dl class="l">
+									<dt>{$v.trainName}</dt>
+									<dd class="ge04">
+										<switch>
+
+										</switch>
+									</dd>
+									<dd class="g6">报名人数：<span class="gr">{$v.person_num}</span></dd>
+								</dl>
+								<span class="ge04 abs">{$v['money']==0?'免费':$v['money']}</span>
+							</a>
+						</li>
+					</volist>
+
+
 				</ul>
 			</div>
 
@@ -370,61 +163,7 @@
 
 		</div>
 
-		<!-- 返回顶部 -->
-		<div class="go_top">
-			<a class="btn_top"></a>
-		</div>
 
-		<!-- 底部 -->
-		<div class="footer_box">
-			<div class="footer">
-				<h2>
-					<a href="../web_login/login.html">登录</a><!--
-			 --><a href="../web_login/register.html">注册</a><!--
-			 --><a href="../web_ruzhu/apply_index.html">同行入驻</a>
-				</h2>
-				<h3>
-					<span><a href="../web_other/about.html">关于我们</a></span>
-					<span><a href="../web_other/about.html">求职指南</a></span>
-					<span><a href="../web_other/about.html">联系我们</a></span>
-					<span><a href="../web_other/about.html">免责声明</a></span>
-				</h3>
-				<div class="txt">
-					<p>&copy; 2019 XX公司&nbsp;&nbsp;ICP备XXXXXXXX号<br/>技术支持：<a href="http://www.jsdaima.com/" title="js代码" target="_blank">js代码（www.jsdaima.com）</a></p>
-				</div>
-			</div>
-		</div>
-
-		<!-- 底部导航 -->
-		<div class="foot_menu">
-			<ul>
-				<li>
-					<a href="../web_person/index.html">
-						<i><img src="/Public/home/images/menu_icon01.png"></i>
-						<span>首页</span>
-					</a>
-				</li>
-				<li>
-					<a href="../web_person/work.html">
-						<i><img src="/Public/home/images/person_img/menu_icon02_01.png"></i>
-						<span>工作</span>
-					</a>
-				</li>
-				<li class="info">
-					<a href="../web_person/msg.html">
-						<i><img src="/Public/home/images/menu_icon03.png"></i>
-						<span>消息</span>
-						<em></em>
-					</a>
-				</li>
-				<li>
-					<a href="../web_person/user.html">
-						<i><img src="/Public/home/images/menu_icon04.png"></i>
-						<span>我的</span>
-					</a>
-				</li>
-			</ul>
-		</div>
 
 </block>
 
@@ -460,6 +199,68 @@
 </block>
 
 <block name="script">
+	<!-- 类别js -->
+	<script type="text/javascript">
+		$(function(){
+			// 不同条件选择切换选择
+			$(".zy_category div").mousedown(function(){
+				var m=$(this).index();
+				if ($(this).hasClass("cur")) {
+					$(this).removeClass("cur");
+					$(".zy_black_bg").hide();
+				}else{
+					$(this).addClass("cur");
+					$(this).siblings().removeClass("cur");
+					$(".zy_black_bg").show();
+				}
+
+				$(".zy_category_list .box").eq(m).toggle();
+				$(".zy_category_list .box").eq(m).siblings().hide();
+
+				//后面这两段放在这里才能点击后获取到显示的高度
+				var work_H=$(".zy_category_list .workbox ul:first-child").height();
+				work_UL2.css("height",work_H);
+			})
+			//点击背景隐藏
+			$(".zy_black_bg").mousedown(function(){
+				$(this).hide();
+				$(".zy_category_list .box").hide();
+				$(".zy_category>div").removeClass("cur");
+			})
+
+			// 工作类型选择
+			var work_UL1=$(".zy_category_list .workbox ul:first-child");
+			var work_UL2=$(".zy_category_list .workbox ul:last-child");
+			work_UL1.find("li").mousedown(
+					function(){
+						var ks=$(this).attr("is_click");
+						if (ks=="yes") {
+							work_UL1.animate({width:"25%"},300)
+							work_UL2.find("li").show();
+						}
+						$(this).css("color","#f2b300");
+						$(this).siblings().css("color","#333");
+					}
+			)
+
+			//滑动页面后类别筛选浮动固定在顶部
+			var h1=$(".zy_search_top_box").height();
+			var h2=$(".zy_category_box").innerHeight();
+
+			$(window).scroll(function(){
+				var s = $(document).scrollTop();
+				if (s>h1) {
+					$(".zy_category_box").addClass('scroll_fix');
+					$(".zy_category_box").css("position","fixed");
+					$(".zy_find_work").css("padding-top",h2);
+				}else{
+					$(".zy_category_box").removeClass('scroll_fix');
+					$(".zy_category_box").css("position","relative");
+					$(".zy_find_work").css("padding-top",0);
+				}
+			});
+		})
+	</script>
 	<script type="text/javascript">
 		$(function(){
 			$(".zy_search_top .box").mousedown(
